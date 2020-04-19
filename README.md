@@ -1,29 +1,35 @@
-# README #
+# Watering System
 
-This README would normally document whatever steps are necessary to get your application up and running.
+* **Member List:**
+	1. Đặng Anh Văn
+	2. Nguyễn Trọng Trung
+	3. Lữ Ngọc Thiên Trúc
+	4. Trần Minh Nhân
 
-### What is this repository for? ###
+## Project structure
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+#### Backend
+* Platform: Java 11
+* Framework: Spring
+* Package management tool: Maven
 
-### How do I get set up? ###
+#### Frontend
+* Platform: HTML / CSS / Javascript
+* Framework: 
+	* ReactJs - Redux
+	* Bootstrap
+* Package managament tool: NPM
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+#### Database
+* MYSQL
 
-### Contribution guidelines ###
+## Directory structure
+* **backend:** contains backend source code
+* **frontend:** contains frontend source code
+* **docs:** contains document, diagrams, reports ...
 
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+## Preferences
+* [https://spring.io/quickstart](https://spring.io/quickstart)
+* [https://getbootstrap.com/docs/4.4/getting-started/introduction/](https://getbootstrap.com/docs/4.4/getting-started/introduction/)
+* [https://reactjs.org/docs/getting-started.html](https://reactjs.org/docs/getting-started.html)
+* [https://redux.js.org/introduction/getting-started](https://redux.js.org/introduction/getting-started)
