@@ -1,10 +1,10 @@
 # Watering System
 
-* **Member List:**
-	1. Đặng Anh Văn
-	2. Nguyễn Trọng Trung
-	3. Lữ Ngọc Thiên Trúc
-	4. Trần Minh Nhân
+## Member list
+1. Đặng Anh Văn
+2. Nguyễn Trọng Trung
+3. Lữ Ngọc Thiên Trúc
+4. Trần Minh Nhân
 
 ## Project structure
 
