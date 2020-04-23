@@ -39,12 +39,9 @@ public class JwtService {
         }
 
         // Generate token
-        String token = JWT
-                .create()
-                .withSubject(username)
+        String token = JWT.create().withSubject(username)
                 .withArrayClaim("authorities", authorities.stream().map(x -> x.getAuthority()).toArray(String[]::new))
-                .withIssuedAt(issueDate)
-                .withExpiresAt(new Date(issueDate.getTime() + timeOutInterval * 1000))
+                .withIssuedAt(issueDate).withExpiresAt(new Date(issueDate.getTime() + timeOutInterval * 1000))
                 .sign(algo);
 
         // Return the new token
@@ -52,9 +49,7 @@ public class JwtService {
     }
 
     public DecodedJWT verifyToken(String token) {
-        return JWT.require(algo)
-            .build()
-            .verify(token);
+        return JWT.require(algo).build().verify(token);
     }
 
 }
