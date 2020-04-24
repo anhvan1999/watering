@@ -54,4 +54,12 @@ public class JwtAuthenticationFilterTest {
                 .andExpect(status().is4xxClientError());
     }
 
+    @Test
+    public void testForbbiden() throws Exception {
+        List<GrantedAuthority> authorityList = List.of(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        String token = jwtService.generateToken("danganhvan", authorityList, JwtService.JwtType.TOKEN, new Date());
+        mockMvc.perform(get("/info/user").header("Authorization", "jwt " + token)).andDo(print())
+                .andExpect(status().isForbidden());
+    }
+
 }
