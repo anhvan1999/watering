@@ -8,9 +8,8 @@ import java.io.IOException;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.coderteam.watering.secutiry.service.JwtService;
 
@@ -20,29 +19,24 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.filter.GenericFilterBean;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
-public class JwtAuthenticationFilter extends GenericFilterBean {
+public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
 
     private JwtService jwtService;
-
-    private AuthenticationManager manager;
 
     private Logger logger = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
 
     public JwtAuthenticationFilter(AuthenticationManager manager, JwtService jwtService) {
-        this.manager = manager;
+        super(manager);
         this.jwtService = jwtService;
     }
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+    public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws IOException, ServletException {
-        // Convert request to HttpServletRequest
-        HttpServletRequest httpRequest = (HttpServletRequest) request;
-
         // Get jwtToken from header
-        String authorizationHeader = httpRequest.getHeader("Authorization");
+        String authorizationHeader = request.getHeader("Authorization");
         if (authorizationHeader == null || authorizationHeader.length() <= 4) {
             chain.doFilter(request, response);
             return;
@@ -51,6 +45,7 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
 
         // Try to authenticate jwt token
         try {
+            AuthenticationManager manager = getAuthenticationManager();
             Authentication auth = manager.authenticate(new JwtAuthentication(jwtService.verifyToken(jwtToken)));
             SecurityContext context = SecurityContextHolder.createEmptyContext();
             context.setAuthentication(auth);
