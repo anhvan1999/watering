@@ -12,7 +12,7 @@ function Child(props) {
       <h1>{props.username}</h1>
       <Switch>
         <Route path={`${match.url}/foo`}>
-          <h1>Foo</h1>
+        <h1>Foo</h1><h1>Foo</h1><h1>Foo</h1><h1>Foo</h1><h1>Foo</h1><h1>Foo</h1><h1>Foo</h1><h1>Foo</h1><h1>Foo</h1><h1>Foo</h1><h1>Foo</h1><h1>Foo</h1><h1>Foo</h1><h1>Foo</h1>
         </Route>
       </Switch>
     </div>
