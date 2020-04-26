@@ -61,7 +61,7 @@ public class JwtAuthentication implements Authentication {
 
     @Override
     public void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException {
-        // Do nothing
+        throw new UnsupportedOperationException();
     }
 
 }
