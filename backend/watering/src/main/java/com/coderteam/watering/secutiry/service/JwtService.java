@@ -1,5 +1,6 @@
 package com.coderteam.watering.secutiry.service;
 
+import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 
@@ -21,30 +22,44 @@ public class JwtService {
     // Algorithm
     private Algorithm algo;
 
-    @Value("${jwt.timeout}")
+    // Jwt timeout interval
     private long jwtTimeout;
 
-    @Value("${jwt.refresh-timeout}")
+    // Jwt refresh token timeout interval
     private long jwtRefreshTimeout;
 
-    public JwtService(@Value("${jwt.token}") String privateKey) {
+    public JwtService(@Value("${jwt.token}") String privateKey, @Value("${jwt.timeout}") long jwtTimeout,
+            @Value("${jwt.refresh-timeout}") long jwtRefreshTimeout) {
         algo = Algorithm.HMAC512(privateKey);
+        this.jwtTimeout = jwtTimeout;
+        this.jwtRefreshTimeout = jwtRefreshTimeout;
     }
 
     public String generateToken(String username, List<GrantedAuthority> authorities, JwtType type, Date issueDate) {
+        // Convert date to instant (New Java Datetime API)
+        return generateToken(username, authorities, type, issueDate.toInstant());
+    }
+
+    public String generateToken(String username, List<GrantedAuthority> authorities, JwtType type,
+            Instant issueInstant) {
         // Get timeout interval
         long timeOutInterval = jwtTimeout;
         if (type == JwtType.REFRESH_TOKEN) {
             timeOutInterval = jwtRefreshTimeout;
         }
 
-        // Generate token
-        String token = JWT.create().withSubject(username)
-                .withArrayClaim("authorities", authorities.stream().map(x -> x.getAuthority()).toArray(String[]::new))
-                .withIssuedAt(issueDate).withExpiresAt(new Date(issueDate.getTime() + timeOutInterval * 1000))
-                .sign(algo);
+        // Issue and expire date
+        Date issueDate = Date.from(issueInstant);
+        Date expireDate = Date.from(issueInstant.plusSeconds(timeOutInterval));
 
-        // Return the new token
+        // Authorities
+        String[] authorityArr = authorities.stream().map(x -> x.getAuthority()).toArray(String[]::new);
+
+        // Generate token
+        String token = JWT.create().withSubject(username).withArrayClaim("authorities", authorityArr)
+                .withIssuedAt(issueDate).withExpiresAt(expireDate).sign(algo);
+
+        // Return token
         return token;
     }
 
