@@ -1,9 +1,9 @@
 spring:
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
   datasource:
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/watering_system?serverTimezone=UTC
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/watering_system?serverTimezone=UTC&useLegacyDatetimeCode=false
     username: watering
     password: watering
 jwt:
