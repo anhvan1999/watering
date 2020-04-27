@@ -6,7 +6,6 @@ package com.coderteam.watering.secutiry.config;
 
 import com.coderteam.watering.secutiry.service.JwtService;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,11 +15,14 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    JwtAuthenticationProvider jwtProvider;
+    private JwtAuthenticationProvider jwtProvider;
 
-    @Autowired
-    JwtService jwtService;
+    private JwtService jwtService;
+
+    public SecurityConfig(JwtAuthenticationProvider jwtProvider, JwtService jwtService) {
+        this.jwtProvider = jwtProvider;
+        this.jwtService = jwtService;
+    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
