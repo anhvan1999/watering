@@ -1,3 +1,5 @@
+$sideBarWidth: 200px;
+
 .dropdownItem {
     position: absolute !important;
 }
@@ -8,21 +10,59 @@
 
 @media screen and (max-width: 767px) {
     .MyNavBarCollapse {
+        transform: translateX(-$sideBarWidth);
+        display: block !important;
         background-color: #343a40;
         position: fixed;
         top: 62px;
-        width: 200px;
-        left: 0px;
-        bottom: 0px;
+        width: $sideBarWidth;
+        left: 0;
+        bottom: 0;
 
         a {
-            margin-left: 10px;
-            font-size: 16px;
+            margin-left: 15px;
+            font-size: 17px;
+        }
+
+        li {
+            &:hover {
+                background-color: #1a5e59;
+            }
         }
     }
 
     .myNavBarCollapse a.nav-link {
         color:red;
         text-align: center !important;
+    }
+
+    .Active {
+        animation-name: sideBarActiveAnimation;
+        animation-duration: 0.4s;
+        animation-fill-mode: forwards;
+    }
+
+    .Inactive {
+        animation-name: sideBarInactiveAnimation;
+        animation-duration: 0.4s;
+        animation-fill-mode: forwards;
+    }
+}
+
+@keyframes sideBarActiveAnimation {
+    from {
+        transform: translateX(-$sideBarWidth);
+    }
+    to {
+        transform: translateX(0px);
+    }
+}
+
+@keyframes sideBarInactiveAnimation {
+    from {
+        transform: translateX(0px);
+    }
+    to {
+        transform: translateX(-$sideBarWidth);
     }
 }

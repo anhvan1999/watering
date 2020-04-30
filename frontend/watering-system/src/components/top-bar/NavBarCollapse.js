@@ -12,16 +12,16 @@ import style from './topbar.module.scss';
 import {getClassName} from '../../utils/component-utils';
 
 function NavbarCollapse(props) {
-  let dstyle = {
-    display: 'block'
-  }
+  let status = '';
 
-  if (props.active === false) {
-    dstyle.display = 'none';
+  if (props.active === true) {
+    status = style.Active;
+  } else if (props.active === false && props.firstRender === false) {
+    status = style.Inactive;
   }
   
   return (
-    <div className={getClassName("collapse navbar-collapse mr-auto", style.MyNavBarCollapse)} style={dstyle}>
+    <div className={getClassName("collapse navbar-collapse mr-auto", style.MyNavBarCollapse, status)}>
       <ul className="navbar-nav mr-auto mt-0">
         <li className="nav-item active" onClick={props.toggleSidebar}>
           <Link to="/" className="nav-link">Trang chủ</Link>
@@ -49,7 +49,8 @@ function NavbarCollapse(props) {
 
 function mapStateToProps(state) {
   return {
-    active: state.ux.sideBarActive
+    active: state.ui.sideBarActive,
+    firstRender: state.ui.sideBarFirstRender
   }
 }
 
