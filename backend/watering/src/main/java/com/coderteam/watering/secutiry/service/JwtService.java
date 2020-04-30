@@ -8,6 +8,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class JwtService {
 
-    public static enum JwtType {
+    public enum JwtType {
         TOKEN, REFRESH_TOKEN
     }
 
@@ -29,19 +30,20 @@ public class JwtService {
     private long jwtRefreshTimeout;
 
     public JwtService(@Value("${jwt.token}") String privateKey, @Value("${jwt.timeout}") long jwtTimeout,
-            @Value("${jwt.refresh-timeout}") long jwtRefreshTimeout) {
+                      @Value("${jwt.refresh-timeout}") long jwtRefreshTimeout) {
         algo = Algorithm.HMAC512(privateKey);
         this.jwtTimeout = jwtTimeout;
         this.jwtRefreshTimeout = jwtRefreshTimeout;
     }
 
-    public String generateToken(String username, List<GrantedAuthority> authorities, JwtType type, Date issueDate) {
+    public String generateToken(@NonNull String username, @NonNull List<GrantedAuthority> authorities,
+                                @NonNull JwtType type, @NonNull Date issueDate) {
         // Convert date to instant (New Java Datetime API)
         return generateToken(username, authorities, type, issueDate.toInstant());
     }
 
-    public String generateToken(String username, List<GrantedAuthority> authorities, JwtType type,
-            Instant issueInstant) {
+    public String generateToken(@NonNull String username, @NonNull List<GrantedAuthority> authorities,
+                                @NonNull JwtType type, @NonNull Instant issueInstant) {
         // Get timeout interval
         long timeOutInterval = jwtTimeout;
         if (type == JwtType.REFRESH_TOKEN) {
@@ -53,17 +55,14 @@ public class JwtService {
         Date expireDate = Date.from(issueInstant.plusSeconds(timeOutInterval));
 
         // Authorities
-        String[] authorityArr = authorities.stream().map(x -> x.getAuthority()).toArray(String[]::new);
+        String[] authorityArr = authorities.stream().map(GrantedAuthority::getAuthority).toArray(String[]::new);
 
-        // Generate token
-        String token = JWT.create().withSubject(username).withArrayClaim("authorities", authorityArr)
+        // Generate and return token
+        return JWT.create().withSubject(username).withArrayClaim("authorities", authorityArr)
                 .withIssuedAt(issueDate).withExpiresAt(expireDate).sign(algo);
-
-        // Return token
-        return token;
     }
 
-    public DecodedJWT verifyToken(String token) {
+    public DecodedJWT verifyToken(@NonNull String token) {
         return JWT.require(algo).build().verify(token);
     }
 

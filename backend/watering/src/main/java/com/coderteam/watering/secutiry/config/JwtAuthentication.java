@@ -1,7 +1,3 @@
-/**
- * @author Dang Anh Van
- */
-
 package com.coderteam.watering.secutiry.config;
 
 import java.util.Collection;
@@ -10,10 +6,14 @@ import java.util.stream.Collectors;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
 
+import lombok.NonNull;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
+/**
+ * @author Dang Anh Van
+ */
 public class JwtAuthentication implements Authentication {
 
     // Serial version id
@@ -23,10 +23,10 @@ public class JwtAuthentication implements Authentication {
 
     private List<SimpleGrantedAuthority> authorities;
 
-    public JwtAuthentication(DecodedJWT decodedJwt) {
+    public JwtAuthentication(@NonNull DecodedJWT decodedJwt) {
         this.name = decodedJwt.getSubject();
         this.authorities = decodedJwt.getClaim("authorities").asList(String.class).stream()
-                .map(x -> new SimpleGrantedAuthority(x)).collect(Collectors.toList());
+                .map(SimpleGrantedAuthority::new).collect(Collectors.toList());
     }
 
     @Override
@@ -51,7 +51,7 @@ public class JwtAuthentication implements Authentication {
 
     @Override
     public Object getPrincipal() {
-        return this;
+        return null;
     }
 
     @Override

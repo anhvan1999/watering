@@ -3,6 +3,7 @@ package com.coderteam.watering.security.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -83,4 +84,15 @@ public class JwtServiceTest {
         assertThrows(JWTVerificationException.class, () -> jwtService.verifyToken(token));
     }
 
+    @Test
+    public void testNullableFields() {
+        assertThrows(NullPointerException.class, () -> jwtService.generateToken(null, new ArrayList<>(), JwtService.JwtType.TOKEN,
+                Instant.now()));
+        assertThrows(NullPointerException.class, () -> jwtService.generateToken("anhvan", null, JwtService.JwtType.TOKEN,
+                Instant.now()));
+        assertThrows(NullPointerException.class, () -> jwtService.generateToken("anhvan", new ArrayList<>(), null,
+                Instant.now()));
+        assertThrows(NullPointerException.class, () -> jwtService.generateToken("anhvan", new ArrayList<>(), JwtService.JwtType.REFRESH_TOKEN,
+                (Instant) null));
+    }
 }
