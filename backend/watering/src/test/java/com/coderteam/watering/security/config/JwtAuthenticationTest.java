@@ -22,12 +22,18 @@ public class JwtAuthenticationTest {
 
     @Test
     public void testValidToken() {
-        String token = jwtService
-                .generateToken("anhvan", List.of(new SimpleGrantedAuthority("ROLE_USER")), JwtService.JwtType.TOKEN, Instant.now());
+        String token = jwtService.generateToken(
+                "anhvan",
+                List.of(new SimpleGrantedAuthority("ROLE_USER")),
+                JwtService.JwtType.TOKEN,
+                Instant.now()
+        );
         authentication = new JwtAuthentication(jwtService.verifyToken(token));
         Assertions.assertEquals("anhvan", authentication.getName());
-        Assertions.assertArrayEquals(authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).toArray(),
-                new String[]{"ROLE_USER"});
+        Assertions.assertArrayEquals(
+                authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).toArray(),
+                new String[]{"ROLE_USER"}
+        );
     }
 
 }

@@ -1,7 +1,3 @@
-/**
- * @author Dang Anh Van
- */
-
 package com.coderteam.watering.secutiry.config;
 
 import com.coderteam.watering.secutiry.service.JwtService;
@@ -12,6 +8,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 
+/**
+ * @author Dang Anh Van
+ */
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -25,14 +24,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    protected void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(jwtProvider);
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().authorizeRequests().antMatchers("/info/adduser", "/info").permitAll().antMatchers("/info/user")
-                .hasAnyRole("USER").anyRequest().authenticated().and().addFilter(getJwtFilter()).sessionManagement()
+        http.csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/info/adduser", "/info").permitAll()
+                .antMatchers("/info/user").hasAnyRole("USER")
+                .anyRequest().authenticated()
+                .and()
+                .addFilter(getJwtFilter()).sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 

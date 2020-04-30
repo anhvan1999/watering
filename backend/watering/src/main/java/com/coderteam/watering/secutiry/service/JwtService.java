@@ -55,15 +55,23 @@ public class JwtService {
         Date expireDate = Date.from(issueInstant.plusSeconds(timeOutInterval));
 
         // Authorities
-        String[] authorityArr = authorities.stream().map(GrantedAuthority::getAuthority).toArray(String[]::new);
+        String[] authorityArr = authorities.stream()
+                .map(GrantedAuthority::getAuthority)
+                .toArray(String[]::new);
 
         // Generate and return token
-        return JWT.create().withSubject(username).withArrayClaim("authorities", authorityArr)
-                .withIssuedAt(issueDate).withExpiresAt(expireDate).sign(algo);
+        return JWT.create()
+                .withSubject(username)
+                .withArrayClaim("authorities", authorityArr)
+                .withIssuedAt(issueDate)
+                .withExpiresAt(expireDate)
+                .sign(algo);
     }
 
     public DecodedJWT verifyToken(@NonNull String token) {
-        return JWT.require(algo).build().verify(token);
+        return JWT.require(algo)
+                .build()
+                .verify(token);
     }
 
 }

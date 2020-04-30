@@ -25,8 +25,12 @@ public class JwtAuthentication implements Authentication {
 
     public JwtAuthentication(@NonNull DecodedJWT decodedJwt) {
         this.name = decodedJwt.getSubject();
-        this.authorities = decodedJwt.getClaim("authorities").asList(String.class).stream()
-                .map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+        this.authorities = decodedJwt
+                .getClaim("authorities")
+                .asList(String.class)
+                .stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
     }
 
     @Override

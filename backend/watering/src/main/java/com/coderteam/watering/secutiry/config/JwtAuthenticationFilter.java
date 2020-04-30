@@ -1,7 +1,3 @@
-/**
- * @author Dang Anh Van
- */
-
 package com.coderteam.watering.secutiry.config;
 
 import java.io.IOException;
@@ -21,6 +17,9 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
+/**
+ * @author Dang Anh Van
+ */
 public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
 
     private JwtService jwtService;
@@ -38,7 +37,7 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
         // Get jwtToken from header
         String authorizationHeader = request.getHeader("Authorization");
         if (authorizationHeader == null || authorizationHeader.length() <= 4
-                || !authorizationHeader.substring(0, 3).equals("jwt")) {
+                || !authorizationHeader.startsWith("jwt ")) {
             chain.doFilter(request, response);
             return;
         }
@@ -47,7 +46,9 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
         // Try to authenticate jwt token
         try {
             AuthenticationManager manager = getAuthenticationManager();
-            Authentication auth = manager.authenticate(new JwtAuthentication(jwtService.verifyToken(jwtToken)));
+            Authentication auth = manager.authenticate(
+                    new JwtAuthentication(jwtService.verifyToken(jwtToken))
+            );
             SecurityContext context = SecurityContextHolder.createEmptyContext();
             context.setAuthentication(auth);
             SecurityContextHolder.setContext(context);
