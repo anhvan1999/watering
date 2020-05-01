@@ -1,7 +1,16 @@
 package com.coderteam.watering.security.service;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.exceptions.SignatureVerificationException;
+import com.auth0.jwt.interfaces.DecodedJWT;
+import com.coderteam.watering.secutiry.service.JwtService;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.test.context.TestPropertySource;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -9,19 +18,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.auth0.jwt.exceptions.SignatureVerificationException;
-import com.auth0.jwt.interfaces.DecodedJWT;
-import com.coderteam.watering.secutiry.service.JwtService;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
+@TestPropertySource(locations = "classpath:application-test.properties")
 public class JwtServiceTest {
 
     @Autowired
@@ -36,7 +37,12 @@ public class JwtServiceTest {
         calendar = Calendar.getInstance();
         calendar.setTime(new Date());
         GrantedAuthority role = new SimpleGrantedAuthority("ROLE_USER");
-        jwtString = jwtService.generateToken("anhvan", List.of(role), JwtService.JwtType.TOKEN, calendar.getTime());
+        jwtString = jwtService.generateToken(
+                "anhvan",
+                List.of(role),
+                JwtService.JwtType.TOKEN,
+                calendar.getTime()
+        );
     }
 
     @Test
@@ -48,7 +54,12 @@ public class JwtServiceTest {
     @Test
     public void testAuthority() {
         DecodedJWT decodedJwt = jwtService.verifyToken(jwtString);
-        assertEquals("ROLE_USER", decodedJwt.getClaim("authorities").asArray(String.class)[0]);
+        assertEquals(
+                "ROLE_USER",
+                decodedJwt
+                        .getClaim("authorities")
+                        .asArray(String.class)[0]
+        );
     }
 
     @Test
@@ -86,13 +97,45 @@ public class JwtServiceTest {
 
     @Test
     public void testNullableFields() {
-        assertThrows(NullPointerException.class, () -> jwtService.generateToken(null, new ArrayList<>(), JwtService.JwtType.TOKEN,
-                Instant.now()));
-        assertThrows(NullPointerException.class, () -> jwtService.generateToken("anhvan", null, JwtService.JwtType.TOKEN,
-                Instant.now()));
-        assertThrows(NullPointerException.class, () -> jwtService.generateToken("anhvan", new ArrayList<>(), null,
-                Instant.now()));
-        assertThrows(NullPointerException.class, () -> jwtService.generateToken("anhvan", new ArrayList<>(), JwtService.JwtType.REFRESH_TOKEN,
-                (Instant) null));
+        assertThrows(
+                NullPointerException.class,
+                () -> jwtService.generateToken(
+                        null,
+                        new ArrayList<>(),
+                        JwtService.JwtType.TOKEN,
+                        Instant.now()
+                )
+        );
+
+        assertThrows(
+                NullPointerException.class,
+                () -> jwtService.generateToken(
+                        "anhvan",
+                        null,
+                        JwtService.JwtType.TOKEN,
+                        Instant.now()
+                )
+        );
+
+        assertThrows(
+                NullPointerException.class,
+                () -> jwtService.generateToken(
+                        "anhvan",
+                        new ArrayList<>(),
+                        null,
+                        Instant.now()
+                )
+        );
+
+        assertThrows(
+                NullPointerException.class,
+                () -> jwtService.generateToken(
+                        "anhvan",
+                        new ArrayList<>(),
+                        JwtService.JwtType.REFRESH_TOKEN,
+                        (Instant) null
+                )
+        );
     }
+
 }

@@ -31,10 +31,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@TestPropertySource(locations = "classpath:application-test.properties")
 public class JwtAuthenticationFilterTest {
 
     @Autowired
@@ -44,10 +46,15 @@ public class JwtAuthenticationFilterTest {
     private JwtService jwtService;
 
     private JwtAuthenticationFilter jwtAuthFilter;
+
     private HttpServletRequest request;
+
     private HttpServletResponse response;
+
     private FilterChain filterChain;
+
     private JwtService service;
+
     private AuthenticationManager manager;
 
     @BeforeEach
@@ -85,48 +92,74 @@ public class JwtAuthenticationFilterTest {
         DecodedJWT decodedJwt = mock(DecodedJWT.class);
         Claim claim = mock(Claim.class);
 
+        // Set mock method result
         when(request.getHeader("Authorization")).thenReturn("jwt 1234");
         when(service.verifyToken("1234")).thenReturn(decodedJwt);
         when(decodedJwt.getSubject()).thenReturn("anhvan");
         when(decodedJwt.getClaim("authorities")).thenReturn(claim);
         when(claim.asList(String.class)).thenReturn(List.of("ROLE_USER"));
 
+        // Do filter
         jwtAuthFilter.doFilter(request, response, filterChain);
+
+        // Test
         verify(service).verifyToken("1234");
         verify(manager).authenticate(any(JwtAuthentication.class));
     }
 
     @Test
     public void testInfoController() throws Exception {
-        mockMvc.perform(get("/info")).andExpect(status().isOk()).andExpect(content().string("Hello world"));
+        mockMvc.perform(get("/info"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Hello world"));
     }
 
     @Test
     public void testUnauthorizedUser() throws Exception {
-        mockMvc.perform(get("/info/user")).andExpect(status().is4xxClientError());
+        mockMvc.perform(get("/info/user"))
+                .andExpect(status().is4xxClientError());
     }
 
     @Test
     public void testAuthorizedUser() throws Exception {
         List<GrantedAuthority> authorityList = List.of(new SimpleGrantedAuthority("ROLE_USER"));
-        String token = jwtService.generateToken("danganhvan", authorityList, JwtService.JwtType.TOKEN, new Date());
-        mockMvc.perform(get("/info/user").header("Authorization", "jwt " + token)).andDo(print())
-                .andExpect(status().isOk()).andExpect(content().string("danganhvan"));
+        String token = jwtService.generateToken(
+                "danganhvan",
+                authorityList,
+                JwtService.JwtType.TOKEN,
+                new Date()
+        );
+        mockMvc.perform(get("/info/user")
+                .header("Authorization", "jwt " + token))
+                .andExpect(status().isOk())
+                .andExpect(content().string("danganhvan"));
     }
 
     @Test
     public void testAuthenticationFailed() throws Exception {
         List<GrantedAuthority> authorityList = List.of(new SimpleGrantedAuthority("ROLE_USER"));
-        String token = jwtService.generateToken("danganhvan", authorityList, JwtService.JwtType.TOKEN, new Date());
-        mockMvc.perform(get("/info/user").header("Authorization", "jwt d" + token)).andDo(print())
+        String token = jwtService.generateToken(
+                "danganhvan",
+                authorityList,
+                JwtService.JwtType.TOKEN,
+                new Date()
+        );
+        mockMvc.perform(get("/info/user")
+                .header("Authorization", "jwt d" + token))
                 .andExpect(status().is4xxClientError());
     }
 
     @Test
     public void testForbbiden() throws Exception {
         List<GrantedAuthority> authorityList = List.of(new SimpleGrantedAuthority("ROLE_ADMIN"));
-        String token = jwtService.generateToken("danganhvan", authorityList, JwtService.JwtType.TOKEN, new Date());
-        mockMvc.perform(get("/info/user").header("Authorization", "jwt " + token)).andDo(print())
+        String token = jwtService.generateToken(
+                "danganhvan",
+                authorityList,
+                JwtService.JwtType.TOKEN,
+                new Date()
+        );
+        mockMvc.perform(get("/info/user")
+                .header("Authorization", "jwt " + token))
                 .andExpect(status().isForbidden());
     }
 

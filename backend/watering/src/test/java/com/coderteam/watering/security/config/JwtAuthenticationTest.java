@@ -8,11 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.test.context.TestPropertySource;
 
 import java.time.Instant;
 import java.util.List;
 
 @SpringBootTest
+@TestPropertySource(locations = "classpath:application-test.properties")
 public class JwtAuthenticationTest {
 
     @Autowired
@@ -28,10 +30,28 @@ public class JwtAuthenticationTest {
                 JwtService.JwtType.TOKEN,
                 Instant.now()
         );
+
         authentication = new JwtAuthentication(jwtService.verifyToken(token));
+
+        Assertions.assertNull(authentication.getCredentials());
+
+        Assertions.assertNull(authentication.getDetails());
+
+        Assertions.assertNull(authentication.getPrincipal());
+
+        Assertions.assertThrows(
+                UnsupportedOperationException.class,
+                () -> authentication.setAuthenticated(true)
+        );
+
         Assertions.assertEquals("anhvan", authentication.getName());
+
         Assertions.assertArrayEquals(
-                authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).toArray(),
+                authentication
+                        .getAuthorities()
+                        .stream()
+                        .map(GrantedAuthority::getAuthority)
+                        .toArray(),
                 new String[]{"ROLE_USER"}
         );
     }
