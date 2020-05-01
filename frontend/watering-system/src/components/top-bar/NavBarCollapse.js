@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
 
 // Redux actions
 import {toggleSidebar} from '../../redux-store/actions/ui-actions';
@@ -19,7 +19,7 @@ function NavbarCollapse(props) {
   } else if (props.active === false && props.firstRender === false) {
     status = style.Inactive;
   }
-  
+
   return (
     <div className={getClassName("collapse navbar-collapse mr-auto", style.MyNavBarCollapse, status)}>
       <ul className="navbar-nav mr-auto mt-0">
@@ -33,7 +33,8 @@ function NavbarCollapse(props) {
           <Link to="/child/foo" className="nav-link">Lịch sử</Link>
         </li>
         <li className="nav-item dropdown">
-          <a className="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a className="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button"
+             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Dropdown</a>
           <div className="dropdown-menu" aria-labelledby="navbarDropdown">
             <a className="dropdown-item" href="/">Action</a>
@@ -59,7 +60,7 @@ function mapDispatchToProps(dispatch) {
     toggleSidebar: () => {
       if (window.innerWidth < 768) {
         dispatch(toggleSidebar())
-      } 
+      }
     }
   }
 }

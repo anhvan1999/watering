@@ -1,68 +1,72 @@
 $sideBarWidth: 200px;
 
 .dropdownItem {
-    position: absolute !important;
+  position: absolute !important;
 }
 
 .toggleButton {
-    border: none !important;
+  border: none !important;
 }
 
 @media screen and (max-width: 767px) {
-    .MyNavBarCollapse {
-        transform: translateX(-$sideBarWidth);
-        display: block !important;
-        background-color: #343a40;
-        position: fixed;
-        top: 62px;
-        width: $sideBarWidth;
-        left: 0;
-        bottom: 0;
+  .MyNavBarCollapse {
+    transform: translateX(-$sideBarWidth);
+    display: block !important;
+    background-color: #343a40;
+    position: fixed;
+    top: 62px;
+    width: $sideBarWidth;
+    left: 0;
+    bottom: 0;
 
-        a {
-            margin-left: 15px;
-            font-size: 17px;
-        }
-
-        li {
-            &:hover {
-                background-color: #1a5e59;
-            }
-        }
+    a {
+      margin-left: 15px;
+      font-size: 17px;
     }
 
-    .myNavBarCollapse a.nav-link {
-        color:red;
-        text-align: center !important;
+    li {
+      &:hover {
+        background-color: #1a5e59;
+      }
     }
+  }
 
-    .Active {
-        animation-name: sideBarActiveAnimation;
-        animation-duration: 0.4s;
-        animation-fill-mode: forwards;
-    }
+  .myNavBarCollapse a.nav-link {
+    color: red;
+    text-align: center !important;
+  }
 
-    .Inactive {
-        animation-name: sideBarInactiveAnimation;
-        animation-duration: 0.4s;
-        animation-fill-mode: forwards;
-    }
+  .Active {
+    animation-name: sideBarActiveAnimation;
+    animation-duration: 0.4s;
+    animation-fill-mode: forwards;
+  }
+
+  .Inactive {
+    animation-name: sideBarInactiveAnimation;
+    animation-duration: 0.4s;
+    animation-fill-mode: forwards;
+  }
 }
 
 @keyframes sideBarActiveAnimation {
-    from {
-        transform: translateX(-$sideBarWidth);
-    }
-    to {
-        transform: translateX(0px);
-    }
+  from {
+    transform: translateX(-$sideBarWidth);
+  }
+  to {
+    transform: translateX(0px);
+  }
 }
 
 @keyframes sideBarInactiveAnimation {
-    from {
-        transform: translateX(0px);
-    }
-    to {
-        transform: translateX(-$sideBarWidth);
-    }
+  from {
+    transform: translateX(0px);
+  }
+  to {
+    transform: translateX(-$sideBarWidth);
+  }
+}
+
+.TopBar {
+  background-color: #434a40!important;
 }

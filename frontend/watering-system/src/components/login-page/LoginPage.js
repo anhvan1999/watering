@@ -1,18 +1,25 @@
 import React from 'react';
+import LoginForm from './LoginForm';
+
+// Style
+import style from './login.module.scss';
+
+// Utils
+import {getClassName} from '../../utils/component-utils';
 
 function LoginPage(props) {
-    return (
-        <div className="container">
-            <div className="row">
-                <div className="col-md-6">
-                    <h1>Left</h1>
-                </div>
-                <div className="col-md-6">
-                    <h1>Right</h1>
-                </div>
-            </div>
+  return (
+    <div className={getClassName("container-fluid", style.LoginPage)}>
+      <div className="row my-auto">
+        <div className="col-md-2 col-lg-3"></div>
+        <div className="col-md-8 col-lg-6">
+          <LoginForm></LoginForm>
         </div>
-    );
+        <div className="col-md-2 col-lg-3">
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default LoginPage;

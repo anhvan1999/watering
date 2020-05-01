@@ -15,9 +15,10 @@ import UserArea from './UserArea';
 
 function TopBar(props) {
   return (
-    <nav className="navbar navbar-expand-md navbar-dark bg-primary fixed-top shadow">
+    <nav className={getClassName("navbar navbar-expand-md navbar-dark fixed-top shadow", style.TopBar)}>
       {/* Toggle button */}
-      <button className={getClassName("navbar-toggler", style.toggleButton)} type="button" data-toggle="collapse" aria-expanded="false" onClick={props.toggleSidebar}>
+      <button className={getClassName("navbar-toggler", style.toggleButton)} type="button" data-toggle="collapse"
+              aria-expanded="false" onClick={props.toggleSidebar}>
         <span className="navbar-toggler-icon"></span>
       </button>
 
