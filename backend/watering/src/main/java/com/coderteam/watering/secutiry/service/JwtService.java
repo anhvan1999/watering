@@ -16,6 +16,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class JwtService {
 
+    /**
+     * JwtType enum: TOKEN & REFRESH_TOKEN
+     */
     public enum JwtType {
         TOKEN, REFRESH_TOKEN
     }
@@ -32,16 +35,35 @@ public class JwtService {
     public JwtService(@Value("${jwt.token}") String privateKey, @Value("${jwt.timeout}") long jwtTimeout,
                       @Value("${jwt.refresh-timeout}") long jwtRefreshTimeout) {
         algo = Algorithm.HMAC512(privateKey);
+        // Get timeout & refreshTimeout from application configuration file
         this.jwtTimeout = jwtTimeout;
         this.jwtRefreshTimeout = jwtRefreshTimeout;
     }
 
+    /**
+     * 
+     * @param username username must not null
+     * @param authorities autorities list must not null
+     * @param type TOKEN | REFRESH_TOKEN must not null
+     * @param issueDate token creation time must not null
+     * @return jwt token have subject: username, authorities: list of user authorities, issueAt: issueDate,
+     * expireAt: issueDate + timeoutInterval
+     */
     public String generateToken(@NonNull String username, @NonNull List<GrantedAuthority> authorities,
                                 @NonNull JwtType type, @NonNull Date issueDate) {
         // Convert date to instant (New Java Datetime API)
         return generateToken(username, authorities, type, issueDate.toInstant());
     }
 
+    /**
+     * 
+     * @param username username must not null
+     * @param authorities autorities list must not null
+     * @param type TOKEN | REFRESH_TOKEN must not null
+     * @param issueInstant token creation time must not null
+     * @return jwt token have subject: username, authorities: list of user authorities, issueAt: issueInstant,
+     * expireAt: issueInstant + timeoutInterval
+     */
     public String generateToken(@NonNull String username, @NonNull List<GrantedAuthority> authorities,
                                 @NonNull JwtType type, @NonNull Instant issueInstant) {
         // Get timeout interval
@@ -68,6 +90,11 @@ public class JwtService {
                 .sign(algo);
     }
 
+    /**
+     * 
+     * @param token
+     * @return DecodedJWT
+     */
     public DecodedJWT verifyToken(@NonNull String token) {
         return JWT.require(algo)
                 .build()
