@@ -49,10 +49,10 @@ public class JwtService {
      * @return jwt token have subject: username, authorities: list of user authorities, issueAt: issueDate,
      * expireAt: issueDate + timeoutInterval
      */
-    public String generateToken(@NonNull String username, @NonNull List<GrantedAuthority> authorities,
+    public String generateToken(@NonNull String username, @NonNull Long userId, @NonNull List<GrantedAuthority> authorities,
                                 @NonNull JwtType type, @NonNull Date issueDate) {
         // Convert date to instant (New Java Datetime API)
-        return generateToken(username, authorities, type, issueDate.toInstant());
+        return generateToken(username, userId, authorities, type, issueDate.toInstant());
     }
 
     /**
@@ -64,7 +64,7 @@ public class JwtService {
      * @return jwt token have subject: username, authorities: list of user authorities, issueAt: issueInstant,
      * expireAt: issueInstant + timeoutInterval
      */
-    public String generateToken(@NonNull String username, @NonNull List<GrantedAuthority> authorities,
+    public String generateToken(@NonNull String username, @NonNull Long userId, @NonNull List<GrantedAuthority> authorities,
                                 @NonNull JwtType type, @NonNull Instant issueInstant) {
         // Get timeout interval
         long timeOutInterval = jwtTimeout;
@@ -84,6 +84,7 @@ public class JwtService {
         // Generate and return token
         return JWT.create()
                 .withSubject(username)
+                .withClaim("userId", userId)
                 .withArrayClaim("authorities", authorityArr)
                 .withIssuedAt(issueDate)
                 .withExpiresAt(expireDate)

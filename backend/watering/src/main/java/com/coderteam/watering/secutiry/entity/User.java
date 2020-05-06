@@ -1,6 +1,9 @@
 package com.coderteam.watering.secutiry.entity;
 
 import java.time.OffsetDateTime;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,12 +11,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 @Entity
 @Data
+@Builder(toBuilder = true)
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
     @Setter(value = AccessLevel.NONE)
@@ -25,6 +31,9 @@ public class User {
     private String username;
 
     @Column(nullable = false)
+    private String password;
+
+    @Column(nullable = false)
     private String fullName;
 
     @Column(nullable = false)
@@ -32,5 +41,24 @@ public class User {
 
     @Column(nullable = false)
     private OffsetDateTime createdAt = OffsetDateTime.now();
+
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
+    @Column(nullable = false)
+    private String authorities;
+
+    public void setAuthorities(List<? extends GrantedAuthority> authorityList) {
+        authorities = String.join(
+                " ",
+                authorityList.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList())
+        );
+    }
+
+    public List<GrantedAuthority> getAuthorities() {
+        return Arrays.asList(authorities.split(" "))
+                .stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
+    }
 
 }

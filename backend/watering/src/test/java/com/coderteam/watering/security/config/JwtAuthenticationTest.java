@@ -1,21 +1,18 @@
 package com.coderteam.watering.security.config;
 
+import com.coderteam.watering.BaseTestSuite;
 import com.coderteam.watering.secutiry.config.JwtAuthentication;
 import com.coderteam.watering.secutiry.service.JwtService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.test.context.TestPropertySource;
 
 import java.time.Instant;
 import java.util.List;
 
-@SpringBootTest
-@TestPropertySource(locations = "classpath:application-test.properties")
-public class JwtAuthenticationTest {
+public class JwtAuthenticationTest extends BaseTestSuite {
 
     @Autowired
     JwtService jwtService;
@@ -26,6 +23,7 @@ public class JwtAuthenticationTest {
     public void testValidToken() {
         String token = jwtService.generateToken(
                 "anhvan",
+                1713913L,
                 List.of(new SimpleGrantedAuthority("ROLE_USER")),
                 JwtService.JwtType.TOKEN,
                 Instant.now()
@@ -45,6 +43,8 @@ public class JwtAuthenticationTest {
         );
 
         Assertions.assertEquals("anhvan", authentication.getName());
+
+        Assertions.assertEquals(1713913, authentication.getUserId());
 
         Assertions.assertArrayEquals(
                 authentication

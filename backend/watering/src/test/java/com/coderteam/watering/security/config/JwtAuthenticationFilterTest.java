@@ -1,42 +1,34 @@
 package com.coderteam.watering.security.config;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import java.util.Date;
-import java.util.List;
-
-import javax.servlet.FilterChain;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.coderteam.watering.BaseTestSuite;
 import com.coderteam.watering.secutiry.config.JwtAuthentication;
 import com.coderteam.watering.secutiry.config.JwtAuthenticationFilter;
 import com.coderteam.watering.secutiry.service.JwtService;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 
-@SpringBootTest
+import javax.servlet.FilterChain;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
+import java.util.List;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 @AutoConfigureMockMvc
-@TestPropertySource(locations = "classpath:application-test.properties")
-public class JwtAuthenticationFilterTest {
+public class JwtAuthenticationFilterTest extends BaseTestSuite {
 
     @Autowired
     private MockMvc mockMvc;
@@ -89,14 +81,17 @@ public class JwtAuthenticationFilterTest {
     protected void testIfAuthManagerWasSuccess() throws Exception {
         // Create mock object
         DecodedJWT decodedJwt = mock(DecodedJWT.class);
-        Claim claim = mock(Claim.class);
+        Claim authoritiesClaim = mock(Claim.class);
+        Claim userIdClaim = mock(Claim.class);
 
         // Set mock method result
         when(request.getHeader("Authorization")).thenReturn("jwt 1234");
         when(service.verifyToken("1234")).thenReturn(decodedJwt);
         when(decodedJwt.getSubject()).thenReturn("anhvan");
-        when(decodedJwt.getClaim("authorities")).thenReturn(claim);
-        when(claim.asList(String.class)).thenReturn(List.of("ROLE_USER"));
+        when(decodedJwt.getClaim("authorities")).thenReturn(authoritiesClaim);
+        when(authoritiesClaim.asList(String.class)).thenReturn(List.of("ROLE_USER"));
+        when(userIdClaim.asLong()).thenReturn(1713913L);
+        when(decodedJwt.getClaim("userId")).thenReturn(userIdClaim);
 
         // Do filter
         jwtAuthFilter.doFilter(request, response, filterChain);
@@ -124,6 +119,7 @@ public class JwtAuthenticationFilterTest {
         List<GrantedAuthority> authorityList = List.of(new SimpleGrantedAuthority("ROLE_USER"));
         String token = jwtService.generateToken(
                 "danganhvan",
+                1713913L,
                 authorityList,
                 JwtService.JwtType.TOKEN,
                 new Date()
@@ -139,6 +135,7 @@ public class JwtAuthenticationFilterTest {
         List<GrantedAuthority> authorityList = List.of(new SimpleGrantedAuthority("ROLE_USER"));
         String token = jwtService.generateToken(
                 "danganhvan",
+                1713913L,
                 authorityList,
                 JwtService.JwtType.TOKEN,
                 new Date()
@@ -153,6 +150,7 @@ public class JwtAuthenticationFilterTest {
         List<GrantedAuthority> authorityList = List.of(new SimpleGrantedAuthority("ROLE_ADMIN"));
         String token = jwtService.generateToken(
                 "danganhvan",
+                1713913L,
                 authorityList,
                 JwtService.JwtType.TOKEN,
                 new Date()

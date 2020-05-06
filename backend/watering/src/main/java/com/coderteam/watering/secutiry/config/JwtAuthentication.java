@@ -21,11 +21,14 @@ public class JwtAuthentication implements Authentication {
 
     private String name;
 
+    private long userId;
+
     private List<SimpleGrantedAuthority> authorities;
 
     public JwtAuthentication(@NonNull DecodedJWT decodedJwt) {
-        this.name = decodedJwt.getSubject();
-        this.authorities = decodedJwt
+        name = decodedJwt.getSubject();
+        userId = decodedJwt.getClaim("userId").asLong();
+        authorities = decodedJwt
                 .getClaim("authorities")
                 .asList(String.class)
                 .stream()
@@ -66,6 +69,11 @@ public class JwtAuthentication implements Authentication {
     @Override
     public void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException {
         throw new UnsupportedOperationException();
+    }
+
+    // Return the userId
+    public Long getUserId() {
+        return userId;
     }
 
 }
