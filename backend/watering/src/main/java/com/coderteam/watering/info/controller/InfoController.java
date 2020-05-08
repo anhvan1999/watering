@@ -7,10 +7,13 @@ package com.coderteam.watering.info.controller;
 import com.coderteam.watering.secutiry.entity.User;
 import com.coderteam.watering.secutiry.repos.UserRepos;
 
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 // This controller is used for test puporse
 @RestController
@@ -40,6 +43,8 @@ public class InfoController {
         User user = new User();
         user.setFullName("Dang Anh Van");
         user.setUsername("danganhvan" + Math.random());
+        user.setPassword("123444");
+        user.setAuthorities(List.of(new SimpleGrantedAuthority("ROLE_USER")));
         repos.save(user);
         return repos.findAll();
     }
