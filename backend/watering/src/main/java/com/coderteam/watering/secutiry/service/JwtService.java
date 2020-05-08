@@ -64,7 +64,7 @@ public class JwtService {
      * @return jwt token have subject: username, authorities: list of user authorities, issueAt: issueInstant,
      * expireAt: issueInstant + timeoutInterval
      */
-    public String generateToken(@NonNull String username, @NonNull Long userId, @NonNull List<GrantedAuthority> authorities,
+    public String generateToken(@NonNull String username, @NonNull Long userId, @NonNull List<? extends GrantedAuthority> authorities,
                                 @NonNull JwtType type, @NonNull Instant issueInstant) {
         // Get timeout interval
         long timeOutInterval = jwtTimeout;

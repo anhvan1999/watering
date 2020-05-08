@@ -5,20 +5,18 @@ import java.time.Instant;
 import com.coderteam.watering.secutiry.entity.User;
 import com.coderteam.watering.secutiry.repos.UserRepos;
 import com.coderteam.watering.secutiry.service.JwtService;
+import com.coderteam.watering.secutiry.util.ErrorResponse;
 import com.coderteam.watering.secutiry.util.PasswordNotValidException;
 import com.coderteam.watering.secutiry.util.UserNotFoundException;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import lombok.Builder;
 import lombok.Data;
 
 @RestController
-@RequestMapping("/login")
+@RequestMapping("/auth/login")
 public class LoginController {
 
     private JwtService jwtService;
@@ -36,7 +34,9 @@ public class LoginController {
     @PostMapping("")
     public Object handleLogin(@ModelAttribute LoginInfo info) {
         // Load user from databse
-        User user = userRepos.findByUsername(info.getUsername()).orElseThrow(() -> new UserNotFoundException());
+        User user = userRepos
+                .findByUsername(info.getUsername())
+                .orElseThrow(UserNotFoundException::new);
 
         // Check if password is valid
         checkPassword(user.getPassword(), info.getPassword());
@@ -45,18 +45,28 @@ public class LoginController {
         Instant issueDate = Instant.now();
 
         // JwtToken
-        String jwtToken = jwtService.generateToken(user.getUsername(), user.getId(), user.getAuthorities(),
-                JwtService.JwtType.TOKEN, issueDate);
+        String jwtToken = jwtService.generateToken(
+                user.getUsername(),
+                user.getId(),
+                user.getAuthorities(),
+                JwtService.JwtType.TOKEN,
+                issueDate
+        );
 
         // JwtRefreshToken
-        String jwtRefreshToken = jwtService.generateToken(user.getUsername(), user.getId(), user.getAuthorities(),
-                JwtService.JwtType.REFRESH_TOKEN, issueDate);
+        String jwtRefreshToken = jwtService.generateToken(
+                user.getUsername(),
+                user.getId(),
+                user.getAuthorities(),
+                JwtService.JwtType.REFRESH_TOKEN,
+                issueDate
+        );
 
         // Return token to user
         return LoginResponseInfo.builder()
-            .jwtToken(jwtToken)
-            .jwtRefreshtoken(jwtRefreshToken)
-            .build();
+                .jwtToken(jwtToken)
+                .jwtRefreshtoken(jwtRefreshToken)
+                .build();
     }
 
     void checkPassword(String encodedPassword, String password) {
@@ -64,6 +74,16 @@ public class LoginController {
         if (!isValid) {
             throw new PasswordNotValidException();
         }
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ErrorResponse userNotFoundHanler() {
+        return new ErrorResponse("Username not valid", "uname_not_valid");
+    }
+
+    @ExceptionHandler(PasswordNotValidException.class)
+    public ErrorResponse passwordNotValidHandler() {
+        return new ErrorResponse("Password not valid", "password_not_valid");
     }
 
 }
