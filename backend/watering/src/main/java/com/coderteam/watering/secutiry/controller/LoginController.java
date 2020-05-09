@@ -9,6 +9,7 @@ import com.coderteam.watering.secutiry.util.ErrorResponse;
 import com.coderteam.watering.secutiry.util.PasswordNotValidException;
 import com.coderteam.watering.secutiry.util.UserNotFoundException;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +33,7 @@ public class LoginController {
     }
 
     @PostMapping("")
-    public Object handleLogin(@ModelAttribute LoginInfo info) {
+    public Object handleLogin(@RequestBody LoginInfo info) {
         // Load user from databse
         User user = userRepos
                 .findByUsername(info.getUsername())
@@ -77,11 +78,13 @@ public class LoginController {
     }
 
     @ExceptionHandler(UserNotFoundException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ErrorResponse userNotFoundHanler() {
         return new ErrorResponse("Username not valid", "uname_not_valid");
     }
 
     @ExceptionHandler(PasswordNotValidException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ErrorResponse passwordNotValidHandler() {
         return new ErrorResponse("Password not valid", "password_not_valid");
     }

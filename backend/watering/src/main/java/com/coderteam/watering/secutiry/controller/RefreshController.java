@@ -7,12 +7,9 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.coderteam.watering.secutiry.service.JwtService;
 import com.coderteam.watering.secutiry.util.ErrorResponse;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import lombok.Builder;
 import lombok.Data;
@@ -53,6 +50,7 @@ public class RefreshController {
     }
 
     @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ErrorResponse handleJwtError() {
         return new ErrorResponse("Refresh token not valid", "refresh_not_valid");
     }
