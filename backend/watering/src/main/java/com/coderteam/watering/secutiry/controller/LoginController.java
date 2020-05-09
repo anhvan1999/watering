@@ -66,7 +66,7 @@ public class LoginController {
         // Return token to user
         return LoginResponseInfo.builder()
                 .jwtToken(jwtToken)
-                .jwtRefreshtoken(jwtRefreshToken)
+                .jwtRefreshToken(jwtRefreshToken)
                 .build();
     }
 
@@ -101,5 +101,5 @@ class LoginInfo {
 @Builder
 class LoginResponseInfo {
     private String jwtToken;
-    private String jwtRefreshtoken;
+    private String jwtRefreshToken;
 }
