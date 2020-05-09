@@ -1,6 +1,7 @@
 import React from 'react';
-import {Provider} from 'react-redux';
-import {Switch, Route, BrowserRouter as Router} from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { Switch, Route, BrowserRouter as Router, useRouteMatch } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 // Redux store
 import store from './redux-store/store';
@@ -8,20 +9,55 @@ import store from './redux-store/store';
 // Components
 import Child from './Child';
 import TopBar from './components/top-bar/TopBar';
+import HomePage from './components/home-page/HomePage';
 import LoginPage from './components/login-page/LoginPage';
+
+let Area = (props) => {
+  let match = useRouteMatch();
+
+  if (props.username === '' || !props.username) { 
+    return (
+      <LoginPage></LoginPage>
+    )
+  }
+  return (
+    <div>
+      <TopBar></TopBar>
+      <Switch>
+        <Route path={`${match.url}/child`}>
+          <Child></Child>
+        </Route>
+      </Switch>
+    </div>
+  )
+};
+
+function mapStateToPropsArea(state) {
+  console.log('state = ', state);
+  return {
+    username: state.user.username
+  }
+}
+
+Area = connect(mapStateToPropsArea, null)(Area);
+
 
 function App() {
   return (
     <Provider store={store}>
       <Router>
         <div className="App">
-          <TopBar></TopBar>
           <Switch>
-            <Route path="/child">
-              <Child></Child>
+            <Route path="/app">
+              <Area></Area>
             </Route>
+            
             <Route path="/login">
               <LoginPage></LoginPage>
+            </Route>
+
+            <Route path="/">
+              <HomePage></HomePage>
             </Route>
           </Switch>
         </div>

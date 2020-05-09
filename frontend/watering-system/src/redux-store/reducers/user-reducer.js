@@ -1,17 +1,24 @@
 import {actionTypes} from '../actions/user-actions';
 
 let defaultState = {
-    username: 'Coder Team',
-    jwtToken: ''
+    username: sessionStorage.getItem("username"),
+    jwtToken: sessionStorage.getItem("jwtToken"),
+    jwtRefreshToken: ''
 };
 
 function userReducer(state = defaultState, action) {
     switch (action.type) {
-        case actionTypes.SET_USERNAME:
+        case actionTypes.LOGIN_USER:
             return {
                 ...state,
-                username: action.username
+                username: action.username,
+                jwtToken: action.token,
+                jwtRefreshToken: action.refreshToken
             };
+        
+        case actionTypes.LOGOUT_USER:
+            return defaultState;
+
         default:
             return state;
     }

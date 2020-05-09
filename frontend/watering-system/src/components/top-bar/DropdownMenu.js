@@ -25,8 +25,13 @@ export default function DropDownMenu(props) {
         data-testid="dropdown-test-id">
         {
           props.links.map(x => {
-            return <Link className="dropdown-item" to={x.to} key={x.to}
-              onClick={() => setInnerActive(x => !x)}>{x.name}</Link>
+            return <Link className="dropdown-item" to={x.to} key={x.to + Math.random()}
+              onClick={() => {
+                setInnerActive(a => !a);
+                if (x.clickHandle) {
+                  x.clickHandle();
+                }
+              }}>{x.name}</Link>
           })
         }
       </div>

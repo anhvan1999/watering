@@ -1,9 +1,14 @@
 .LoginPage {
   padding-top: 50px;
   position: fixed;
-  top: 62px;
+  // top: 62px;
+  top: 0;
   bottom: 0;
   left: 0;
   right: 0;
   background-image: url('./background.jpg');
+}
+
+.LoginCard {
+  background-color: rgba(255, 255, 255, 0.9) !important;
 }

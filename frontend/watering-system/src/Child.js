@@ -8,7 +8,7 @@ function Child(props) {
 
   console.log(props);
   return (
-    <div>
+    <div className="padding-top-62">
       <h1>{props.username}</h1>
       <Switch>
         <Route path={`${match.url}/foo`}>

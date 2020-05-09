@@ -1,10 +1,17 @@
 export const actionTypes = {
-    SET_USERNAME: 'SET_USERNAME'
+    LOGIN_USER: 'LOGIN_USER',
+    LOGOUT_USER: 'LOGOUT_USER'
 };
 
-export function setUsername(username) {
+export function loginUser(username, token, refreshToken) {
     return {
-        type: actionTypes.SET_USERNAME,
-        username
+        type: actionTypes.LOGIN_USER,
+        username, token, refreshToken
     };
+}
+
+export function logoutUser() {
+    return {
+        type: actionTypes.LOGOUT_USER
+    }
 }
