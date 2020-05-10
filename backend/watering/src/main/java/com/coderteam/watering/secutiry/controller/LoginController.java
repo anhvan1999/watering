@@ -67,6 +67,7 @@ public class LoginController {
         return LoginResponseInfo.builder()
                 .jwtToken(jwtToken)
                 .jwtRefreshToken(jwtRefreshToken)
+                .issueDate(issueDate)
                 .build();
     }
 
@@ -102,4 +103,5 @@ class LoginInfo {
 class LoginResponseInfo {
     private String jwtToken;
     private String jwtRefreshToken;
+    private Instant issueDate;
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { Switch, Route, BrowserRouter as Router, useRouteMatch } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { setAuthState } from './service/auth-service';
 
 // Redux store
 import store from './redux-store/store';
@@ -33,7 +34,6 @@ let Area = (props) => {
 };
 
 function mapStateToPropsArea(state) {
-  console.log('state = ', state);
   return {
     username: state.user.username
   }
@@ -43,6 +43,7 @@ Area = connect(mapStateToPropsArea, null)(Area);
 
 
 function App() {
+  setAuthState();
   return (
     <Provider store={store}>
       <Router>

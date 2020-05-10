@@ -28,8 +28,10 @@ public class RefreshController {
     }
 
     @PostMapping("")
-    public TokenResponse getNewToken(@ModelAttribute RefreshToken refreshToken) {
+    public TokenResponse getNewToken(@RequestBody RefreshToken refreshToken) {
         DecodedJWT decodedJwt = jwtService.verifyToken(refreshToken.getRefreshToken());
+
+        var issueDate = Instant.now();
 
         var authorities = decodedJwt
                 .getClaim("authorities")
@@ -43,10 +45,13 @@ public class RefreshController {
                 decodedJwt.getClaim("userId").asLong(), 
                 authorities,
                 JwtService.JwtType.TOKEN,
-                Instant.now()
+                issueDate
         );
 
-        return TokenResponse.builder().newToken(newToken).build();
+        return TokenResponse.builder()
+                .newToken(newToken)
+                .issueDate(issueDate)
+                .build();
     }
 
     @ExceptionHandler(Exception.class)
@@ -66,4 +71,5 @@ class RefreshToken {
 @Builder
 class TokenResponse {
     private String newToken;
+    private Instant issueDate;
 }
