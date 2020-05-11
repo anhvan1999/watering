@@ -1,14 +1,16 @@
 package com.coderteam.watering.security.entity;
 
-import com.coderteam.watering.BaseTestSuite;
 import com.coderteam.watering.secutiry.entity.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.OffsetDateTime;
 
-public class UserTest extends BaseTestSuite {
+@ExtendWith(SpringExtension.class)
+public class UserTest {
 
     private User user;
 
