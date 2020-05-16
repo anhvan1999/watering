@@ -33,13 +33,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
+        http
+                .csrf()
+                .disable()
                 .authorizeRequests()
-                .antMatchers("/info/adduser", "/info", "/stomp/**", "/ws/websocket/**", "/auth/**").permitAll()
-                .antMatchers("/info/user").hasAnyRole("USER")
-                .anyRequest().authenticated()
+                .antMatchers(
+                        "/info/adduser",
+                        "/info",
+                        "/stomp/**",
+                        "/ws/websocket/**",
+                        "/auth/**"
+                )
+                .permitAll()
+                .antMatchers("/info/user")
+                .hasAnyRole("USER")
+                .anyRequest()
+                .authenticated()
                 .and()
-                .addFilter(getJwtFilter()).sessionManagement()
+                .addFilter(getJwtFilter())
+                .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 

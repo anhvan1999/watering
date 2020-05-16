@@ -31,13 +31,13 @@ class StartupRunner implements ApplicationRunner {
 
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
-		User user = User.builder()
+		User superUser = User.builder()
 				.username("superuser")
 				.password(passwordEncoder.encode("watering"))
 				.authorities("ROLE_ADMIN")
 				.fullName("Super User")
 				.build();
-		userRepos.save(user);
+		userRepos.save(superUser);
 	}
 
 }

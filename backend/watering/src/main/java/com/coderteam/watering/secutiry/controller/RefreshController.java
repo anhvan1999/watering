@@ -1,6 +1,7 @@
 package com.coderteam.watering.secutiry.controller;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
@@ -31,9 +32,9 @@ public class RefreshController {
     public TokenResponse getNewToken(@RequestBody RefreshToken refreshToken) {
         DecodedJWT decodedJwt = jwtService.verifyToken(refreshToken.getRefreshToken());
 
-        var issueDate = Instant.now();
+        Instant issueDate = Instant.now();
 
-        var authorities = decodedJwt
+        List<SimpleGrantedAuthority> authorities = decodedJwt
                 .getClaim("authorities")
                 .asList(String.class)
                 .stream()
@@ -41,8 +42,8 @@ public class RefreshController {
                 .collect(Collectors.toList());
 
         String newToken = jwtService.generateToken(
-                decodedJwt.getSubject(), 
-                decodedJwt.getClaim("userId").asLong(), 
+                decodedJwt.getSubject(),
+                decodedJwt.getClaim("userId").asLong(),
                 authorities,
                 JwtService.JwtType.TOKEN,
                 issueDate
