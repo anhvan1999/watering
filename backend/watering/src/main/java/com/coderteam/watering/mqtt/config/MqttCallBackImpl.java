@@ -14,9 +14,9 @@ class MqttCallBackImpl implements MqttCallback {
     }
 
     @Override
-    public void messageArrived(String topic, MqttMessage mqttMessage) throws Exception {
-        System.out.println("Topic: " + topic);
-        System.out.println(new String(mqttMessage.getPayload()));
+    public void messageArrived(String topic, MqttMessage mqttMessage) {
+        System.out.println("Get message");
+        System.out.printf("Topic: %s, content: %s\n", topic, new String(mqttMessage.getPayload()));
     }
 
     @Override

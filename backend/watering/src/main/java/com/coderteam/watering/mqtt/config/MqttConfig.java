@@ -24,14 +24,20 @@ public class MqttConfig {
     public IMqttClient mqttClient() throws Exception {
         MemoryPersistence persistence = new MemoryPersistence();
 
+        // Create new mqttClientObject
         MqttClient mqttClient = new MqttClient(
-                mqttProperties.getBrokerUrl(), 
+                mqttProperties.getBrokerUrl(),
                 mqttProperties.getClientId(),
                 persistence
         );
 
+        // Callbacks
         mqttClient.setCallback(mqttCallback);
+
+        // Options
         mqttClient.connect(mqttConnectOptions());
+
+        // Subcribe to topics
         mqttClient.subscribe(mqttProperties.getTopicFilter());
 
         return mqttClient;

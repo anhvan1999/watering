@@ -13,6 +13,6 @@ public class MqttProperties {
 
     private String clientId;
 
-    private String topicFilter;
+    private String[] topicFilter;
 
 }

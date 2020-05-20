@@ -14,7 +14,7 @@ jwt:
 mqtt:
   broker-url: ws://13.76.221.132:8083
   client-id: watering
-  topic-filter: T_2
+  topic-filter: T_2, T_3
 
 ---
 
@@ -29,3 +29,8 @@ spring:
     driverClassName: org.h2.Driver
     username: sa
     password: sa
+
+#mqtt:
+#  broker-url: tcp://52.179.81.237:1883
+#  client-id: watering
+#  topic-filter: T
