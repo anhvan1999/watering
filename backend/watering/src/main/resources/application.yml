@@ -11,6 +11,11 @@ jwt:
   timeout: 3600
   refresh-timeout: 604800
 
+mqtt:
+  broker-url: ws://13.76.221.132:8083
+  client-id: watering
+  topic-filter: T_2
+
 ---
 
 spring:
