@@ -22,9 +22,9 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
  */
 public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
 
-    private JwtService jwtService;
+    private final JwtService jwtService;
 
-    private Logger logger = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
+    private final Logger logger = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
 
     public JwtAuthenticationFilter(AuthenticationManager manager, JwtService jwtService) {
         super(manager);

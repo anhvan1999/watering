@@ -10,7 +10,6 @@ jwt:
   token: dkjJGSYt7gb476bZJHDG76tg42uyhb5437kLxdh9827,.ds.okpo78645KsjdSgt43[ery834bgds]
   timeout: 3600
   refresh-timeout: 604800
-
 mqtt:
   broker-url: ws://13.76.221.132:8083
   client-id: watering
@@ -20,10 +19,6 @@ mqtt:
 
 spring:
   profiles: test
-  jpa:
-    hibernate:
-      ddl-auto: create-drop
-    database-platform: org.hibernate.dialect.H2Dialect
   datasource:
     url: jdbc:h2:mem:testdb
     driverClassName: org.h2.Driver

@@ -22,7 +22,7 @@ import lombok.Data;
 @RequestMapping("auth/refresh")
 public class RefreshController {
 
-    private JwtService jwtService;
+    private final JwtService jwtService;
 
     public RefreshController(JwtService service) {
         jwtService = service;

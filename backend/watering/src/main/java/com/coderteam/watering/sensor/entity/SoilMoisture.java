@@ -10,6 +10,8 @@ import javax.persistence.ManyToOne;
 
 import lombok.*;
 
+import java.time.Instant;
+
 @Entity
 @Builder
 @Data
@@ -30,6 +32,10 @@ public class SoilMoisture {
 
     @ManyToOne
     @JoinColumn(nullable = false)
-    SoilMoistureSensor sensor;
+    private SoilMoistureSensor sensor;
+
+    @Column(nullable = false)
+    @Builder.Default
+    private Instant publishTime = Instant.now();
 
 }

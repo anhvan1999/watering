@@ -20,11 +20,11 @@ import lombok.Data;
 @RequestMapping("/auth/login")
 public class LoginController {
 
-    private JwtService jwtService;
+    private final JwtService jwtService;
 
-    private UserRepos userRepos;
+    private final UserRepos userRepos;
 
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     public LoginController(JwtService service, UserRepos repos, PasswordEncoder encoder) {
         jwtService = service;

@@ -19,11 +19,11 @@ public class JwtAuthentication implements Authentication {
     // Serial version id
     private static final long serialVersionUID = 3832812659524636794L;
 
-    private String name;
+    private final String name;
 
-    private long userId;
+    private final long userId;
 
-    private List<SimpleGrantedAuthority> authorities;
+    private final List<SimpleGrantedAuthority> authorities;
 
     public JwtAuthentication(@NonNull DecodedJWT decodedJwt) {
         name = decodedJwt.getSubject();

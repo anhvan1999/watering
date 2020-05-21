@@ -43,6 +43,7 @@ public class JwtService {
     /**
      * 
      * @param username username must not null
+     * @param userId userId must not null
      * @param authorities autorities list must not null
      * @param type TOKEN | REFRESH_TOKEN must not null
      * @param issueDate token creation time must not null
@@ -93,8 +94,8 @@ public class JwtService {
 
     /**
      * 
-     * @param token
-     * @return DecodedJWT
+     * @param token jwt token
+     * @return DecodedJWT if token is valid
      */
     public DecodedJWT verifyToken(@NonNull String token) {
         return JWT.require(algo)

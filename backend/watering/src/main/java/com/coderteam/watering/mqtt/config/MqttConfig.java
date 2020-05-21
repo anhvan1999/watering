@@ -1,6 +1,5 @@
 package com.coderteam.watering.mqtt.config;
 
-import org.eclipse.paho.client.mqttv3.IMqttClient;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
@@ -20,8 +19,12 @@ public class MqttConfig {
         mqttCallback = callback;
     }
 
+    /**
+     * @return MqttClient object
+     * @throws Exception if connection failed
+     */
     @Bean
-    public IMqttClient mqttClient() throws Exception {
+    public MqttClient mqttClient() throws Exception {
         MemoryPersistence persistence = new MemoryPersistence();
 
         // Create new mqttClientObject
@@ -43,6 +46,9 @@ public class MqttConfig {
         return mqttClient;
     }
 
+    /**
+     * @return mqtt connect options
+     */
     private MqttConnectOptions mqttConnectOptions() {
         MqttConnectOptions options = new MqttConnectOptions();
 

@@ -10,36 +10,50 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @SpringBootApplication
 @EnableConfigurationProperties
 public class WateringApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(WateringApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(WateringApplication.class, args);
+    }
 
 }
 
 @Component
 class StartupRunner implements ApplicationRunner {
 
-	private UserRepos userRepos;
-	private PasswordEncoder passwordEncoder;
+    private final UserRepos userRepos;
 
-	public StartupRunner(UserRepos repos, PasswordEncoder encoder) {
-		userRepos = repos;
-		passwordEncoder = encoder;
-	}
+    private final PasswordEncoder passwordEncoder;
 
-	@Override
-	public void run(ApplicationArguments args) throws Exception {
-		User superUser = User.builder()
-				.username("superuser")
-				.password(passwordEncoder.encode("watering"))
-				.authorities("ROLE_ADMIN")
-				.fullName("Super User")
-				.build();
-		userRepos.save(superUser);
-	}
+    public StartupRunner(UserRepos repos, PasswordEncoder encoder) {
+        userRepos = repos;
+        passwordEncoder = encoder;
+    }
+
+    @Override
+    public void run(ApplicationArguments args) {
+        // Create supper user when boot the app
+        User superUser = User.builder()
+                .username("superuser")
+                .password(passwordEncoder.encode("watering"))
+                .authorities("ROLE_ADMIN")
+                .fullName("Super User")
+                .build();
+
+        // Create normal user
+        User user = User.builder()
+                .username("user")
+                .password(passwordEncoder.encode("watering"))
+                .authorities("ROLE_USER")
+                .fullName("User")
+                .build();
+
+        // Save to database
+        userRepos.saveAll(List.of(superUser, user));
+    }
 
 }

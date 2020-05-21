@@ -17,9 +17,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private JwtAuthenticationProvider jwtProvider;
+    private final JwtAuthenticationProvider jwtProvider;
 
-    private JwtService jwtService;
+    private final JwtService jwtService;
 
     public SecurityConfig(JwtAuthenticationProvider jwtProvider, JwtService jwtService) {
         this.jwtProvider = jwtProvider;

@@ -24,6 +24,7 @@ public class SoilMoistureTest {
         Assertions.assertEquals(soilMoisture.getValue(), (short)1023);
         Assertions.assertEquals(soilMoisture.getSensor(), sensor);
         Assertions.assertEquals(soilMoisture.getStatus(), true);
+        Assertions.assertNotNull(soilMoisture.getPublishTime());
     }
 
 }
