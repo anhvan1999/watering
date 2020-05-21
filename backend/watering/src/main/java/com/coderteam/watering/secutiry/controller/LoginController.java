@@ -39,6 +39,11 @@ public class LoginController {
                 .findByUsername(info.getUsername())
                 .orElseThrow(UserNotFoundException::new);
 
+        // Check if user is active
+        if (!user.getActive()) {
+            throw new UserNotFoundException();
+        }
+
         // Check if password is valid
         checkPassword(user.getPassword(), info.getPassword());
 
@@ -94,14 +99,21 @@ public class LoginController {
 
 @Data
 class LoginInfo {
+
     private String username;
+
     private String password;
+
 }
 
 @Data
 @Builder
 class LoginResponseInfo {
+
     private String jwtToken;
+
     private String jwtRefreshToken;
+
     private Instant issueDate;
+    
 }
