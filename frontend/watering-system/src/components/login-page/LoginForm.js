@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FaUserCircle, FaKey, FaRegAddressBook } from 'react-icons/fa';
 import { usernamePasswordLogin } from '../../service/auth-service';
 import { getClassName } from '../../utils/component-utils';
+import { useRouteMatch, useHistory } from 'react-router-dom';
 
 import style from './login.module.scss';
 
@@ -12,6 +13,8 @@ export default function LoginForm(props) {
   let [usernameValid, setUsernameValid] = useState(true);
   let [passwordValid, setPasswordValid] = useState(true);
   let [allValid, setAllValid] = useState(true);
+  let { path } = useRouteMatch();
+  let history = useHistory();
 
   // Handle login button click
   let loginBtnHandle = () => {
@@ -33,7 +36,9 @@ export default function LoginForm(props) {
     }
 
     usernamePasswordLogin(username, password, () => {
-
+      if (path === '/login') {
+        history.push('/app');
+      }
     }, (err) => {
       setAllValid(false);
     })
