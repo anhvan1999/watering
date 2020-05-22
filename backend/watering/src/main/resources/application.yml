@@ -14,13 +14,3 @@ mqtt:
   broker-url: ws://13.76.221.132:8083
   client-id: watering
   topic-filter: T_1, T_2, T_3, T_4
-
----
-
-spring:
-  profiles: test
-  datasource:
-    url: jdbc:h2:mem:testdb
-    driverClassName: org.h2.Driver
-mqtt:
-  broker-url: tcp://52.179.81.237:1883
