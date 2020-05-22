@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/user/info")
 public class UserInfoController {
 
-    private UserRepos userRepos;
+    private final UserRepos userRepos;
 
     public UserInfoController(UserRepos userRepos) {
         this.userRepos = userRepos;
@@ -21,7 +21,8 @@ public class UserInfoController {
 
     @GetMapping("")
     public User getUser() {
-        JwtAuthentication jwtAuthentication = (JwtAuthentication) SecurityContextHolder.getContext().getAuthentication();
+        JwtAuthentication jwtAuthentication = (JwtAuthentication)
+                SecurityContextHolder.getContext().getAuthentication();
         return userRepos.findById(jwtAuthentication.getUserId()).orElse(null);
     }
 
