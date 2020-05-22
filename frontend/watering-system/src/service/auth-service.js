@@ -16,7 +16,7 @@ const jwtRefreshTimeout = 7 * 24 * 3600 * 1000 - 60 * 1000;
  * @param {function} reject 
  */
 export function usernamePasswordLogin(username, password, resolve, reject) {
-    axios.post('/auth/login', {
+    axios.post(process.env.REACT_APP_AUTH_URL, {
         username, password
     }).then(res => {
         // Save info to session storage and local storage
@@ -48,6 +48,8 @@ export function logout() {
     localStorage.clear();
 }
 
+console.log(process.env.REACT_APP_REFRESH_URL);
+
 export function setAuthState() {
     // Get expireDate and refreshExpireDate from storage
     let jwtExpireStr = sessionStorage.getItem('jwtExpireDate');
@@ -77,7 +79,7 @@ export function setAuthState() {
 
     // Get new token
     if (jwtRefreshExpireStr && jwtRefreshExpireDate > now) {
-        axios.post('/auth/refresh', {
+        axios.post(process.env.REACT_APP_REFRESH_URL, {
             refreshToken: localStorage.getItem('jwtRefreshToken')
         }).then(res => {
             store.dispatch(getNewToken(res.data.newToken));
