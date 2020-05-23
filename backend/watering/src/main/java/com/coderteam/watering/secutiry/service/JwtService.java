@@ -24,20 +24,19 @@ public class JwtService {
     }
 
     // Algorithm
-    private Algorithm algo;
+    private final Algorithm algo;
 
     // Jwt timeout interval
-    private long jwtTimeout;
+    private final long jwtTimeout;
 
     // Jwt refresh token timeout interval
-    private long jwtRefreshTimeout;
+    private final long jwtRefreshTimeout;
 
-    public JwtService(@Value("${jwt.token}") String privateKey, @Value("${jwt.timeout}") long jwtTimeout,
-                      @Value("${jwt.refresh-timeout}") long jwtRefreshTimeout) {
-        algo = Algorithm.HMAC512(privateKey);
+    public JwtService(JwtProperties jwtProperties) {
+        algo = Algorithm.HMAC512(jwtProperties.getToken());
         // Get timeout & refreshTimeout from application configuration file
-        this.jwtTimeout = jwtTimeout;
-        this.jwtRefreshTimeout = jwtRefreshTimeout;
+        this.jwtTimeout = jwtProperties.getTimeout();
+        this.jwtRefreshTimeout = jwtProperties.getRefreshTimeout();
     }
 
     /**
