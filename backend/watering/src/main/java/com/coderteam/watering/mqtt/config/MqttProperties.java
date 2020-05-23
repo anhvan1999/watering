@@ -1,18 +1,18 @@
 package com.coderteam.watering.mqtt.config;
 
-import lombok.Data;
+import lombok.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
+import org.springframework.boot.context.properties.ConstructorBinding;
 
-@ConfigurationProperties(prefix = "mqtt")
-@Component
-@Data
+@ConfigurationProperties("mqtt")
+@ConstructorBinding
+@Value
 public class MqttProperties {
 
-    private String brokerUrl;
+    String brokerUrl;
 
-    private String clientId;
+    String clientId;
 
-    private String[] topicFilter;
+    String[] topicFilter;
 
 }

@@ -6,6 +6,7 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @SpringBootApplication
 @EnableConfigurationProperties
+@ConfigurationPropertiesScan
 public class WateringApplication {
 
     public static void main(String[] args) {

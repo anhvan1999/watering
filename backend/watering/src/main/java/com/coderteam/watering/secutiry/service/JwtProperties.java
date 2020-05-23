@@ -1,12 +1,12 @@
 package com.coderteam.watering.secutiry.service;
 
-import lombok.Data;
+import lombok.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
+import org.springframework.boot.context.properties.ConstructorBinding;
 
 @ConfigurationProperties("jwt")
-@Component
-@Data
+@ConstructorBinding
+@Value
 public class JwtProperties {
 
     String token;
