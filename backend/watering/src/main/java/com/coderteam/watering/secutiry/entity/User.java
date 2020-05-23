@@ -53,10 +53,9 @@ public class User {
     private String authorities;
 
     public void setAuthorities(List<? extends GrantedAuthority> authorityList) {
-        authorities = String.join(
-                " ",
-                authorityList.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList())
-        );
+        authorities = authorityList.stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.joining(" "));
     }
 
     public List<GrantedAuthority> getAuthorities() {
