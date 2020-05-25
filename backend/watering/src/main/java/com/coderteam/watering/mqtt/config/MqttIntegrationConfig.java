@@ -15,7 +15,7 @@ import org.springframework.messaging.MessagingException;
 @Configuration
 public class MqttIntegrationConfig {
     
-    @Bean
+    @Bean("mqttInputChannel")
     public MessageChannel mqttInputChannel() {
         return new PublishSubscribeChannel();
     }
@@ -40,6 +40,7 @@ public class MqttIntegrationConfig {
 
             @Override
             public void handleMessage(Message<?> message) throws MessagingException {
+                System.out.println(message.getHeaders());
                 System.out.println(message.getPayload());
             }
 
