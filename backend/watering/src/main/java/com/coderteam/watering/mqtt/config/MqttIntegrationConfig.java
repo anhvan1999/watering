@@ -4,7 +4,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.integration.channel.PublishSubscribeChannel;
-import org.springframework.integration.core.MessageProducer;
+import org.springframework.integration.dsl.IntegrationFlow;
+import org.springframework.integration.dsl.IntegrationFlows;
+import org.springframework.integration.dsl.Transformers;
 import org.springframework.integration.mqtt.inbound.MqttPahoMessageDrivenChannelAdapter;
 import org.springframework.integration.mqtt.support.DefaultPahoMessageConverter;
 import org.springframework.messaging.Message;
@@ -14,23 +16,27 @@ import org.springframework.messaging.MessagingException;
 
 @Configuration
 public class MqttIntegrationConfig {
-    
+
     @Bean("mqttInputChannel")
     public MessageChannel mqttInputChannel() {
-        return new PublishSubscribeChannel();
+        MessageChannel channel = new PublishSubscribeChannel();
+        return channel;
+    }
+
+    public MqttPahoMessageDrivenChannelAdapter inbound(MqttProperties mqttProperties) {
+        MqttPahoMessageDrivenChannelAdapter adapter = new MqttPahoMessageDrivenChannelAdapter(
+                mqttProperties.getBrokerUrl(), mqttProperties.getClientId(), mqttProperties.getTopicFilter());
+        adapter.setConverter(new DefaultPahoMessageConverter());
+        adapter.setQos(1);
+        return adapter;
     }
 
     @Bean
-    public MessageProducer inbound(MqttProperties mqttProperties, MessageChannel mqttInputChannel) {
-        MqttPahoMessageDrivenChannelAdapter adapter = new MqttPahoMessageDrivenChannelAdapter(
-                mqttProperties.getBrokerUrl(),
-                mqttProperties.getClientId(),
-                mqttProperties.getTopicFilter()
-        );
-        adapter.setConverter(new DefaultPahoMessageConverter());
-        adapter.setQos(1);
-        adapter.setOutputChannel(mqttInputChannel);
-        return adapter;
+    public IntegrationFlow inboundFlow(MqttProperties mqttProperties, MessageChannel mqttInputChannel) {
+        return IntegrationFlows.from(inbound(mqttProperties))
+                .transform(Transformers.fromJson(MqttPayload.class))
+                .channel(mqttInputChannel)
+                .get();
     }
 
     @Bean
@@ -40,21 +46,8 @@ public class MqttIntegrationConfig {
 
             @Override
             public void handleMessage(Message<?> message) throws MessagingException {
-                System.out.println(message.getHeaders());
                 System.out.println(message.getPayload());
-            }
 
-        };
-    }
-
-    @Bean
-    @ServiceActivator(inputChannel = "mqttInputChannel")
-    public MessageHandler handler2() {
-        return new MessageHandler() {
-
-            @Override
-            public void handleMessage(Message<?> message) throws MessagingException {
-                System.out.println("------");
             }
 
         };
