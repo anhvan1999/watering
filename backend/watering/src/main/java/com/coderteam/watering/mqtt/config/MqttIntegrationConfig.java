@@ -21,7 +21,7 @@ public class MqttIntegrationConfig {
     }
 
     @Bean
-    public MessageProducer inbound(MqttProperties mqttProperties) {
+    public MessageProducer inbound(MqttProperties mqttProperties, MessageChannel mqttInputChannel) {
         MqttPahoMessageDrivenChannelAdapter adapter = new MqttPahoMessageDrivenChannelAdapter(
                 mqttProperties.getBrokerUrl(),
                 mqttProperties.getClientId(),
@@ -29,7 +29,7 @@ public class MqttIntegrationConfig {
         );
         adapter.setConverter(new DefaultPahoMessageConverter());
         adapter.setQos(1);
-        adapter.setOutputChannel(mqttInputChannel());
+        adapter.setOutputChannel(mqttInputChannel);
         return adapter;
     }
 
