@@ -39,32 +39,38 @@ public class JwtService {
     }
 
     /**
-     * 
-     * @param username username must not null
-     * @param userId userId must not null
+     * @param username    username must not null
+     * @param userId      userId must not null
      * @param authorities autorities list must not null
-     * @param type TOKEN | REFRESH_TOKEN must not null
-     * @param issueDate token creation time must not null
+     * @param type        TOKEN | REFRESH_TOKEN must not null
+     * @param issueDate   token creation time must not null
      * @return jwt token have subject: username, authorities: list of user authorities, issueAt: issueDate,
      * expireAt: issueDate + timeoutInterval
      */
-    public String generateToken(@NonNull String username, @NonNull Long userId, @NonNull List<GrantedAuthority> authorities,
-                                @NonNull JwtType type, @NonNull Date issueDate) {
+    public String generateToken(
+            @NonNull String username,
+            @NonNull Long userId,
+            @NonNull List<GrantedAuthority> authorities,
+            @NonNull JwtType type,
+            @NonNull Date issueDate) {
         // Convert date to instant (New Java Datetime API)
         return generateToken(username, userId, authorities, type, issueDate.toInstant());
     }
 
     /**
-     * 
-     * @param username username must not null
-     * @param authorities autorities list must not null
-     * @param type TOKEN | REFRESH_TOKEN must not null
+     * @param username     username must not null
+     * @param authorities  autorities list must not null
+     * @param type         TOKEN | REFRESH_TOKEN must not null
      * @param issueInstant token creation time must not null
      * @return jwt token have subject: username, authorities: list of user authorities, issueAt: issueInstant,
      * expireAt: issueInstant + timeoutInterval
      */
-    public String generateToken(@NonNull String username, @NonNull Long userId, @NonNull List<? extends GrantedAuthority> authorities,
-                                @NonNull JwtType type, @NonNull Instant issueInstant) {
+    public String generateToken(
+            @NonNull String username,
+            @NonNull Long userId,
+            @NonNull List<? extends GrantedAuthority> authorities,
+            @NonNull JwtType type,
+            @NonNull Instant issueInstant) {
         // Get timeout interval
         long timeOutInterval = jwtTimeout;
         if (type == JwtType.REFRESH_TOKEN) {
@@ -91,7 +97,6 @@ public class JwtService {
     }
 
     /**
-     * 
      * @param token jwt token
      * @return DecodedJWT if token is valid
      */
