@@ -9,31 +9,42 @@ import org.springframework.integration.dsl.IntegrationFlows;
 import org.springframework.integration.dsl.Transformers;
 import org.springframework.integration.mqtt.inbound.MqttPahoMessageDrivenChannelAdapter;
 import org.springframework.integration.mqtt.support.DefaultPahoMessageConverter;
-import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHandler;
-import org.springframework.messaging.MessagingException;
 
 @Configuration
 public class MqttIntegrationConfig {
 
     @Bean("mqttInputChannel")
     public MessageChannel mqttInputChannel() {
-        MessageChannel channel = new PublishSubscribeChannel();
-        return channel;
+        return new PublishSubscribeChannel();
     }
 
-    public MqttPahoMessageDrivenChannelAdapter inbound(MqttProperties mqttProperties) {
-        MqttPahoMessageDrivenChannelAdapter adapter = new MqttPahoMessageDrivenChannelAdapter(
-                mqttProperties.getBrokerUrl(), mqttProperties.getClientId(), mqttProperties.getTopicFilter());
+    @Bean
+    public MqttPahoMessageDrivenChannelAdapter inbound(
+            MqttProperties mqttProperties) {
+        // Create mqtt paho adapter
+        MqttPahoMessageDrivenChannelAdapter adapter
+                = new MqttPahoMessageDrivenChannelAdapter(
+                mqttProperties.getBrokerUrl(),
+                mqttProperties.getClientId(),
+                mqttProperties.getTopicFilter()
+        );
+
+        // Default converter
         adapter.setConverter(new DefaultPahoMessageConverter());
         adapter.setQos(1);
+
+        // Return the adapter
         return adapter;
     }
 
     @Bean
-    public IntegrationFlow inboundFlow(MqttProperties mqttProperties, MessageChannel mqttInputChannel) {
-        return IntegrationFlows.from(inbound(mqttProperties))
+    public IntegrationFlow inboundFlow(MqttPahoMessageDrivenChannelAdapter inbound,
+            MessageChannel mqttInputChannel) {
+        // Add transformer convert json to object
+        // Ouput to mqttInputChannel
+        return IntegrationFlows.from(inbound)
                 .transform(Transformers.fromJson(MqttPayload.class))
                 .channel(mqttInputChannel)
                 .get();
@@ -42,15 +53,8 @@ public class MqttIntegrationConfig {
     @Bean
     @ServiceActivator(inputChannel = "mqttInputChannel")
     public MessageHandler handler() {
-        return new MessageHandler() {
-
-            @Override
-            public void handleMessage(Message<?> message) throws MessagingException {
-                System.out.println(message.getPayload());
-
-            }
-
-        };
+        // Default handler
+        return message -> System.out.println(message.getPayload());
     }
 
 }
