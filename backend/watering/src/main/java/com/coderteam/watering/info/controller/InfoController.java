@@ -4,6 +4,8 @@
 
 package com.coderteam.watering.info.controller;
 
+import com.coderteam.watering.mqtt.SendGateway;
+import com.coderteam.watering.mqtt.config.MqttPayload;
 import com.coderteam.watering.secutiry.entity.User;
 import com.coderteam.watering.secutiry.repos.UserRepos;
 
@@ -22,13 +24,18 @@ public class InfoController {
 
     private UserRepos repos;
 
-    public InfoController(UserRepos repos) {
+    private SendGateway sendGateway;
+
+    public InfoController(UserRepos repos, SendGateway sendGateway) {
         this.repos = repos;
+        this.sendGateway = sendGateway;
     }
 
     // This method checks to see if you have installed project correctly
     @GetMapping("")
     public String getBasicInfo() {
+        sendGateway.setMotorStatus(MqttPayload.builder()
+            .deviceId("id9_1").value(new String[]{"3", "2"}).build());
         return "Hello world";
     }
 

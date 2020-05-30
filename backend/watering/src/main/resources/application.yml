@@ -13,4 +13,7 @@ jwt:
 mqtt:
   broker-url: ws://13.76.221.132:8083
   client-id: watering
-  topic-filter: T_1, T_2, T_3, T_4
+  publish-topic: T_1
+  subscribe-topic: T_2
+  username: username
+  password: password

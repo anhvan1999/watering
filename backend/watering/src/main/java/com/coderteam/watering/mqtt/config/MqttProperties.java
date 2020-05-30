@@ -13,6 +13,12 @@ public class MqttProperties {
 
     String clientId;
 
-    String[] topicFilter;
+    String publishTopic;
+
+    String subscribeTopic;
+
+    String username;
+    
+    String password;
 
 }
