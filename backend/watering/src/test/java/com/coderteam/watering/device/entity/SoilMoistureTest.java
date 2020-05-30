@@ -1,4 +1,4 @@
-package com.coderteam.watering.sensor.entity;
+package com.coderteam.watering.device.entity;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

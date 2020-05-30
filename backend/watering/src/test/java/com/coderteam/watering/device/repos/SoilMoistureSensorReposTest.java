@@ -1,7 +1,7 @@
-package com.coderteam.watering.sensor.repos;
+package com.coderteam.watering.device.repos;
 
 import com.coderteam.watering.BaseTestSuite;
-import com.coderteam.watering.sensor.entity.SoilMoistureSensor;
+import com.coderteam.watering.device.entity.SoilMoistureSensor;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

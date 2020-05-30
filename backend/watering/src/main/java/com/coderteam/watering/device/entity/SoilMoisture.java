@@ -1,4 +1,4 @@
-package com.coderteam.watering.sensor.entity;
+package com.coderteam.watering.device.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
