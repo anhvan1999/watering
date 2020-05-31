@@ -35,7 +35,7 @@ import org.springframework.messaging.MessageHandler;
 public class MqttIntegrationConfig {
 
     // Load config from yml file
-    private MqttProperties mqttProperties;
+    private final MqttProperties mqttProperties;
 
     public MqttIntegrationConfig(MqttProperties mqttProperties) {
         this.mqttProperties = mqttProperties;
@@ -109,7 +109,7 @@ public class MqttIntegrationConfig {
     /**
      * Listen from input channel, route to appropriate device channel:
      * gpsChannel, motorStatusChannel, soilMoistureChannel
-     * @return
+     * @return messagerouter
      */
     @Bean
     @Router(inputChannel = "mqttInputChannel")
@@ -145,9 +145,7 @@ public class MqttIntegrationConfig {
     @ServiceActivator(inputChannel = "motorStatusChannel")
     public MessageHandler handler() {
         // Default handler
-        return message -> {
-            System.out.println(message.getPayload());
-        };
+        return message -> System.out.println(message.getPayload());
     }
 
     @Bean
