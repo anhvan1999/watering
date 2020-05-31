@@ -10,7 +10,7 @@ import {getClassName} from '../../utils/component-utils';
 function LoginPage(props) {
   return (
     <div className={getClassName("container-fluid", style.LoginPage)}>
-      <div className="row my-auto">
+      <div className="row my-auto h-100 align-items-center">
         <div className="col-md-3"></div>
         <div className="col-md-6">
           <LoginForm></LoginForm>
