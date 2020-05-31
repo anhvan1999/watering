@@ -4,11 +4,11 @@
 
 package com.coderteam.watering.info.controller;
 
-import com.coderteam.watering.mqtt.SendGateway;
-import com.coderteam.watering.mqtt.config.MqttPayload;
+import com.coderteam.watering.mqtt.MqttService;
 import com.coderteam.watering.secutiry.entity.User;
 import com.coderteam.watering.secutiry.repos.UserRepos;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,18 +24,17 @@ public class InfoController {
 
     private UserRepos repos;
 
-    private SendGateway sendGateway;
+    @Autowired
+    private MqttService service;
 
-    public InfoController(UserRepos repos, SendGateway sendGateway) {
+    public InfoController(UserRepos repos) {
         this.repos = repos;
-        this.sendGateway = sendGateway;
     }
 
     // This method checks to see if you have installed project correctly
     @GetMapping("")
     public String getBasicInfo() {
-        sendGateway.setMotorStatus(MqttPayload.builder()
-            .deviceId("id9_1").value(new String[]{"3", "2"}).build());
+        service.setMotorStatus("id9_5", 2);
         return "Hello world";
     }
 

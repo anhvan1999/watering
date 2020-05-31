@@ -7,6 +7,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * @author Dang Anh Van
+ * 
+ * This class represent json payload which we get from mqtt message broker
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

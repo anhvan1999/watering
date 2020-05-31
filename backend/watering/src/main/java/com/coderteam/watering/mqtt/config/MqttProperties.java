@@ -4,6 +4,12 @@ import lombok.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConstructorBinding;
 
+/**
+ * @author Dang Anh Van
+ * 
+ * This class is used to load propeties from config file,
+ * see application.yml for infomation
+ */
 @ConfigurationProperties("mqtt")
 @ConstructorBinding
 @Value
