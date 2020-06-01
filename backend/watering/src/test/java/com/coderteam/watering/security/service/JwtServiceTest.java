@@ -1,7 +1,6 @@
 package com.coderteam.watering.security.service;
 
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.coderteam.watering.BaseTestSuite;
 import com.coderteam.watering.secutiry.service.JwtService;
@@ -88,8 +87,8 @@ public class JwtServiceTest extends BaseTestSuite {
 
     @Test
     public void testInvalidSignedToken() {
-        String token = jwtString.substring(0, jwtString.length() - 2) + "Az";
-        assertThrows(SignatureVerificationException.class, () -> jwtService.verifyToken(token));
+        String token = jwtString.substring(0, jwtString.length() - 2) + "A0";
+        assertThrows(IllegalArgumentException.class, () -> jwtService.verifyToken(token));
     }
 
     @Test
