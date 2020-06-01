@@ -12,6 +12,7 @@ import Child from './Child';
 import TopBar from './components/top-bar/TopBar';
 import HomePage from './components/home-page/HomePage';
 import LoginPage from './components/login-page/LoginPage';
+import SensorInfo from './components/SensorInfo/SensorInfo';
 
 let Area = (props) => {
   let match = useRouteMatch();
@@ -57,9 +58,16 @@ function App() {
               <LoginPage></LoginPage>
             </Route>
 
-            <Route path="/">
+            <Route path="/sensor">
+              <SensorInfo></SensorInfo>
+            </Route>
+
+            <Route exact path="/">
               <HomePage></HomePage>
             </Route>
+
+           
+
           </Switch>
         </div>
       </Router>

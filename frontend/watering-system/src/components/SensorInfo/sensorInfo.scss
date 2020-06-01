@@ -1,0 +1,38 @@
+#sensor-info{
+    padding-top:150px;
+}
+.info{
+    width:80%;
+    margin:auto;
+    padding:20px 100px;
+    background-color: rgba(255, 255, 255, 0.7) !important;
+}
+.info h1{
+    font-size:24px;
+    text-align:center;
+    padding-bottom:30px;
+    font-weight:600;
+}
+.info table{
+    width:100%;  
+}
+.info #turn-back{
+    margin-bottom: 20px;
+}
+
+@media only screen and (max-width:768px){
+    #info-sensor{
+        padding-top:100px;
+    }
+    .info{
+        width:100%;
+        padding: 20px;
+    }
+    .info h1{
+        font-size:18px;
+    }
+    .info table{
+        font-size:15px;
+    }
+    
+}

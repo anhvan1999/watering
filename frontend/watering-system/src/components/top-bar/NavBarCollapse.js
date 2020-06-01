@@ -27,7 +27,7 @@ function NavbarCollapse(props) {
           <Link to="/" className="nav-link">Trang chủ</Link>
         </li>
         <li className="nav-item" onClick={props.toggleSidebar}>
-          <Link to="/child" className="nav-link">Cảm biến</Link>
+          <Link to="/sensor" className="nav-link">Cảm biến</Link>
         </li>
         <li className="nav-item" onClick={props.toggleSidebar}>
           <Link to="/child/foo" className="nav-link">Lịch sử</Link>
