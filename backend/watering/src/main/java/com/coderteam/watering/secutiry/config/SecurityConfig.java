@@ -42,17 +42,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/info",
                         "/stomp/**",
                         "/ws/websocket/**",
-                        "/auth/**"
+                        "/auth/**",
+                        "/h2-console/**"
                 )
                 .permitAll()
-                .antMatchers("/info/user")
-                .hasAnyRole("USER")
                 .anyRequest()
                 .authenticated()
                 .and()
                 .addFilter(getJwtFilter())
                 .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .headers()
+                .frameOptions()
+                .disable();
     }
 
     public JwtAuthenticationFilter getJwtFilter() throws Exception {

@@ -157,7 +157,7 @@ public class JwtAuthenticationFilterTest extends BaseTestSuite {
         );
         mockMvc.perform(get("/info/user")
                 .header("Authorization", "jwt " + token))
-                .andExpect(status().isForbidden());
+                .andExpect(status().isOk());
     }
 
 }

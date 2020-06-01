@@ -59,8 +59,7 @@ public class User {
     }
 
     public List<GrantedAuthority> getAuthorities() {
-        return Arrays.asList(authorities.split(" "))
-                .stream()
+        return Arrays.stream(authorities.split(" "))
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
     }

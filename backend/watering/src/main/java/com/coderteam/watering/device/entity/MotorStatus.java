@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import java.time.Instant;
 
 @Entity
 @Data
@@ -26,5 +27,9 @@ public class MotorStatus {
     @Min(0)
     @Max(3)
     private Integer status;
+
+    @Column(nullable = false)
+    @Builder.Default
+    private Instant publishTime = Instant.now();
 
 }

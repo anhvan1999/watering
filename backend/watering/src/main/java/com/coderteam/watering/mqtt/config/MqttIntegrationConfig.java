@@ -142,13 +142,6 @@ public class MqttIntegrationConfig {
     }
 
     @Bean
-    @ServiceActivator(inputChannel = "motorStatusChannel")
-    public MessageHandler handler() {
-        // Default handler
-        return message -> System.out.println(message.getPayload());
-    }
-
-    @Bean
     public MessageChannel mqttObjectOutboundChannel() {
         return new DirectChannel();
     }
