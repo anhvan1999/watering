@@ -24,7 +24,7 @@ public class MqttDatabaseService {
 
     private final MotorStatusRepos motorStatusRepos;
 
-    public void saveSensorDataToDatabase(MqttPayload mqttPayload) {
+    public SoilMoisture saveSensorDataToDatabase(MqttPayload mqttPayload) {
         // Load sensor - create if not exist
         String deviceId = mqttPayload.getDeviceId();
         SoilMoistureSensor sensor = sensorRepos.findByDeviceId(deviceId).orElse(null);
@@ -44,7 +44,7 @@ public class MqttDatabaseService {
                 .value(Short.parseShort(sensorValue[1]))
                 .sensor(sensor)
                 .build();
-        valueRepos.save(value);
+        return valueRepos.save(value);
     }
 
     public void saveMotorStatusToDatabase(MqttPayload mqttPayload) {

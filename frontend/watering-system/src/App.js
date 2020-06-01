@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import { Switch, Route, BrowserRouter as Router, useRouteMatch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setAuthState } from './service/auth-service';
+import wsService from './service/ws-service';
 
 // Redux store
 import store from './redux-store/store';
