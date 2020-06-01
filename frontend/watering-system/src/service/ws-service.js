@@ -1,10 +1,11 @@
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
 
+// Create connection via sockjs and stompjs
+const sock = new SockJS(process.env.REACT_APP_API_ROOT + '/stomp');
+const stompClient = Stomp.over(sock);
 
-let sock = new SockJS(process.env.REACT_APP_API_ROOT + '/stomp');
-let stompClient = Stomp.over(sock);
-
+// On connected
 stompClient.connect({}, frame => {
     console.log("connected", frame);
 
@@ -13,7 +14,8 @@ stompClient.connect({}, frame => {
     });
 
     stompClient.subscribe("/topic/sensor", data => {
-        console.log("receive", data);
+        let sensorData = JSON.parse(data.body);
+        console.log(new Date(sensorData.publishTime));
     });
 
     for (let i = 0; i < 2; ++i) {
