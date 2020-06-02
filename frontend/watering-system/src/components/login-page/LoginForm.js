@@ -86,7 +86,6 @@ export default function LoginForm(props) {
             </div>
           </div>
           <div className="form-group row">
-            <label htmlFor="password" className="col-12 col-form-label text-secondary"><FaKey></FaKey> <a href="#">Quên mật khẩu?</a></label>
             <div className="d-flex justify-content-between col-12">
               <button className="btn btn-primary w-100" onClick={loginBtnHandle}>Đăng Nhập</button>
             </div>

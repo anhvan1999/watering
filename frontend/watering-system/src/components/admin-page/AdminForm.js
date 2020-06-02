@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { FaUserCircle, FaKey, FaUserLock} from 'react-icons/fa';
+import { FaUserCircle, FaKey, FaUserLock, FaUserMinus} from 'react-icons/fa';
 import { getClassName } from '../../utils/component-utils';
 import { useRouteMatch, useHistory } from 'react-router-dom';
 
 import style from './admin.module.scss';
 
-export default function LoginForm(props) {
+export default function AdminForm(props) {
   // State of component
   let [username, setUsername] = useState('');
   let [password, setPassword] = useState('');
@@ -42,30 +42,7 @@ export default function LoginForm(props) {
 
     //add a authenticate function
   };
-  let DeleteUserBtnHandle = () => {
-    let valid = true;
-
-    if (username === '') {
-      valid = false;
-      setUsernameValid(false);
-    }
-
-    if (password === '') {
-      valid = false;
-      setPasswordValid(false);
-    }
-    if (repeatpassword===''){
-        valid=false;
-        setRepeatpasswordValid(false);
-    }
-
-    if (!valid) {
-      setAllValid(false);
-      return;
-    }
-
-    //add a authenticate function
-  };
+ 
   let changeHandle = (setValue, setValid) => {
     return (event) => {
       setValue(event.target.value);
@@ -125,15 +102,14 @@ export default function LoginForm(props) {
             <div className="col-md-12 text-center">
               <button className="btn btn-success w-50 center" onClick={AddUserBtnHandle}>Thêm người dùng</button>
               <div class="col mt-3"></div>
-
-              <button className="btn btn-danger w-50 center " onClick={DeleteUserBtnHandle}>Xóa người dùng</button>
-
             </div>
 
             <div className={getClassName("col-12 invalid-feedback", (allValid ? '' : 'd-flex'))}>
                 Thao tác không thành công, vui lòng nhập thông tin hợp lệ
             </div>
+            <label htmlFor="password" className="col-12 col-form-label text-secondary"><FaUserMinus></FaUserMinus> <a href="/deleteuser">Xóa người dùng</a></label>
             </div>
+          
         </div>
       </div>
     </div>

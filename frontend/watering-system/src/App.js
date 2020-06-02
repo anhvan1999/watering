@@ -13,6 +13,7 @@ import TopBar from './components/top-bar/TopBar';
 import HomePage from './components/home-page/HomePage';
 import LoginPage from './components/login-page/LoginPage';
 import AdminPage from './components/admin-page/AdminPage';
+import DeleteUser from './components/admin-page/DeleteUser';
 
 let Area = (props) => {
   let match = useRouteMatch();
@@ -54,6 +55,10 @@ function App() {
               <AdminPage></AdminPage>
             </Route>
             
+            <Route path="/deleteuser">
+              <DeleteUser></DeleteUser>
+            </Route>
+
             <Route path="/app">
               <Area></Area>
             </Route>
