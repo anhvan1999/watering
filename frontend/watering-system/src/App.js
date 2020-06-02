@@ -12,6 +12,7 @@ import Child from './Child';
 import TopBar from './components/top-bar/TopBar';
 import HomePage from './components/home-page/HomePage';
 import LoginPage from './components/login-page/LoginPage';
+import AdminPage from './components/admin-page/AdminPage';
 
 let Area = (props) => {
   let match = useRouteMatch();
@@ -49,6 +50,10 @@ function App() {
       <Router>
         <div className="App">
           <Switch>
+          <Route path="/admin">
+              <AdminPage></AdminPage>
+            </Route>
+            
             <Route path="/app">
               <Area></Area>
             </Route>
@@ -60,6 +65,8 @@ function App() {
             <Route path="/">
               <HomePage></HomePage>
             </Route>
+
+            
           </Switch>
         </div>
       </Router>

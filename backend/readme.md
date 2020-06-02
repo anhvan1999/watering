@@ -10,5 +10,5 @@ everything has been configured for you
 
 ## Run the project
 
-1. Run the command `mvn spring-boot:run`
+1. Run the command `mvn spring-boot:run` in file have pom.xml
 2. If project start successfully, go to `localhost:8080/info` to check if you see the `Hello world` message in the screen
