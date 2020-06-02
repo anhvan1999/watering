@@ -1,0 +1,175 @@
+.HomePageSkeleton{
+    font-family: Verdana,sans-serif;
+    line-height: 1.5;
+}
+.Bgimg {
+  background-image: url('./backgroundHomepage.jpg');
+ 
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  background-position: center;
+  background-size: cover;
+}
+
+.HomePageContainer{
+    position: fixed; 
+    height:100%;
+    width: 100%;
+}
+
+.AnimeOpicity {
+    animation: opac 0.8s;
+}
+
+.TextWhite{
+    color: #fff !important;
+}
+
+
+
+/* Logo */
+// .logo-display-topleft {
+//     position: absolute;
+//     left: 0;
+//     top: 0;
+// }
+
+// .logo-padding-large {
+//     padding: 12px 24px !important;
+// }
+
+// .logo-xlarge {
+//     font-size: 24px !important;
+// }
+
+/* Banner */
+.BannerDisplayMiddle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+}
+
+.WelcomeJumbo {
+    font-size: 25px !important;
+}
+
+.WelcomeWeight{
+    font-weight: 1000;
+}
+.WelcomeAnimateTop {
+    position: relative;
+    animation: animatetop 1s ease 0s 1 normal none;
+}
+@keyframes animatetop{
+    from{
+        top:-100px;
+        opacity: 0;
+    }
+    to{
+        top: 0;
+        opacity: 1;
+    }
+}
+.ContentCenter {
+    text-align: center !important;
+}
+/* border */
+.BorderColor{
+    border-color: #ffffff !important;
+}
+.BorderSize{
+    margin:auto;
+    width:40%
+}
+.BorderAnimation{
+   animation: BorderAppear 2s ease 0s 1 normal none;
+}
+@keyframes BorderAppear{
+    from{width: 0%;}
+    to{width:40%;}
+}
+/* content */
+.ContentLarge {
+    font-size: 12px !important;
+}
+.ContentFormat{
+    margin-top: 10px;
+}
+
+/* button */
+.ButtonFormat {
+    background-color: white;
+    color: rgb(1, 94, 4);
+    border: 2px solid #4CAF50;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-weight: bold;
+}
+.ButtonFontSize{
+     font-size: 12px;
+}
+.ButtonFormat:hover{
+    background-color: #4CAF50;
+    color:#ffffff;
+    text-decoration: none;
+}
+.ButtonCenter {
+    margin-top: 20px;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+
+@media only screen and (min-width: 576px) {
+    .WelcomeJumbo {
+        font-size: 29px !important;
+    }
+    .ContentLarge {
+        font-size: 14px !important;
+    }
+    .ButtonFontSize{
+        font-size: 14px;
+   }
+  }
+  @media only screen and (min-width: 768px) {
+    .WelcomeJumbo {
+        font-size: 39px !important;
+    }
+    .ContentLarge {
+        font-size: 14px !important;
+    }
+    .ButtonFontSize{
+        font-size: 14px;
+   }
+  }
+
+  @media only screen and (min-width: 992px) {
+    .WelcomeJumbo {
+        font-size: 50px !important;
+    }
+    .ContentLarge {
+        font-size: 16px !important;
+    }
+    .ButtonFontSize{
+        font-size: 16px;
+   }
+  }
+  @media only screen and (min-width: 1200px) {
+    .WelcomeJumbo {
+        font-size: 60px !important;
+    }
+    .ContentLarge {
+        font-size: 18px !important;
+    }
+    .ButtonFontSize{
+        font-size: 18px;
+   }
+  }
