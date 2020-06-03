@@ -29,6 +29,9 @@ let Area = (props) => {
         <Route path={`${match.url}/child`}>
           <Child></Child>
         </Route>
+        <Route path={`${match.url}/sensor`}>
+          <SensorInfo></SensorInfo>
+        </Route>
       </Switch>
     </div>
   )
@@ -57,11 +60,7 @@ function App() {
             <Route path="/login">
               <LoginPage></LoginPage>
             </Route>
-
-            <Route path="/sensor">
-              <SensorInfo></SensorInfo>
-            </Route>
-
+            
             <Route exact path="/">
               <HomePage></HomePage>
             </Route>

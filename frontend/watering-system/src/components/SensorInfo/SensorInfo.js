@@ -16,7 +16,6 @@ class SensorInfo extends React.Component {
     render(){
         return (
             <div id="sensor-info">
-                <TopBar></TopBar>
                 {
                     this.state.show? 
                     <div id="info" className="info">
