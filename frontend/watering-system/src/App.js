@@ -14,13 +14,14 @@ import TopBar from './components/top-bar/TopBar';
 import HomePage from './components/home-page/HomePage';
 import LoginPage from './components/login-page/LoginPage';
 import SensorInfo from './components/SensorInfo/SensorInfo';
-import AdminPage from './components/admin-page/AdminPage';
-import DeleteUser from './components/admin-page/DeleteUser';
+import AdminFilter from './components/admin-fliter/AdminFilter';
 
+// Place your page in this area if your page requre 
+// user to login before using it
 let Area = (props) => {
   let match = useRouteMatch();
 
-  if (props.username === '' || !props.username) { 
+  if (props.username === '' || !props.username) {
     return (
       <LoginPage></LoginPage>
     )
@@ -35,11 +36,15 @@ let Area = (props) => {
         <Route path={`${match.url}/sensor`}>
           <SensorInfo></SensorInfo>
         </Route>
+        <Route path={`${match.url}/admin`}>
+          <AdminFilter></AdminFilter>
+        </Route>
       </Switch>
     </div>
   )
 };
 
+// Map username to check if user is logged in
 function mapStateToPropsArea(state) {
   return {
     username: state.user.username
@@ -48,7 +53,6 @@ function mapStateToPropsArea(state) {
 
 Area = connect(mapStateToPropsArea, null)(Area);
 
-
 function App() {
   setAuthState();
   return (
@@ -56,27 +60,17 @@ function App() {
       <Router>
         <div className="App">
           <Switch>
-          <Route path="/admin">
-              <AdminPage></AdminPage>
-            </Route>
-            
-            <Route path="/deleteuser">
-              <DeleteUser></DeleteUser>
-            </Route>
-
             <Route path="/app">
               <Area></Area>
             </Route>
-            
+
             <Route path="/login">
               <LoginPage></LoginPage>
             </Route>
-            
+
             <Route exact path="/">
               <HomePage></HomePage>
             </Route>
-
-            
           </Switch>
         </div>
       </Router>
