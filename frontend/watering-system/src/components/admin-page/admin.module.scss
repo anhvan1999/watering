@@ -1,0 +1,19 @@
+.AdminPage {
+    padding-top: 30px;
+    position: fixed;
+    // top: 62px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-image: url('./backgroundadmin.jpg');
+  }
+  
+  .AdminCard {
+    background-color: rgba(255, 255, 255, 0.9) !important;
+  }
+  .divider{
+    width:50px;
+    height:auto;
+    display:inline-block;
+}

@@ -1,0 +1,23 @@
+#user-info{
+    padding-top:150px;
+    background-image: url('./backgroundadmin.jpg');
+}
+.info{
+    width:80%;
+    margin:auto;
+    padding:20px 100px;
+    background-color: rgba(255, 255, 255, 0.7) !important;
+}
+.info h1{
+    font-size:24px;
+    text-align:center;
+    padding-bottom:30px;
+    font-weight:600;
+}
+.info table{
+    width:100%;  
+}
+.info #turn-back{
+    margin-bottom: 20px;
+}
+
