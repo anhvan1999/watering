@@ -11,13 +11,13 @@ export default function DropDownMenu(props) {
   let [innerActive, setInnerActive] = useState(true);
 
   let inlineStyle = {
-    display: 'none'
+     display: 'none'
   };
-
+  
   if (props.active === innerActive) {
     inlineStyle.display = 'block';
   }
-
+  console.log(props)
   return (
     <ul className="nav-item dropdown">
       <div className={getClassName("dropdown-menu dropdown-menu-right shadow-sm", style.dropdownItem)}

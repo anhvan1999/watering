@@ -4,8 +4,11 @@ import style from './homepage.module.scss';
 import { getClassName } from '../../utils/component-utils';
 import LoginPage from '../login-page/LoginPage';
 
+
 export default function HomePage() {
+    
     return (
+<<<<<<< HEAD
         <Router>
             <div className={getClassName(
                 style.Bgimg, style.HomePageContainer, style.AnimeOpicity, style.TextWhite
@@ -51,5 +54,10 @@ export default function HomePage() {
                 </Route>
             </Switch>
         </Router>
+=======
+        <div>
+            <h1>Home Page chua hien thuc</h1>
+        </div>
+>>>>>>> SensorInfo
     );
 }
