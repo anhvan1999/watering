@@ -9,7 +9,6 @@ export default function AdminFilter() {
 
   return (
     <div>
-      <h1>Baz</h1>
       <Switch>
         <Route path={`${match.url}/add`}>
           <AdminPage></AdminPage>
