@@ -19,20 +19,46 @@
 .info #turn-back{
     margin-bottom: 20px;
 }
-
+.info .btn-sensor::after{
+    content: "Xem chi tiết";
+}
+@media only screen and (max-width:1024px){
+    #info-sensor{
+        width:90%;
+        margin:auto;
+    }
+    .info{
+        width:100%;
+        padding:10px;
+    }
+    .info h1{
+        font-size:20px;
+    }
+    .info table{
+        font-size:15px;
+    }
+    .info button{
+        font-size:15px;
+    }
+}
 @media only screen and (max-width:768px){
     #info-sensor{
         padding-top:100px;
     }
     .info{
         width:100%;
-        padding: 20px;
+        padding: 5px;
     }
     .info h1{
         font-size:18px;
     }
     .info table{
-        font-size:15px;
+        font-size:12px;
     }
-    
+    .info button{
+        font-size:12px;
+    }
+    .info .btn-sensor::after{
+        content:'Xem';
+    }
 }

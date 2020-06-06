@@ -34,37 +34,37 @@ class SensorInfo extends React.Component {
                                     <td>Cảm biến 1</td>
                                     <td>80</td>
                                     <td>Ẩm</td>
-                                    <td><button className="btn btn-primary" id="btn-sensor-1" onClick = {() => {this.setState({show:false, sensorID:1})}}>Xem chi tiết</button></td>
+                                    <td><button className="btn btn-primary btn-sensor 1" onClick = {() => {this.setState({show:false, sensorID:1})}}></button></td>
                                 </tr>
                                 <tr>
                                     <td>Cảm biến 2</td>
                                     <td>86</td>
                                     <td>Ẩm</td>
-                                    <td><button className="btn btn-primary" id="btn-sensor-1" onClick = {() => {this.setState({show:false, sensorID:2})}}>Xem chi tiết</button></td>
+                                    <td><button className="btn btn-primary btn-sensor 2" onClick = {() => {this.setState({show:false, sensorID:2})}}></button></td>
                                 </tr>
                                 <tr>
                                     <td>Cảm biến 3</td>
                                     <td>47</td>
                                     <td>Khô</td>
-                                    <td><button className="btn btn-primary" id="btn-sensor-1" onClick = {() => {this.setState({show:false, sensorID:3})}}>Xem chi tiết</button></td>
+                                    <td><button className="btn btn-primary btn-sensor 3" onClick = {() => {this.setState({show:false, sensorID:3})}}></button></td>
                                 </tr>
                                 <tr>
                                     <td>Cảm biến 4</td>
                                     <td>47</td>
                                     <td>Khô</td>
-                                    <td><button className="btn btn-primary" id="btn-sensor-1" onClick = {() => {this.setState({show:false, sensorID:4})}}>Xem chi tiết</button></td>
+                                    <td><button className="btn btn-primary btn-sensor 4" onClick = {() => {this.setState({show:false, sensorID:4})}}></button></td>
                                 </tr>
                                 <tr>
                                     <td>Cảm biến 5</td>
                                     <td>47</td>
                                     <td>Khô</td>
-                                    <td><button className="btn btn-primary" id="btn-sensor-1" onClick = {() => {this.setState({show:false, sensorID:5})}}>Xem chi tiết</button></td>
+                                    <td><button className="btn btn-primary btn-sensor 5" onClick = {() => {this.setState({show:false, sensorID:5})}}></button></td>
                                 </tr>
                                 <tr>
                                     <td>Cảm biến 6</td>
                                     <td>47</td>
                                     <td>Khô</td>
-                                    <td><button className="btn btn-primary" id="btn-sensor-1" onClick = {() => {this.setState({show:false, sensorID:6})}}>Xem chi tiết</button></td>
+                                    <td><button className="btn btn-primary btn-sensor 6" onClick = {() => {this.setState({show:false, sensorID:6})}}></button></td>
                                 </tr>
                             </tbody>
                         </table>
