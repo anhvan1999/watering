@@ -15,17 +15,19 @@ import HomePage from './components/home-page/HomePage';
 import LoginPage from './components/login-page/LoginPage';
 import SensorInfo from './components/SensorInfo/SensorInfo';
 import AdminFilter from './components/admin-fliter/AdminFilter';
+import MotorPage from './components/motor-page/MotorPage';
 
 // Place your page in this area if your page requre 
 // user to login before using it
 let Area = (props) => {
   let match = useRouteMatch();
 
-  if (props.username === '' || !props.username) {
+  if ((props.username === '' || !props.username) && process.env.REACT_APP_PROTECT !== 'false') {
     return (
       <LoginPage></LoginPage>
-    )
+    );
   }
+
   return (
     <div>
       <TopBar></TopBar>
@@ -38,6 +40,9 @@ let Area = (props) => {
         </Route>
         <Route path={`${match.url}/admin`}>
           <AdminFilter></AdminFilter>
+        </Route>
+        <Route path={`${match.url}/motor`}>
+          <MotorPage></MotorPage>
         </Route>
       </Switch>
     </div>

@@ -1,0 +1,20 @@
+.MotorPage {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.MotorList {
+    border-right: 1px solid #80808063;
+    overflow-y: scroll;
+}
+
+.MotorLabel {
+    padding: 10px;
+
+    &:hover {
+        background-color: rgb(188, 206, 182);
+    }
+}
