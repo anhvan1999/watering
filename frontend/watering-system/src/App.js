@@ -15,6 +15,7 @@ import HomePage from './components/home-page/HomePage';
 import LoginPage from './components/login-page/LoginPage';
 import SensorInfo from './components/SensorInfo/SensorInfo';
 import AdminFilter from './components/admin-fliter/AdminFilter';
+import UserInfo from './components/user-info/UserInfo';
 
 // Place your page in this area if your page requre 
 // user to login before using it
@@ -38,6 +39,9 @@ let Area = (props) => {
         </Route>
         <Route path={`${match.url}/admin`}>
           <AdminFilter></AdminFilter>
+        </Route>
+        <Route path={`${match.url}/user`}>
+          <UserInfo></UserInfo>
         </Route>
       </Switch>
     </div>
