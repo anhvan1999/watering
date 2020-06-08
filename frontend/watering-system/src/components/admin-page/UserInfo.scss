@@ -1,23 +1,26 @@
-#user-info{
-    padding-top:150px;
-    background-image: url('./backgroundadmin.jpg');
+#list-info{
+    padding-top: 100px;
+    
 }
-.info{
-    width:80%;
-    margin:auto;
-    padding:20px 100px;
+.infolist{
+    width:100%;
+    height:100%;
+    padding:0% 10%;
     background-color: rgba(255, 255, 255, 0.7) !important;
 }
-.info h1{
-    font-size:24px;
-    text-align:center;
-    padding-bottom:30px;
-    font-weight:600;
+
+.infolist th{
+    border: 1px solid black;
+    padding:1%;
 }
-.info table{
-    width:100%;  
+.infolist td {
+    border: 1px solid black;
+    padding:1.5%;
 }
-.info #turn-back{
-    margin-bottom: 20px;
+
+.infolist table{
+    width:100%; 
+    border: 3px solid black;
+    text-align: center;
 }
 
