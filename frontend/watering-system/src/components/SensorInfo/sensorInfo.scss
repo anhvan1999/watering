@@ -1,64 +1,64 @@
-#sensor-info{
+.sensor-info{
     padding-top:150px;
 }
-.info{
+.list-sensor-info{
     width:80%;
     margin:auto;
     padding:20px 100px;
     background-color: rgba(255, 255, 255, 0.7) !important;
 }
-.info h1{
+.list-sensor-info h1{
     font-size:24px;
     text-align:center;
     padding-bottom:30px;
     font-weight:600;
 }
-.info table{
+.list-sensor-info table{
     width:100%;  
 }
-.info #turn-back{
+.list-sensor-info #turn-back{
     margin-bottom: 20px;
 }
-.info .btn-sensor::after{
+.list-sensor-info .btn-sensor::after{
     content: "Xem chi tiết";
 }
 @media only screen and (max-width:1024px){
-    #info-sensor{
+    .sensor-info{
         width:90%;
         margin:auto;
     }
-    .info{
+    .list-sensor-info{
         width:100%;
         padding:10px;
     }
-    .info h1{
+    .list-sensor-info h1{
         font-size:20px;
     }
-    .info table{
+    .list-sensor-info table{
         font-size:15px;
     }
-    .info button{
+    .list-sensor-info button{
         font-size:15px;
     }
 }
 @media only screen and (max-width:768px){
-    #info-sensor{
+    .sensor-info{
         padding-top:100px;
     }
-    .info{
+    .list-sensor-info{
         width:100%;
         padding: 5px;
     }
-    .info h1{
+    .list-sensor-info h1{
         font-size:18px;
     }
-    .info table{
+    .list-sensor-info table{
         font-size:12px;
     }
-    .info button{
+    .list-sensor-info button{
         font-size:12px;
     }
-    .info .btn-sensor::after{
+    .list-sensor-info .btn-sensor::after{
         content:'Xem';
     }
 }
