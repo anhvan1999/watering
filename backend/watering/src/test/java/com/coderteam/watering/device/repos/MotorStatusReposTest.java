@@ -22,7 +22,7 @@ public class MotorStatusReposTest extends BaseTestSuite {
         Motor motor = Motor.builder()
                 .deviceId("id9_1")
                 .build();
-        motorRepos.save(motor);
+        motor = motorRepos.save(motor);
 
         MotorStatus motorStatus = MotorStatus.builder()
                 .motor(motorRepos.findByDeviceId("id9_1").orElseThrow())

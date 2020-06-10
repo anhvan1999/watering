@@ -6,6 +6,7 @@ spring:
     url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/watering_system?serverTimezone=UTC&useLegacyDatetimeCode=false
     username: watering
     password: watering
+    dialect: org.hibernate.dialect.MySQL8Dialect
 jwt:
   token: dkjJGSYt7gb476bZJHDG76tg42uyhb5437kLxdh9827,.ds.okpo78645KsjdSgt43[ery834bgds]
   timeout: 3600
