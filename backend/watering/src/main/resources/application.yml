@@ -11,7 +11,7 @@ jwt:
   timeout: 3600
   refresh-timeout: 604800
 mqtt:
-  broker-url: ws://13.76.221.132:8083
+  broker-url: tcp://52.179.81.237:1883
   client-id: watering
   publish-topic: T_1
   subscribe-topic: T_2
