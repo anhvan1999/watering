@@ -30,8 +30,8 @@ public class SoilMoisture {
     @Column(nullable = false)
     private Short value;
 
-    @Column(nullable = false)
-    private Boolean status;
+    // @Column(nullable = false)
+    // private Boolean status;
 
     @ManyToOne
     @JoinColumn(nullable = false)

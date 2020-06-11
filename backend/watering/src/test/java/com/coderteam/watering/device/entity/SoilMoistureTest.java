@@ -16,14 +16,12 @@ public class SoilMoistureTest {
                 .build();
 
         SoilMoisture soilMoisture = SoilMoisture.builder()
-                .status(true)
                 .value((short)1023)
                 .sensor(sensor)
                 .build();
         
         Assertions.assertEquals(soilMoisture.getValue(), (short)1023);
         Assertions.assertEquals(soilMoisture.getSensor(), sensor);
-        Assertions.assertEquals(soilMoisture.getStatus(), true);
         Assertions.assertNotNull(soilMoisture.getPublishTime());
     }
 

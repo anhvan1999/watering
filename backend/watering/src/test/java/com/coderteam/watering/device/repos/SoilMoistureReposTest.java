@@ -29,7 +29,6 @@ public class SoilMoistureReposTest extends BaseTestSuite {
         SoilMoisture sensorData = SoilMoisture.builder()
                 .sensor(sensor)
                 .value((short) 1020)
-                .status(true)
                 .build();
         sensorData = repos.save(sensorData);
 

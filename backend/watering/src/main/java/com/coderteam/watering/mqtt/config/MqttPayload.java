@@ -21,7 +21,7 @@ public class MqttPayload {
     @JsonProperty("device_id")
     private String deviceId;
 
-    @JsonProperty("value")
-    private String[] value;
+    @JsonProperty("values")
+    private String[] values;
     
 }

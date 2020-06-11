@@ -18,12 +18,12 @@ public class MqttMessageHandler {
     @ServiceActivator(inputChannel = "soilMoistureChannel")
     public void soidMoistureDatabaseHandler(MqttPayload payload) {
         SoilMoisture soilMoisture = mqttDatabaseService.saveSensorDataToDatabase(payload);
+        System.out.println(payload);
         template.convertAndSend("/topic/sensor", soilMoisture);
     }
 
     @ServiceActivator(inputChannel = "motorStatusChannel")
     public void motorStatusDatabaseHandler(MqttPayload payload) {
-        System.out.println(payload);
         mqttDatabaseService.saveMotorStatusToDatabase(payload);
     }
 

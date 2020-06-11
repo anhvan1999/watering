@@ -34,9 +34,9 @@ public class MqttService {
                 .deviceId(deviceId);
 
         if (value == 0) {
-            payloadBuilder.value(new String[] {"0", "1"});
+            payloadBuilder.values(new String[] {"0", "1"});
         } else {
-            payloadBuilder.value(new String[] {"1", Integer.toString(value)});
+            payloadBuilder.values(new String[] {"1", Integer.toString(value)});
         }
 
         gateway.setMotorStatus(payloadBuilder.build());
