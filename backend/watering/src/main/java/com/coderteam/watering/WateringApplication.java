@@ -1,5 +1,7 @@
 package com.coderteam.watering;
 
+import com.coderteam.watering.device.entity.Motor;
+import com.coderteam.watering.device.repos.MotorRepos;
 import com.coderteam.watering.secutiry.entity.User;
 import com.coderteam.watering.secutiry.repos.UserRepos;
 import org.springframework.boot.ApplicationArguments;
@@ -29,11 +31,14 @@ class StartupRunner implements ApplicationRunner {
 
     private final UserRepos userRepos;
 
+    private final MotorRepos motorRepos;
+
     private final PasswordEncoder passwordEncoder;
 
-    public StartupRunner(UserRepos repos, PasswordEncoder encoder) {
+    public StartupRunner(UserRepos repos, PasswordEncoder encoder, MotorRepos motorRepos) {
         userRepos = repos;
         passwordEncoder = encoder;
+        this.motorRepos = motorRepos;
     }
 
     @Override
@@ -56,6 +61,13 @@ class StartupRunner implements ApplicationRunner {
 
         // Save to database
         userRepos.saveAll(List.of(superUser, user));
+
+        // Create motor object
+        Motor motor = Motor.builder()
+            .deviceId("Speaker")
+            .build();
+        
+        motorRepos.save(motor);
     }
 
 }
