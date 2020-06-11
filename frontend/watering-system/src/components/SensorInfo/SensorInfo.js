@@ -28,7 +28,7 @@ class SensorInfo extends React.Component {
         console.log(this.props);
         axios.get('/sensor/list', {
             headers: {
-                Authorization: `jwt ${this.props.token}`
+                'Authorization': `jwt ${this.props.token}`
             }
         }).then(data => {
             console.log(data);
