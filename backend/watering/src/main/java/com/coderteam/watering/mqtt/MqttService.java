@@ -26,7 +26,7 @@ public class MqttService {
      * and value, value must in range [0..3] 
      */
     public void setMotorStatus(String deviceId, int value) {
-        if (value < 0 || value > 3) {
+        if (value < 0 || value > 5000) {
             throw new RuntimeException("Invalid status");
         }
 
