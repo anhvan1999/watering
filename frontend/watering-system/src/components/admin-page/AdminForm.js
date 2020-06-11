@@ -54,7 +54,7 @@ export default function AdminForm(props) {
     <div className={getClassName("card", style.AdminCard)}>
       <div className="card-header">
       <h3 className="text-center text-primary"> Chào mừng trở lại, admin! </h3>
-        <h3 className="text-center text-primary"><FaUserLock></FaUserLock> Thêm, xóa người dùng </h3>
+        <h3 className="text-center text-primary"><FaUserLock></FaUserLock> Thêm người dùng </h3>
       </div>
       <div className="card-body">
         <div>
@@ -107,7 +107,7 @@ export default function AdminForm(props) {
             <div className={getClassName("col-12 invalid-feedback", (allValid ? '' : 'd-flex'))}>
                 Thao tác không thành công, vui lòng nhập thông tin hợp lệ
             </div>
-            <label htmlFor="password" className="col-12 col-form-label text-secondary"><FaUserMinus></FaUserMinus> <a href="/deleteuser">Xóa người dùng</a></label>
+            
             </div>
           
         </div>
