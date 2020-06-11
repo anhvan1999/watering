@@ -4,22 +4,40 @@ import style from './sensorInfo.scss';
 import SensorInfoRow from './sensorInfo-row.js';
 import SensorDetailRow from './sensor-detail-row.js';
 
+import {connect} from 'react-redux';
+import axios from '../../utils/axios-instance';
+
 
 class SensorInfo extends React.Component {
     
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
             show: true,
             sensorID:0
         }
         this.onClickturnTab = this.onClickturnTab.bind(this);
     }
+
     onClickturnTab = (id) =>{
         this.setState({show:false, sensorID:id});
         console.log('2');
     }
-    render(){
+
+    componentDidMount() {
+        console.log(this.props);
+        axios.get('/sensor/list', {
+            headers: {
+                Authorization: `jwt ${this.props.token}`
+            }
+        }).then(data => {
+            console.log(data);
+        }).catch(error => {
+            console.log(error);
+        });
+    }
+
+    render() {
         return (
             <div className="sensor-info">
                 {
@@ -65,12 +83,17 @@ class SensorInfo extends React.Component {
                         </table>
                     </div>
                     
-                }
-                
-                
+                }                
             </div>
         );
     }
 }
 
-export default SensorInfo;
+function mapStateToProps(state) {
+    let result = {
+        token: state.user.jwtToken
+    };
+    return result;
+}
+
+export default connect(mapStateToProps, null)(SensorInfo);

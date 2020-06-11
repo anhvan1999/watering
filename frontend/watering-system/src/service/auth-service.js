@@ -48,15 +48,10 @@ export function logout() {
     localStorage.clear();
 }
 
-console.log(process.env.REACT_APP_REFRESH_URL);
-
 export function setAuthState() {
     // Get expireDate and refreshExpireDate from storage
     let jwtExpireStr = sessionStorage.getItem('jwtExpireDate');
     let jwtRefreshExpireStr = localStorage.getItem('jwtRefreshExpireDate');
-
-    // Check
-    console.log(jwtExpireStr, jwtRefreshExpireStr);
 
     // If both are null -> logout and return
     if (!jwtExpireStr && !jwtRefreshExpireStr) {
@@ -68,9 +63,6 @@ export function setAuthState() {
     let jwtExpireDate = new Date(Number(jwtExpireStr));
     let jwtRefreshExpireDate = new Date(Number(jwtRefreshExpireStr));
     let now = new Date();
-
-    // Check
-    console.log(jwtExpireDate, jwtRefreshExpireDate);
 
     // If jwt token is valid
     if (jwtExpireStr && jwtExpireDate > now) {
