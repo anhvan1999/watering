@@ -1,0 +1,182 @@
+// .TitleSection{
+//     background-color: #eaeaea;
+//     padding-top: 10px;
+//     padding-bottom: 10px;
+//     border-bottom: 1px solid #e5e5e5;
+// }
+
+// .Title{
+//     font-size: 40px;
+//     font-weight: 900;
+// }
+
+.clearfix::before{
+    display:table;
+    content: " ";
+}
+.clearfix::after{
+    clear: both;
+}
+/* Content */
+.ContentSection{
+    margin-top:70px;
+    background-color: #f0f0f0;
+    padding: 25px 20px 20px 20px;
+    border-top: 1px solid #F8f8f8;
+}
+.PanelBorderTop{
+    margin-top: 10px;
+    border-top: 5px solid #1fae66;
+}
+
+.Widget{
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+    border-radius: 2px;
+    position: relative;
+}
+.LightWidget{
+    background: #FFFFFF;
+}
+.PanelHeading{
+    position: relative;
+    padding: 7px 15px;
+}
+.NoTitle{
+    height: 30px;
+}
+
+.UserNameSize{
+    font-size: 1.5em;
+}
+.PanelBody{
+    padding: 15px 25px 25px;
+}
+.InfoParent{
+    position: relative;
+}
+
+.Padding20{
+    padding: 20px !important;
+}
+.Padding10{
+    padding: 10px !important;
+}
+.Mgbt{
+    margin-top: 10px !important;
+    margin-bottom: 15px !important;
+}
+
+.FontWeightTopic{
+    font-weight: bolder;
+}
+
+.IconMargin{
+   margin-right: 10px;
+}
+
+.CustomForm{
+    display: none;  /*Hidden by default*/
+    position:fixed;
+    z-index: 10; /* sit on top*/
+    left:0;
+    top:0;
+    width: 100%; 
+    height:100%;
+    background-color: #FFFFFF;
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.RemindFormContent{
+    position: relative;
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+@keyframes animatetop {
+    from {top: -300px; opacity: 0}
+    to {top: 0; opacity: 1}
+  }
+.Close{
+    color: #FFFFFF;
+    float:right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.Close:hover, .Close:focus{
+    color:black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.FormAlertHeader{
+    padding: 5px 16px;
+    background-color: red;
+    color: white;
+}
+
+.BodyForm{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 30px;
+}
+
+.HistoryGroupContainer{
+    position: relative;
+    top:10px;
+    margin:0;
+    padding:0;
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    max-width: 100%;
+    max-height: 400px;
+    margin-bottom: 10px;
+}
+
+
+.ActivityItemList{
+    display: block;
+    text-transform: none;
+    padding-right: 15px;
+}
+
+.ActivityItemTime{
+    display:block;
+    text-transform: capitalize;
+    color: #939ba2;
+    font-style: italic;
+    font-size:12px;
+}
+
+.ControlLabel{
+    font-weight: bolder;
+    margin-top: 0.5rem;
+}
+
+.ButtonMargin{
+    margin:10px;
+}
+
+.Controls{
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.BodyFormSize{
+    font-size: 16px;
+}
+
+.AboutRowPosition{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

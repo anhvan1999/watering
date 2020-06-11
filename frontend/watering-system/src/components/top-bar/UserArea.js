@@ -6,7 +6,7 @@ import DropdownMenu from './DropdownMenu';
 
 export default function UserArea() {
   let linkList = [
-    { to: "/", name: "Thông tin chi tiết" },
+    { to: "/app/user", name: "Thông tin chi tiết" },
     { to: "#", name: "Đăng Xuất", clickHandle: () => { logout(); } }
   ];
 
