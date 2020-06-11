@@ -1,7 +1,8 @@
 import React from 'react';
-import TopBar from '../top-bar/TopBar';
 import style from './sensorInfo.scss';
 
+import SensorInfoRow from './sensorInfo-row.js';
+import SensorDetailRow from './sensor-detail-row.js';
 
 
 class SensorInfo extends React.Component {
@@ -12,13 +13,18 @@ class SensorInfo extends React.Component {
             show: true,
             sensorID:0
         }
+        this.onClickturnTab = this.onClickturnTab.bind(this);
+    }
+    onClickturnTab = (id) =>{
+        this.setState({show:false, sensorID:id});
+        console.log('2');
     }
     render(){
         return (
-            <div id="sensor-info">
+            <div className="sensor-info">
                 {
                     this.state.show? 
-                    <div id="info" className="info">
+                    <div className="list-sensor-info">
                         <h1>Thông tin cảm biến</h1>
                         <table className="table table-hover">
                             <thead className="thead-light">
@@ -30,48 +36,18 @@ class SensorInfo extends React.Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Cảm biến 1</td>
-                                    <td>80</td>
-                                    <td>Ẩm</td>
-                                    <td><button className="btn btn-primary" id="btn-sensor-1" onClick = {() => {this.setState({show:false, sensorID:1})}}>Xem chi tiết</button></td>
-                                </tr>
-                                <tr>
-                                    <td>Cảm biến 2</td>
-                                    <td>86</td>
-                                    <td>Ẩm</td>
-                                    <td><button className="btn btn-primary" id="btn-sensor-1" onClick = {() => {this.setState({show:false, sensorID:2})}}>Xem chi tiết</button></td>
-                                </tr>
-                                <tr>
-                                    <td>Cảm biến 3</td>
-                                    <td>47</td>
-                                    <td>Khô</td>
-                                    <td><button className="btn btn-primary" id="btn-sensor-1" onClick = {() => {this.setState({show:false, sensorID:3})}}>Xem chi tiết</button></td>
-                                </tr>
-                                <tr>
-                                    <td>Cảm biến 4</td>
-                                    <td>47</td>
-                                    <td>Khô</td>
-                                    <td><button className="btn btn-primary" id="btn-sensor-1" onClick = {() => {this.setState({show:false, sensorID:4})}}>Xem chi tiết</button></td>
-                                </tr>
-                                <tr>
-                                    <td>Cảm biến 5</td>
-                                    <td>47</td>
-                                    <td>Khô</td>
-                                    <td><button className="btn btn-primary" id="btn-sensor-1" onClick = {() => {this.setState({show:false, sensorID:5})}}>Xem chi tiết</button></td>
-                                </tr>
-                                <tr>
-                                    <td>Cảm biến 6</td>
-                                    <td>47</td>
-                                    <td>Khô</td>
-                                    <td><button className="btn btn-primary" id="btn-sensor-1" onClick = {() => {this.setState({show:false, sensorID:6})}}>Xem chi tiết</button></td>
-                                </tr>
+                                <SensorInfoRow id={1} measure={80} state={"Ẩm"} func= {this.onClickturnTab}></SensorInfoRow>
+                                <SensorInfoRow id={2} measure={85} state={"Ẩm"} func= {this.onClickturnTab}></SensorInfoRow>
+                                <SensorInfoRow id={3} measure={70} state={"Khô"} func= {this.onClickturnTab}></SensorInfoRow>
+                                <SensorInfoRow id={4} measure={65} state={"Khô"} func= {this.onClickturnTab}></SensorInfoRow>
+                                <SensorInfoRow id={5} measure={75} state={"Ẩm"} func= {this.onClickturnTab}></SensorInfoRow>
+                                <SensorInfoRow id={6} measure={70} state={"Khô"} func= {this.onClickturnTab}></SensorInfoRow>
                             </tbody>
                         </table>
                     </div> :
-                    <div id="info-detail" className="info">
+                    <div className="list-sensor-info">
                         <h1>Cảm biến {this.state.sensorID}</h1>
-                        <button id= "turn-back"className ="btn btn-primary" onClick ={() => {this.setState({show:true})}}>Quay về</button>
+                        <button id= "turn-back" className ="btn btn-primary" onClick ={() => {this.setState({show:true});console.log('1')}}>Quay về</button>
                         <table className="table table-hover">
                             <thead className="thead-light">
                                 <tr>
@@ -81,61 +57,10 @@ class SensorInfo extends React.Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Jun 1 2020 10:00AM</td>
-                                    <td>86</td>
-                                    <td>Ẩm</td>
-                                </tr>
-                                <tr>
-                                    <td>Jun 1 2020 10:05AM</td>
-                                    <td>84</td>
-                                    <td>Ẩm</td>
-                                </tr>
-                                <tr>
-                                    <td>Jun 1 2020 10:10AM</td>
-                                    <td>83</td>
-                                    <td>Ẩm</td>
-                                </tr>
-                                <tr>
-                                    <td>Jun 1 2020 10:15AM</td>
-                                    <td>82</td>
-                                    <td>Ẩm</td>
-                                </tr>
-                                <tr>
-                                    <td>Jun 1 2020 10:20AM</td>
-                                    <td>80</td>
-                                    <td>Ẩm</td>
-                                </tr>
-                                <tr>
-                                    <td>Jun 1 2020 10:25AM</td>
-                                    <td>80</td>
-                                    <td>Ẩm</td>
-                                </tr>
-                                <tr>
-                                    <td>Jun 1 2020 10:30AM</td>
-                                    <td>79</td>
-                                    <td>Ẩm</td>
-                                </tr>
-                                <tr>
-                                    <td>Jun 1 2020 10:35AM</td>
-                                    <td>78</td>
-                                    <td>Ẩm</td>
-                                </tr>
-                                <tr>
-                                    <td>Jun 1 2020 10:40AM</td>
-                                    <td>77</td>
-                                    <td>Ẩm</td>
-                                </tr>
-                                <tr>
-                                    <td>Jun 1 2020 10:45AM</td>
-                                    <td>76</td>
-                                    <td>Ẩm</td>
-                                </tr>
-                                <tr>
-                                    <td>Jun 1 2020 10:50AM</td>
-                                    <td>76</td>
-                                    <td>Ẩm</td>
-                                </tr>
+                                <SensorDetailRow time={"Jun 1 2020 10:00AM"} measure={86} state={"Ẩm"}></SensorDetailRow>
+                                <SensorDetailRow time={"Jun 1 2020 10:05AM"} measure={84} state={"Ẩm"}></SensorDetailRow>
+                                <SensorDetailRow time={"Jun 1 2020 10:10AM"} measure={83} state={"Ẩm"}></SensorDetailRow>
+                                <SensorDetailRow time={"Jun 1 2020 10:15AM"} measure={80} state={"Ẩm"}></SensorDetailRow>
                             </tbody>
                         </table>
                     </div>
