@@ -44,7 +44,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/ws/websocket/**",
                         "/auth/**",
                         "/h2-console/**",
-                        "/motor/list"
+                        "/motor/list",
+                        "/sensor/list"
                 )
                 .permitAll()
                 .anyRequest()
