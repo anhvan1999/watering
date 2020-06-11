@@ -129,7 +129,7 @@ public class MqttIntegrationConfig {
 
                 if (deviceId.startsWith("id9")) {
                     listChannel.add(motorStatusChannel());
-                } else if (deviceId.startsWith("id7")) {
+                } else if (deviceId.startsWith("Mois")) {
                     listChannel.add(soilMoistureChannel());
                 } else {
                     listChannel.add(gpsChannel());

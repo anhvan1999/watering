@@ -1,7 +1,7 @@
 spring:
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: create
   datasource:
     url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/watering_system?serverTimezone=UTC&useLegacyDatetimeCode=false
     username: watering
@@ -12,9 +12,9 @@ jwt:
   timeout: 3600
   refresh-timeout: 604800
 mqtt:
-  broker-url: tcp://52.179.81.237:1883
-  client-id: watering
-  publish-topic: T_1
-  subscribe-topic: T_2
-  username: username
-  password: password
+  broker-url: tcp://168.63.137.21:1883
+  client-id: watering_coder_team
+  publish-topic: Topic/Speaker
+  subscribe-topic: Topic/Mois
+  username: BKvm2
+  password: Hcmut_CSE_2020
