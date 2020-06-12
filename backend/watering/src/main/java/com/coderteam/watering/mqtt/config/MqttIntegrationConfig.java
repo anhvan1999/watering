@@ -79,14 +79,15 @@ public class MqttIntegrationConfig {
         // Return the adapter
         return adapter;
     }
-
+    
     @Bean
     public IntegrationFlow inboundFlow(MqttPahoMessageDrivenChannelAdapter inbound,
             MessageChannel mqttInputChannel) {
         // Add transformer convert json to object
         // Ouput to mqttInputChannel
         return IntegrationFlows.from(inbound)
-                .transform(Transformers.fromJson(MqttPayload.class))
+                //.transform(Transformers.fromJson(MqttPayload.class))
+                .transform(new MqttMessageTransformer())
                 .channel(mqttInputChannel)
                 .get();
     }
