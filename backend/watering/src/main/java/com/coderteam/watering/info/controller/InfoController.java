@@ -34,7 +34,7 @@ public class InfoController {
     // This method checks to see if you have installed project correctly
     @GetMapping("")
     public String getBasicInfo() {
-        service.setMotorStatus("Speaker", 443);
+        service.setMotorStatus("Speaker", 772);
         return "Hello world";
     }
 

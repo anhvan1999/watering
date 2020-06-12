@@ -69,7 +69,8 @@ public class MqttIntegrationConfig {
                 = new MqttPahoMessageDrivenChannelAdapter(
                 mqttProperties.getClientId(),
                 mqttClientFactory(),
-                mqttProperties.getSubscribeTopic()
+                mqttProperties.getSubscribeTopic(),
+                mqttProperties.getPublishTopic()
         );
 
         // Default converter
@@ -128,7 +129,7 @@ public class MqttIntegrationConfig {
                 // List channel
                 ArrayList<MessageChannel> listChannel = new ArrayList<>();
 
-                if (deviceId.startsWith("id9")) {
+                if (deviceId.startsWith("Speaker")) {
                     listChannel.add(motorStatusChannel());
                 } else if (deviceId.startsWith("Mois")) {
                     listChannel.add(soilMoistureChannel());

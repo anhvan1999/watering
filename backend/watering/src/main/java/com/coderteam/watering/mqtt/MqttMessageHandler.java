@@ -25,6 +25,7 @@ public class MqttMessageHandler {
     @ServiceActivator(inputChannel = "motorStatusChannel")
     public void motorStatusDatabaseHandler(MqttPayload payload) {
         mqttDatabaseService.saveMotorStatusToDatabase(payload);
+        System.out.println(payload);
     }
 
 }
