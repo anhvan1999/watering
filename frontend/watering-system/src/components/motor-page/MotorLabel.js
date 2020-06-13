@@ -35,7 +35,7 @@ class MotorLabel extends React.Component{
         </div>
       {
         this.state.showTurnOn ? 
-        <form className="col-12 turnOnMotor bg-light">
+        <form className="col-12 turnOnMotor">
           <input className='motorInput' type="text" placeholder="Nhập khối lượng nước cần bơm"></input>
           <input type="submit" value ="Bơm" onClick={this.showTurnOn} className="btn btn-outline-primary"></input>
         </form>:
