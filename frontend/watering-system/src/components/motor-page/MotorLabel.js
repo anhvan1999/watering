@@ -2,26 +2,48 @@ import React from 'react';
 
 import { getClassName } from '../../utils/component-utils';
 
-import style from './motorpage.module.scss';
+import style from './motorpage.scss';
 
-function MotorLabel(props) {
-  let status = (props.status) ?
-    <span class="badge badge-success">Bật</span>
-    : <span class="badge badge-secondary">Tắt</span>;
+class MotorLabel extends React.Component{
+  
+  
+  constructor(props){
+    super(props);
+    this.state ={
+    showTurnOn: false
+    }
+    this.showsTurnOn = this.showTurnOn.bind(this)
+  }
 
 
-  return (
-    <div className={getClassName("row", style.MotorLabel)}>
-      <div className="col">
-        <h4 class="font-weight-bold">#{props.name} {status}</h4>
-        <div class="btn-group mr-2" role="group" aria-label="Second group">
-          <button type="button" class="btn btn-secondary">5</button>
-          <button type="button" class="btn btn-secondary">6</button>
-          <button type="button" class="btn btn-secondary">7</button>
+  showTurnOn = () =>{
+    this.setState({showTurnOn: !this.state.showTurnOn});
+    console.log('turnOn');
+  }
+
+  render(){
+    const status = this.props.status;
+    const name = this.props.name;
+    return(
+      <div className ="row MotorLabel">
+        <p className='col-4'>Máy bơm {name}</p>
+        <p className='col-4'>{status}</p>
+        <div className ='col-4'>
+          {(status =='On') ?
+          <button className='btn btn-danger'>Tắt</button>:
+          <button className='btn btn-primary' onClick={this.showTurnOn}>Bật</button>}
         </div>
+      {
+        this.state.showTurnOn ? 
+        <form className="col-12 turnOnMotor bg-light">
+          <input className='motorInput' type="text" placeholder="Nhập khối lượng nước cần bơm"></input>
+          <input type="submit" value ="Bơm" onClick={this.showTurnOn} className="btn btn-outline-primary"></input>
+        </form>:
+        <div></div>
+      }
       </div>
-    </div>
-  )
+    );  
+  }
 }
 
 export default MotorLabel;
