@@ -17,13 +17,25 @@ class SensorInfo extends React.Component {
             sensorID:0
         }
         this.onClickturnTab = this.onClickturnTab.bind(this);
+        this.updateInfo = this.updateInfo.bind(this);
     }
 
     onClickturnTab = (id) =>{
         this.setState({show:false, sensorID:id});
-        console.log('2');
     }
-
+    considerState = (value) =>{
+        if (value >= 700){
+            return "Ẩm";
+        }
+        if (value >=450 && value < 700){
+            return "Bình thường";
+        }
+        return "Khô";
+    }
+    updateInfo =()=>{
+        this.setState({state:this.state});
+        console.log('Update Info');
+    }
     componentDidMount() {
         console.log(this.props);
         axios.get('/sensor/list', {
@@ -32,15 +44,18 @@ class SensorInfo extends React.Component {
             }
         }).then(data => {
             console.log(data);
+            this.updateInfo();
         }).catch(error => {
             console.log(error);
         });
     }
 
     render() {
+        
         return (
             <div className="sensor-info">
                 {
+                    
                     this.state.show? 
                     <div className="list-sensor-info">
                         <h1>Thông tin cảm biến</h1>
@@ -54,12 +69,17 @@ class SensorInfo extends React.Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                <SensorInfoRow id={1} measure={80} state={"Ẩm"} func= {this.onClickturnTab}></SensorInfoRow>
+                                {
+                                    this.props.sensor.map(x =>(
+                                        <SensorInfoRow id={x.deviceid} measure={x.data.value} state={this.considerState} func= {this.onClickturnTab}></SensorInfoRow>
+                                    ))
+                                }
+                                {/* <SensorInfoRow id={this.props.deviceid} measure={80} state={"Ẩm"} func= {this.onClickturnTab}></SensorInfoRow>
                                 <SensorInfoRow id={2} measure={85} state={"Ẩm"} func= {this.onClickturnTab}></SensorInfoRow>
                                 <SensorInfoRow id={3} measure={70} state={"Khô"} func= {this.onClickturnTab}></SensorInfoRow>
                                 <SensorInfoRow id={4} measure={65} state={"Khô"} func= {this.onClickturnTab}></SensorInfoRow>
                                 <SensorInfoRow id={5} measure={75} state={"Ẩm"} func= {this.onClickturnTab}></SensorInfoRow>
-                                <SensorInfoRow id={6} measure={70} state={"Khô"} func= {this.onClickturnTab}></SensorInfoRow>
+                                <SensorInfoRow id={6} measure={70} state={"Khô"} func= {this.onClickturnTab}></SensorInfoRow> */}
                             </tbody>
                         </table>
                     </div> :
@@ -91,8 +111,10 @@ class SensorInfo extends React.Component {
 
 function mapStateToProps(state) {
     let result = {
+        sensor: state.sensor,
         token: state.user.jwtToken
     };
+    console.log(state);
     return result;
 }
 

@@ -14,16 +14,16 @@ function sensorReducer(state = defaultState, action) {
     if (action.type === actionTypes.TAKE_DATA_SENSOR) {
         var i;
         var found = false;
-        for (i=0;i < state;i++){
+        for (i=0;i < state.length;i++){
             if (action.data.sensor.deviceId== state[i].deviceid){
-                state[i].deviceid = action.data;
+                state[i].data = action.data;
                 found= true;
                 break;
             }
         }
         if (!found) 
         {   
-            var obj = new objectsensor(action.data.sensor.deviceId,action.data)
+            var obj = new objectsensor(action.data.sensor.deviceId,action.data);
             state.push(obj);
         }
     }
