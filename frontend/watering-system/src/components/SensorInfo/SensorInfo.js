@@ -32,11 +32,16 @@ class SensorInfo extends React.Component {
         }
         return "Khô";
     }
+
     updateInfo =()=>{
         this.setState({state:this.state});
         console.log('Update Info');
     }
+    
+    
+
     componentDidMount() {
+        let timer = setInterval(()=>{this.updateInfo()},10000);
         console.log(this.props);
         axios.get('/sensor/list', {
             headers: {
@@ -44,11 +49,12 @@ class SensorInfo extends React.Component {
             }
         }).then(data => {
             console.log(data);
-            this.updateInfo();
         }).catch(error => {
             console.log(error);
         });
     }
+
+    
 
     render() {
         
@@ -70,9 +76,11 @@ class SensorInfo extends React.Component {
                             </thead>
                             <tbody>
                                 {
-                                    this.props.sensor.map(x =>(
-                                        <SensorInfoRow id={x.deviceid} measure={x.data.value} state={this.considerState} func= {this.onClickturnTab}></SensorInfoRow>
-                                    ))
+                                    this.props.sensor.map(x =>{
+                                        if (x.devicedid != ""){
+                                            return (<SensorInfoRow id={x.deviceid} measure={x.data.value} state={this.considerState} func= {this.onClickturnTab}></SensorInfoRow>)
+                                        }
+                                    })
                                 }
                                 {/* <SensorInfoRow id={this.props.deviceid} measure={80} state={"Ẩm"} func= {this.onClickturnTab}></SensorInfoRow>
                                 <SensorInfoRow id={2} measure={85} state={"Ẩm"} func= {this.onClickturnTab}></SensorInfoRow>
