@@ -1,0 +1,57 @@
+.MotorPage {
+    padding-top:150px;
+}
+.MotorPage h1 {
+    text-align:center;
+    font-size:24px;
+    padding-bottom:30px;
+    padding-top:20px;
+    font-weight:600;
+}
+
+.MotorList {
+    width:60%;
+    margin:auto;
+    text-align:center;
+}
+.MotorList .thead-box{
+    background-color:#e9ecef;
+    line-height:1.5;
+    font-size:1rem;
+    font-weight:bold;
+    padding: .75rem;
+}
+
+.MotorLabel {
+    padding-top:10px;  
+    &:hover {
+        background-color: rgb(188, 206, 182);
+    }
+}
+.MotorLabel .turnOnMotor{
+    text-align:center;
+    padding:25px 0;
+    background-color:#e9ecef;
+}
+.MotorLabel .turnOnMotor .motorInput{
+    margin-right:30px;
+    padding:0;
+    width:35%;
+    padding: .375rem .75rem;
+}
+
+@media only screen and (max-width:768px){
+    .MotorPage h1{
+        font-size:18px;
+    }
+    .MotorList{
+        width:90%;
+        font-size:15px;
+    }
+    .col-4{
+        width: 33.33%;
+    }
+    .col-8{
+        width: 66.67%;;
+    }
+}

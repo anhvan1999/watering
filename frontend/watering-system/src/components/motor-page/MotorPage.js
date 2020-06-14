@@ -4,14 +4,13 @@ import MotorList from './MotorList';
 
 import { getClassName } from '../../utils/component-utils';
 
-import style from './motorpage.module.scss';
+import style from './motorpage.scss';
 
 function MotorPage() {
   return (
-    <div className={getClassName("padding-top-62", "container-fluid", style.MotorPage)}>
-      <div className="row h-100">
-        <MotorList></MotorList>
-      </div>
+    <div className="container-fluid MotorPage">
+      <h1>Thông tin và điều khiển máy bơm</h1>
+      <MotorList></MotorList>
     </div>
   );
 }
