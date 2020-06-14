@@ -18,7 +18,11 @@ stompClient.connect({}, frame => {
     stompClient.subscribe("/topic/sensor", data => {
         let sensorData = JSON.parse(data.body);
         store.dispatch(takeDataSensor(sensorData));
-        console.log("sensor", new Date(sensorData.publishTime));
+    });
+
+    stompClient.subscribe("/topic/motor/status", data => {
+        let motorData = JSON.parse(data.body);
+        console.log(motorData);
     });
 
     send({

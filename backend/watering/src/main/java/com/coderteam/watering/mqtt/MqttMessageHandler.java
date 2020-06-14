@@ -1,5 +1,6 @@
 package com.coderteam.watering.mqtt;
 
+import com.coderteam.watering.device.entity.MotorStatus;
 import com.coderteam.watering.device.entity.SoilMoisture;
 import com.coderteam.watering.mqtt.config.MqttPayload;
 import lombok.AllArgsConstructor;
@@ -24,8 +25,9 @@ public class MqttMessageHandler {
 
     @ServiceActivator(inputChannel = "motorStatusChannel")
     public void motorStatusDatabaseHandler(MqttPayload payload) {
-        mqttDatabaseService.saveMotorStatusToDatabase(payload);
+        MotorStatus motorStatus = mqttDatabaseService.saveMotorStatusToDatabase(payload);
         System.out.println(payload);
+        template.convertAndSend("/topic/motor/status", motorStatus);
     }
 
 }

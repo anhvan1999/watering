@@ -46,7 +46,7 @@ public class MqttDatabaseService {
         return valueRepos.save(value);
     }
 
-    public void saveMotorStatusToDatabase(MqttPayload mqttPayload) {
+    public MotorStatus saveMotorStatusToDatabase(MqttPayload mqttPayload) {
         // Load motor - create if not exist
         String deviceId = mqttPayload.getDeviceId();
         Motor motor = motorRepos.findByDeviceId(deviceId).orElse(null);
@@ -68,7 +68,9 @@ public class MqttDatabaseService {
                 .motor(motor)
                 .status(status)
                 .build();
-        motorStatusRepos.save(motorStatus);
+        motorStatus = motorStatusRepos.save(motorStatus);
+
+        return motorStatus;
     }
 
 }
