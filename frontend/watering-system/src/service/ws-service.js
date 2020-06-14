@@ -1,5 +1,7 @@
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
+import store from '../redux-store/store';
+import { takeDataSensor } from '../redux-store/actions/sensor-actions';
 
 // Create connection via sockjs and stompjs
 const sock = new SockJS(process.env.REACT_APP_API_ROOT + '/stomp');
@@ -15,7 +17,8 @@ stompClient.connect({}, frame => {
 
     stompClient.subscribe("/topic/sensor", data => {
         let sensorData = JSON.parse(data.body);
-        console.log(new Date(sensorData.publishTime));
+        store.dispatch(takeDataSensor(sensorData));
+        console.log("sensor", new Date(sensorData.publishTime));
     });
 
     for (let i = 0; i < 2; ++i) {
