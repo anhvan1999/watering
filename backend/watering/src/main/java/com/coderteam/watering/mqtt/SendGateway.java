@@ -9,6 +9,6 @@ import org.springframework.stereotype.Service;
 @MessagingGateway(defaultRequestChannel = "mqttObjectOutboundChannel")
 interface SendGateway {
     
-    void setMotorStatus(MqttPayload payload);
+    void setMotorStatus(MqttPayload[] payload);
 
 }

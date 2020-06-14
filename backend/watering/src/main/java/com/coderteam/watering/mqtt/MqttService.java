@@ -39,7 +39,7 @@ public class MqttService {
             payloadBuilder.values(new String[] {"1", Integer.toString(value)});
         }
 
-        gateway.setMotorStatus(payloadBuilder.build());
+        gateway.setMotorStatus(new MqttPayload[]{payloadBuilder.build()});
     }
 
 }

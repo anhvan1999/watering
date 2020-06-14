@@ -21,18 +21,14 @@ stompClient.connect({}, frame => {
         console.log("sensor", new Date(sensorData.publishTime));
     });
 
-    for (let i = 0; i < 2; ++i) {
-        stompClient.send("/app/info", {}, "");
-    }
-
+    send({
+        deviceId: 'Speaker',
+        value: 2222
+    }, '/app/motor/control');
 });
 
-function send(msg) {
-    stompClient.send("/app/info", {}, JSON.stringify({
-        msg
-    }));
+function send(dataObject, topic) {
+    stompClient.send(topic, {}, JSON.stringify(dataObject));
 }
-
-console.log('RUNNN');
 
 export default stompClient;
