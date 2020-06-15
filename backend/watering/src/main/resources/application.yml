@@ -15,6 +15,6 @@ mqtt:
   broker-url: tcp://168.63.137.21:1883
   client-id: watering_coder_team
   publish-topic: Topic/Speaker
-  subscribe-topic: Topic/#
+  subscribe-topic: Topic/Mois
   username: BKvm2
   password: Hcmut_CSE_2020

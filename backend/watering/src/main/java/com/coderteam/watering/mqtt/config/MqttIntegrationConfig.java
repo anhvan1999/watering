@@ -108,6 +108,11 @@ public class MqttIntegrationConfig {
         return new PublishSubscribeChannel();
     }
 
+    @Bean 
+    public MessageChannel dontCareChannel() {
+        return new PublishSubscribeChannel();
+    }
+
     /**
      * Listen from input channel, route to appropriate device channel:
      * gpsChannel, motorStatusChannel, soilMoistureChannel

@@ -1,9 +1,10 @@
 package com.coderteam.watering;
 
-import com.coderteam.watering.device.entity.Motor;
-import com.coderteam.watering.device.repos.MotorRepos;
+import java.util.List;
+
 import com.coderteam.watering.secutiry.entity.User;
 import com.coderteam.watering.secutiry.repos.UserRepos;
+
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
@@ -12,8 +13,6 @@ import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 @SpringBootApplication
 @EnableConfigurationProperties
@@ -31,14 +30,11 @@ class StartupRunner implements ApplicationRunner {
 
     private final UserRepos userRepos;
 
-    private final MotorRepos motorRepos;
-
     private final PasswordEncoder passwordEncoder;
 
-    public StartupRunner(UserRepos repos, PasswordEncoder encoder, MotorRepos motorRepos) {
+    public StartupRunner(UserRepos repos, PasswordEncoder encoder) {
         userRepos = repos;
         passwordEncoder = encoder;
-        this.motorRepos = motorRepos;
     }
 
     @Override
@@ -61,13 +57,6 @@ class StartupRunner implements ApplicationRunner {
 
         // Save to database
         userRepos.saveAll(List.of(superUser, user));
-
-        // Create motor object
-        Motor motor = Motor.builder()
-            .deviceId("Speaker")
-            .build();
-        
-        motorRepos.save(motor);
     }
 
 }

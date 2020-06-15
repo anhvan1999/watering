@@ -30,4 +30,9 @@ public class MqttMessageHandler {
         template.convertAndSend("/topic/motor/status", motorStatus);
     }
 
+    @ServiceActivator(inputChannel = "gpsChannel")
+    public void gpsChannel(MqttPayload payload) {
+        System.out.println(payload);
+    }
+
 }
