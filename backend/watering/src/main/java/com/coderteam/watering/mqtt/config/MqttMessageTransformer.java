@@ -22,9 +22,9 @@ public class MqttMessageTransformer implements GenericTransformer<String, MqttPa
                 return result;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            // e.printStackTrace();
         }
-        return null;
+        return MqttPayload.builder().deviceId("notValid").build();
     }
     
 }
