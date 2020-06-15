@@ -99,17 +99,12 @@ public class MqttIntegrationConfig {
     }
 
     @Bean
-    public MessageChannel gpsChannel() {
+    public MessageChannel ignoreChannel() {
         return new PublishSubscribeChannel();
     }
 
     @Bean
     public MessageChannel motorStatusChannel() {
-        return new PublishSubscribeChannel();
-    }
-
-    @Bean 
-    public MessageChannel dontCareChannel() {
         return new PublishSubscribeChannel();
     }
 
@@ -120,7 +115,11 @@ public class MqttIntegrationConfig {
      */
     @Bean
     @Router(inputChannel = "mqttInputChannel")
-    public AbstractMessageRouter mqttInputRouter() {
+    public AbstractMessageRouter mqttInputRouter(
+            MessageChannel soilMoistureChannel,
+            MessageChannel motorStatusChannel,
+            MessageChannel ignoreChannel) {
+                
         return new AbstractMessageRouter() {
 
             @Override
@@ -135,11 +134,11 @@ public class MqttIntegrationConfig {
                 ArrayList<MessageChannel> listChannel = new ArrayList<>();
 
                 if (deviceId.startsWith("Speaker")) {
-                    listChannel.add(motorStatusChannel());
+                    listChannel.add(motorStatusChannel);
                 } else if (deviceId.startsWith("Mois")) {
-                    listChannel.add(soilMoistureChannel());
+                    listChannel.add(soilMoistureChannel);
                 } else {
-                    listChannel.add(gpsChannel());
+                    listChannel.add(ignoreChannel);
                 }
 
                 return listChannel;
