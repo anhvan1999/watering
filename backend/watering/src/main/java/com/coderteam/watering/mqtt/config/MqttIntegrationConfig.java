@@ -69,8 +69,7 @@ public class MqttIntegrationConfig {
                 = new MqttPahoMessageDrivenChannelAdapter(
                 mqttProperties.getClientId(),
                 mqttClientFactory(),
-                mqttProperties.getSubscribeTopic(),
-                mqttProperties.getPublishTopic()
+                mqttProperties.getSubscribeTopics()
         );
 
         // Default converter

@@ -21,7 +21,7 @@ public class MqttProperties {
 
     String publishTopic;
 
-    String subscribeTopic;
+    String[] subscribeTopics;
 
     String username;
     
