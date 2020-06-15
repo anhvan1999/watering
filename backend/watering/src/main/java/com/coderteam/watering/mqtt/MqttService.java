@@ -2,12 +2,11 @@ package com.coderteam.watering.mqtt;
 
 import com.coderteam.watering.mqtt.config.MqttPayload;
 import com.coderteam.watering.mqtt.config.MqttPayload.MqttPayloadBuilder;
-
 import org.springframework.stereotype.Service;
 
 /**
  * @author Dang Anh Van
- * 
+ * <p>
  * This class contains logic to control motor
  */
 @Service
@@ -21,9 +20,10 @@ public class MqttService {
 
     /**
      * This method is used to set motor status
+     *
      * @param deviceId device_id of motor
-     * @param value if value = 0, then turn off motor, else set status = 1
-     * and value, value must in range [0..3] 
+     * @param value    if value = 0, then turn off motor, else set status = 1
+     *                 and value, value must in range [0..3]
      */
     public void setMotorStatus(String deviceId, int value) {
         if (value < 0 || value > 5000) {
@@ -34,9 +34,9 @@ public class MqttService {
                 .deviceId(deviceId);
 
         if (value == 0) {
-            payloadBuilder.values(new String[] {"0", "1"});
+            payloadBuilder.values(new String[]{"0", "1"});
         } else {
-            payloadBuilder.values(new String[] {"1", Integer.toString(value)});
+            payloadBuilder.values(new String[]{"1", Integer.toString(value)});
         }
 
         gateway.setMotorStatus(new MqttPayload[]{payloadBuilder.build()});

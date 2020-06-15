@@ -1,7 +1,6 @@
 package com.coderteam.watering.mqtt.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import org.springframework.integration.transformer.GenericTransformer;
 
 public class MqttMessageTransformer implements GenericTransformer<String, MqttPayload> {
@@ -18,13 +17,12 @@ public class MqttMessageTransformer implements GenericTransformer<String, MqttPa
                     return result[0];
                 }
             } else {
-                MqttPayload result = mapper.readValue(source, MqttPayload.class);
-                return result;
+                return mapper.readValue(source, MqttPayload.class);
             }
         } catch (Exception e) {
             // e.printStackTrace();
         }
         return MqttPayload.builder().deviceId("notValid").build();
     }
-    
+
 }

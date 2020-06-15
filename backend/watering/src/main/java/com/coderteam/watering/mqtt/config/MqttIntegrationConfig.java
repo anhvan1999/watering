@@ -1,8 +1,5 @@
 package com.coderteam.watering.mqtt.config;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,9 +20,12 @@ import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHandler;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 /**
  * @author Dang Anh Van
- * 
+ * <p>
  * This class contains all mqtt configurations:<br>
  * - Inbound adapter<br>
  * - Outbound adapter<br>
@@ -48,7 +48,7 @@ public class MqttIntegrationConfig {
 
         // Register connect option
         MqttConnectOptions options = new MqttConnectOptions();
-        options.setServerURIs(new String[] {mqttProperties.getBrokerUrl()});
+        options.setServerURIs(new String[]{mqttProperties.getBrokerUrl()});
         options.setUserName(mqttProperties.getUsername());
         options.setPassword(mqttProperties.getPassword().toCharArray());
         factory.setConnectionOptions(options);
@@ -79,10 +79,10 @@ public class MqttIntegrationConfig {
         // Return the adapter
         return adapter;
     }
-    
+
     @Bean
     public IntegrationFlow inboundFlow(MqttPahoMessageDrivenChannelAdapter inbound,
-            MessageChannel mqttInputChannel) {
+                                       MessageChannel mqttInputChannel) {
         // Add transformer convert json to object
         // Ouput to mqttInputChannel
         return IntegrationFlows.from(inbound)
@@ -110,6 +110,7 @@ public class MqttIntegrationConfig {
     /**
      * Listen from input channel, route to appropriate device channel:
      * gpsChannel, motorStatusChannel, soilMoistureChannel
+     *
      * @return messagerouter
      */
     @Bean
@@ -118,7 +119,7 @@ public class MqttIntegrationConfig {
             MessageChannel soilMoistureChannel,
             MessageChannel motorStatusChannel,
             MessageChannel ignoreChannel) {
-                
+
         return new AbstractMessageRouter() {
 
             @Override
@@ -157,8 +158,8 @@ public class MqttIntegrationConfig {
     }
 
     @Bean
-    public IntegrationFlow outboundFlow(MessageChannel mqttObjectOutboundChannel, 
-            MessageChannel mqttOutboundChannel) {
+    public IntegrationFlow outboundFlow(MessageChannel mqttObjectOutboundChannel,
+                                        MessageChannel mqttOutboundChannel) {
         return IntegrationFlows.from(mqttObjectOutboundChannel)
                 .transform(Transformers.toJson())
                 .channel(mqttOutboundChannel)
@@ -178,5 +179,5 @@ public class MqttIntegrationConfig {
         messageHandler.setDefaultTopic(mqttProperties.getPublishTopic());
         return messageHandler;
     }
-    
+
 }

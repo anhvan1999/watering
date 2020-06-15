@@ -6,7 +6,7 @@ import org.springframework.boot.context.properties.ConstructorBinding;
 
 /**
  * @author Dang Anh Van
- * 
+ * <p>
  * This class is used to load propeties from config file,
  * see application.yml for infomation
  */
@@ -24,7 +24,7 @@ public class MqttProperties {
     String[] subscribeTopics;
 
     String username;
-    
+
     String password;
 
 }
