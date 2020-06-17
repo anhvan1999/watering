@@ -1,0 +1,8 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create
+mqtt:
+  client-id: anhvan_watering
+  broker-url: tcp://13.76.250.158:1883
+  subscribe-topic: Topic/#

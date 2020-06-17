@@ -31,4 +31,3 @@ build/
 .vscode/
 
 ### Development properties ###
-src/main/resources/application-development.yml
