@@ -9,7 +9,9 @@ public class MqttMessageTransformer implements GenericTransformer<String, MqttPa
 
     @Override
     public MqttPayload transform(String source) {
-        System.out.println(source);
+        if (source.contains("Mois") || source.contains("Speaker")) {
+            System.out.println(source);
+        }
         try {
             if (source.startsWith("[")) {
                 MqttPayload[] result = mapper.readValue(source, MqttPayload[].class);

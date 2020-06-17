@@ -37,12 +37,20 @@ public class MqttDatabaseService {
         }
 
         // Save sensor value to database
-        String[] sensorValue = mqttPayload.getValues();
+        String[] sensorValueArr = mqttPayload.getValues();
+        Short sensorValue = Short.parseShort(sensorValueArr[0]);
+
+        // Set current value for sensor
+        sensor.setCurrentValue(sensorValue);
+        sensor = sensorRepos.save(sensor);
+
+        // Save value
         SoilMoisture value = SoilMoisture
                 .builder()
-                .value(Short.parseShort(sensorValue[0]))
+                .value(sensorValue)
                 .sensor(sensor)
                 .build();
+
         return valueRepos.save(value);
     }
 
@@ -64,6 +72,8 @@ public class MqttDatabaseService {
         if (motorStatusStr[0].equals("1")) {
             status = Integer.parseInt(motorStatusStr[1]);
         }
+
+        // Create and save
         MotorStatus motorStatus = MotorStatus.builder()
                 .motor(motor)
                 .status(status)
