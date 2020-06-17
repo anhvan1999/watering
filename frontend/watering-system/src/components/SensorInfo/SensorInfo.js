@@ -6,6 +6,7 @@ import SensorDetailRow from './sensor-detail-row.js';
 
 import { connect } from 'react-redux';
 import axios from '../../utils/axios-instance';
+import { takeDataSensor } from '../../redux-store/actions/sensor-actions';
 
 
 class SensorInfo extends React.Component {
@@ -45,8 +46,16 @@ class SensorInfo extends React.Component {
             headers: {
                 'Authorization': `jwt ${this.props.token}`
             }
-        }).then(data => {
-            console.log(data);
+        }).then(res => {
+            let data = res.data;
+            for (let item of data) {
+                this.props.setList({
+                    sensor: {
+                        deviceId: 'Mois'
+                    },
+                    value: item.currentValue
+                });
+            }
         }).catch(error => {
             console.log(error);
         });
@@ -73,7 +82,7 @@ class SensorInfo extends React.Component {
                                     {
                                         this.props.sensor.map(x => {
                                             if (x.devicedid != "") {
-                                                return (<SensorInfoRow id={x.deviceid} measure={x.data.value} key={x.deviceid} state={this.considerState} func={this.onClickturnTab}></SensorInfoRow>)
+                                                return (<SensorInfoRow id={x.deviceId} measure={x.value} key={x.deviceId} state={this.considerState} func={this.onClickturnTab}></SensorInfoRow>)
                                             }
                                         })
                                     }
@@ -114,4 +123,10 @@ function mapStateToProps(state) {
     return result;
 }
 
-export default connect(mapStateToProps, null)(SensorInfo);
+function mapDispatchToProps(dispatch) {
+    return {
+        setList: (data) => { dispatch(takeDataSensor(data)); }
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SensorInfo);
