@@ -43,7 +43,7 @@ public class MqttService {
                 .deviceId(deviceId);
 
         if (value == 0) {
-            payloadBuilder.values(new String[]{"0", "1"});
+            payloadBuilder.values(new String[]{"0", "0"});
         } else {
             payloadBuilder.values(new String[]{"1", Integer.toString(value)});
         }

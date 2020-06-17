@@ -2,6 +2,8 @@ package com.coderteam.watering;
 
 import java.util.List;
 
+import com.coderteam.watering.device.entity.Motor;
+import com.coderteam.watering.device.repos.MotorRepos;
 import com.coderteam.watering.secutiry.entity.User;
 import com.coderteam.watering.secutiry.repos.UserRepos;
 
@@ -13,6 +15,8 @@ import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+
+import lombok.AllArgsConstructor;
 
 @SpringBootApplication
 @EnableConfigurationProperties
@@ -26,16 +30,14 @@ public class WateringApplication {
 }
 
 @Component
+@AllArgsConstructor
 class StartupRunner implements ApplicationRunner {
 
     private final UserRepos userRepos;
 
     private final PasswordEncoder passwordEncoder;
 
-    public StartupRunner(UserRepos repos, PasswordEncoder encoder) {
-        userRepos = repos;
-        passwordEncoder = encoder;
-    }
+    private final MotorRepos motorRepos;
 
     @Override
     public void run(ApplicationArguments args) {
@@ -57,6 +59,13 @@ class StartupRunner implements ApplicationRunner {
 
         // Save to database
         userRepos.saveAll(List.of(superUser, user));
+
+        Motor motor = motorRepos.findByDeviceId("Speaker").orElse(null);
+        if (motor == null) {
+            motor = motorRepos.save(
+                Motor.builder().deviceId("Speaker").build()
+            );
+        }
     }
 
 }

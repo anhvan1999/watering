@@ -22,4 +22,12 @@ public class Motor {
     @Column(nullable = true)
     private Short currentValue;
 
+    @Column
+    @Builder.Default
+    private Short lowerSensorBound = (short)500;
+
+    @Column
+    @Builder.Default
+    private Short upperSensorBound = (short)700;
+
 }
