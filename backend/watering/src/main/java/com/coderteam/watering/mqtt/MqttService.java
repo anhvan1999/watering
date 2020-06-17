@@ -1,7 +1,10 @@
 package com.coderteam.watering.mqtt;
 
+import com.coderteam.watering.device.entity.MotorStatus;
 import com.coderteam.watering.mqtt.config.MqttPayload;
 import com.coderteam.watering.mqtt.config.MqttPayload.MqttPayloadBuilder;
+
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,8 +17,14 @@ public class MqttService {
 
     private final SendGateway gateway;
 
-    public MqttService(SendGateway gateway) {
+    private final SimpMessagingTemplate template;
+
+    private final MqttDatabaseService databaseService;
+
+    public MqttService(SendGateway gateway, SimpMessagingTemplate template, MqttDatabaseService databaseService) {
         this.gateway = gateway;
+        this.template = template;
+        this.databaseService = databaseService;
     }
 
     /**
@@ -39,7 +48,13 @@ public class MqttService {
             payloadBuilder.values(new String[]{"1", Integer.toString(value)});
         }
 
-        gateway.setMotorStatus(new MqttPayload[]{payloadBuilder.build()});
+        MqttPayload payload = payloadBuilder.build();
+
+        gateway.setMotorStatus(new MqttPayload[]{payload});
+
+        MotorStatus status = databaseService.saveMotorStatusToDatabase(payload);
+
+        template.convertAndSend("/topic/motor/status", status);
     }
 
 }

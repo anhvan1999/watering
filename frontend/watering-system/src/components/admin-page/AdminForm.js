@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { FaUserCircle, FaKey, FaUserLock, FaUserMinus} from 'react-icons/fa';
+import { FaUserCircle, FaKey, FaUserLock} from 'react-icons/fa';
 import { getClassName } from '../../utils/component-utils';
-import { useRouteMatch, useHistory } from 'react-router-dom';
 
 import style from './admin.module.scss';
 
@@ -14,8 +13,6 @@ export default function AdminForm(props) {
   let [passwordValid, setPasswordValid] = useState(true);
   let [repeatpasswordvalid, setRepeatpasswordValid] = useState(true);
   let [allValid, setAllValid] = useState(true);
-  let { path } = useRouteMatch();
-  let history = useHistory();
 
   // Handle login button click
   let AddUserBtnHandle = () => {
