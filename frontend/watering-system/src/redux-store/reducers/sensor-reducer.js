@@ -5,13 +5,12 @@ function objectsensor (deviceid,data){
     this.data = data
 }
 var ob = new objectsensor("","");
-let defaultState = [
-    ob
-];
+let defaultState = [];
 
 function sensorReducer(state = defaultState, action) {
     
     if (action.type === actionTypes.TAKE_DATA_SENSOR) {
+        state = state.slice();
         var i;
         var found = false;
         for (i=0;i < state;i++){
@@ -23,7 +22,7 @@ function sensorReducer(state = defaultState, action) {
         }
         if (!found) 
         {   
-            var obj = new objectsensor(action.data.sensor.deviceId,action.data)
+            var obj = new objectsensor(action.data.sensor.deviceId,action.data);
             state.push(obj);
         }
     }

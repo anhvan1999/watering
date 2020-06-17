@@ -6,9 +6,8 @@ export default function SensorInfoRow(props) {
         <tr>
             <td>Cảm biến {props.id}</td>
             <td>{props.measure}</td>                     
-            <td>{props.state}</td>                     
+            <td>{props.state(props.measure)}</td>                     
             <td><button className="btn btn-primary btn-sensor" onClick = {() => props.func(props.id)}></button></td>
         </tr>
-
     )
 }
