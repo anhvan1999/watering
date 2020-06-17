@@ -64,51 +64,28 @@ class SensorInfo extends React.Component {
     render() {
         return (
             <div className="sensor-info">
-                {
-
-                    this.state.show ?
-                        <div className="list-sensor-info">
-                            <h1>Thông tin cảm biến</h1>
-                            <table className="table table-hover">
-                                <thead className="thead-light">
-                                    <tr>
-                                        <th>Cảm biến</th>
-                                        <th>Số đo</th>
-                                        <th>Trạng thái</th>
-                                        <th>Xem chi tiết</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {
-                                        this.props.sensor.map(x => {
-                                            if (x.devicedid != "") {
-                                                return (<SensorInfoRow id={x.deviceId} measure={x.value} key={x.deviceId} state={this.considerState} func={this.onClickturnTab}></SensorInfoRow>)
-                                            }
-                                        })
+                <div className="list-sensor-info">
+                    <h1>Thông tin cảm biến</h1>
+                    <table className="table table-hover">
+                        <thead className="thead-light">
+                            <tr>
+                                <th>Cảm biến</th>
+                                <th>Số đo</th>
+                                <th>Trạng thái</th>
+                                <th>Xem chi tiết</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                this.props.sensor.map(x => {
+                                    if (x.devicedid != "") {
+                                        return (<SensorInfoRow id={x.deviceId} measure={x.value} key={x.deviceId} state={this.considerState} func={this.onClickturnTab}></SensorInfoRow>)
                                     }
-                                </tbody>
-                            </table>
-                        </div> :
-                        <div className="list-sensor-info">
-                            <h1>Cảm biến {this.state.sensorID}</h1>
-                            <button id="turn-back" className="btn btn-primary" onClick={() => { this.setState({ show: true }); console.log('1') }}>Quay về</button>
-                            <table className="table table-hover">
-                                <thead className="thead-light">
-                                    <tr>
-                                        <th>Thời gian</th>
-                                        <th>Số đo</th>
-                                        <th>Trạng thái</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <SensorDetailRow time={"Jun 1 2020 10:00AM"} measure={86} state={"Ẩm"}></SensorDetailRow>
-                                    <SensorDetailRow time={"Jun 1 2020 10:05AM"} measure={84} state={"Ẩm"}></SensorDetailRow>
-                                    <SensorDetailRow time={"Jun 1 2020 10:10AM"} measure={83} state={"Ẩm"}></SensorDetailRow>
-                                    <SensorDetailRow time={"Jun 1 2020 10:15AM"} measure={80} state={"Ẩm"}></SensorDetailRow>
-                                </tbody>
-                            </table>
-                        </div>
-                }
+                                })
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
         );
     }
