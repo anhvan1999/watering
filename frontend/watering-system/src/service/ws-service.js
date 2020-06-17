@@ -17,6 +17,7 @@ stompClient.connect({}, frame => {
 
     stompClient.subscribe("/topic/sensor", data => {
         let sensorData = JSON.parse(data.body);
+        console.log(sensorData);
         store.dispatch(takeDataSensor(sensorData));
     });
 

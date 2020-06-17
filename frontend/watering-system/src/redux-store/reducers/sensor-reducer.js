@@ -1,28 +1,26 @@
 import {actionTypes} from '../actions/sensor-actions'
 
-function objectsensor (deviceid,data){
+function objectsensor (deviceid,data) {
     this.deviceid = deviceid
     this.data = data
 }
-var ob = new objectsensor("","");
+
 let defaultState = [];
 
 function sensorReducer(state = defaultState, action) {
-    
     if (action.type === actionTypes.TAKE_DATA_SENSOR) {
         state = state.slice();
-        var i;
-        var found = false;
-        for (i=0;i < state;i++){
-            if (action.data.sensor.deviceId === state[i].deviceid){
-                state[i].deviceid = action.data;
+        let found = false;
+        for (let i = 0; i < state.length; i++) {
+            if (action.data.sensor.deviceId == state[i].deviceid){
+                state[i].data = action.data;
                 found= true;
                 break;
             }
         }
         if (!found) 
         {   
-            var obj = new objectsensor(action.data.sensor.deviceId,action.data);
+            let obj = new objectsensor(action.data.sensor.deviceId, action.data);
             state.push(obj);
         }
     }
