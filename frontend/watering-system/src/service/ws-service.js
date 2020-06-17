@@ -25,14 +25,17 @@ stompClient.connect({}, frame => {
         console.log(motorData);
     });
 
-    send({
-        deviceId: 'Speaker',
-        value: 2222
-    }, '/app/motor/control');
+    controlMotor('Speaker', 1000);
 });
 
 function send(dataObject, topic) {
     stompClient.send(topic, {}, JSON.stringify(dataObject));
+}
+
+export function controlMotor(deviceId, value) {
+    send({
+        deviceId, value
+    }, '/app/motor/control');
 }
 
 export default stompClient;
