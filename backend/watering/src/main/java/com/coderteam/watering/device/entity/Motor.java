@@ -19,4 +19,7 @@ public class Motor {
     @Column(nullable = false, unique = true)
     private String deviceId;
 
+    @Column(nullable = true)
+    private Short currentValue;
+
 }

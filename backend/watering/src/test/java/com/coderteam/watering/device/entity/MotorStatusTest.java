@@ -16,13 +16,13 @@ public class MotorStatusTest {
                 .build();
 
         MotorStatus motorStatus = MotorStatus.builder()
-                .status(3)
+                .status((short)3)
                 .motor(motor)
                 .build();
 
         Assertions.assertEquals(motor, motorStatus.getMotor());
         Assertions.assertNull(motorStatus.getId());
-        Assertions.assertEquals(Integer.valueOf(3), motorStatus.getStatus());
+        Assertions.assertEquals((short)3, motorStatus.getStatus());
     }
 
 }

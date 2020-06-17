@@ -30,8 +30,8 @@ public class MotorStatus {
 
     @Column(nullable = false)
     @Min(0)
-    @Max(3)
-    private Integer status;
+    @Max(5000)
+    private Short status;
 
     @Column(nullable = false)
     @Builder.Default

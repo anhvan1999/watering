@@ -68,10 +68,13 @@ public class MqttDatabaseService {
 
         // Save motor status to database
         String[] motorStatusStr = mqttPayload.getValues();
-        int status = 0;
+        short status = 0;
         if (motorStatusStr[0].equals("1")) {
-            status = Integer.parseInt(motorStatusStr[1]);
+            status = Short.parseShort(motorStatusStr[1]);
         }
+
+        motor.setCurrentValue(status);
+        motor = motorRepos.save(motor);
 
         // Create and save
         MotorStatus motorStatus = MotorStatus.builder()

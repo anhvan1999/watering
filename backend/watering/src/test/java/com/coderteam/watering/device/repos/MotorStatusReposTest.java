@@ -26,7 +26,7 @@ public class MotorStatusReposTest extends BaseTestSuite {
 
         MotorStatus motorStatus = MotorStatus.builder()
                 .motor(motorRepos.findByDeviceId("id9_1").orElseThrow())
-                .status(1)
+                .status((short)1)
                 .build();
         motorStatus = motorStatusRepos.save(motorStatus);
         Assertions.assertNotNull(motorStatus.getId());
@@ -34,7 +34,7 @@ public class MotorStatusReposTest extends BaseTestSuite {
         Long id = motorStatus.getId();
 
         motorStatus = motorStatusRepos.findById(id).orElseThrow();
-        Assertions.assertEquals(1, motorStatus.getStatus());
+        Assertions.assertEquals((short)1, motorStatus.getStatus());
         Assertions.assertEquals("id9_1", motorStatus.getMotor().getDeviceId());
     }
 
