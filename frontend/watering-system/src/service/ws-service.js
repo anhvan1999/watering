@@ -2,7 +2,7 @@ import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
 import store from '../redux-store/store';
 import { takeDataSensor } from '../redux-store/actions/sensor-actions';
-
+import {takeDataMotor} from '../redux-store/actions/motor-actions'
 // Create connection via sockjs and stompjs
 const sock = new SockJS(process.env.REACT_APP_API_ROOT + '/stomp');
 const stompClient = Stomp.over(sock);
@@ -24,6 +24,7 @@ stompClient.connect({}, frame => {
     stompClient.subscribe("/topic/motor/status", data => {
         let motorData = JSON.parse(data.body);
         console.log(motorData);
+        store.dispatch(takeDataMotor(motorData));
     });
 
     controlMotor('Speaker', 1000);
