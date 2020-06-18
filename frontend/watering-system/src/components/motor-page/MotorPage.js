@@ -1,10 +1,6 @@
 import React from 'react';
-
 import MotorList from './MotorList';
-
-import { getClassName } from '../../utils/component-utils';
-
-import style from './motorpage.scss';
+import './motorpage.scss';
 
 function MotorPage() {
   return (

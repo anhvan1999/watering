@@ -5,7 +5,6 @@ import { getClassName } from '../../utils/component-utils';
 
 // Style
 import style from './userinfo.module.scss';
-import DeleteAccountButton from './DeleteAccountButton';
 
 class UserHistoryPanel extends React.Component {
     editName(){
@@ -19,7 +18,7 @@ class UserHistoryPanel extends React.Component {
             modal.style.display = "none";
         }
         window.onclick = function (event) {
-            if (event.target == modal) {
+            if (event.target === modal) {
                 modal.style.display = "none";
             }
         }
@@ -35,7 +34,7 @@ class UserHistoryPanel extends React.Component {
           modal.style.display = "none";
         }
         window.onclick = function (event) {
-          if (event.target == modal) {
+          if (event.target === modal) {
             modal.style.display = "none";
           }
         }

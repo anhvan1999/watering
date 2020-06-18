@@ -12,7 +12,7 @@ function sensorReducer(state = defaultState, action) {
         state = state.slice();
         let found = false;
         for (let i = 0; i < state.length; i++) {
-            if (action.data.sensor.deviceId == state[i].deviceId) {
+            if (action.data.sensor.deviceId === state[i].deviceId) {
                 state[i].value = action.data.value;
                 found = true;
                 break;

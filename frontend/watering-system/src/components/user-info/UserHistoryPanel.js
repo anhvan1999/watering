@@ -5,7 +5,6 @@ import { getClassName } from '../../utils/component-utils';
 
 // Style
 import style from './userinfo.module.scss';
-import DeleteAccountButton from './DeleteAccountButton';
 import HistoryItem from './HistoryItem';
 
 class UserHistoryPanel extends React.Component {

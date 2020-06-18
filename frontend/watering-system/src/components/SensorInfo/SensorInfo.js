@@ -1,8 +1,7 @@
 import React from 'react';
-import style from './sensorInfo.scss';
+import './sensorInfo.scss';
 
 import SensorInfoRow from './sensorInfo-row.js';
-import SensorDetailRow from './sensor-detail-row.js';
 
 import { connect } from 'react-redux';
 import axios from '../../utils/axios-instance';
@@ -78,9 +77,7 @@ class SensorInfo extends React.Component {
                         <tbody>
                             {
                                 this.props.sensor.map(x => {
-                                    if (x.devicedid != "") {
-                                        return (<SensorInfoRow id={x.deviceId} measure={x.value} key={x.deviceId} state={this.considerState} func={this.onClickturnTab}></SensorInfoRow>)
-                                    }
+                                    return (<SensorInfoRow id={x.deviceId} measure={x.value} key={x.deviceId} state={this.considerState} func={this.onClickturnTab}></SensorInfoRow>);
                                 })
                             }
                         </tbody>

@@ -12,7 +12,7 @@ function motorReducer(state = defaultState, action) {
         state = state.slice();
         let found = false;
         for (let i = 0; i < state.length; i++) {
-            if (action.data.motor.deviceId == state[i].motorid){
+            if (action.data.motor.deviceId === state[i].motorid){
                 state[i].data = action.data;
                 found= true;
                 break;
