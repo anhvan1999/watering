@@ -6,7 +6,7 @@ export default function SensorDetailRow(props){
         <tr>
             <td>{props.time}</td>
             <td>{props.measure}</td>
-            <td>{props.state}</td>
+            <td>{props.state(props.measure)}</td>
         </tr>
     )
 } 
