@@ -63,5 +63,11 @@ public class User {
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
     }
+    public String getUsername(){
+        return username;
+    }
+    public Long getId(){
+        return id;
+    }
 
 }
