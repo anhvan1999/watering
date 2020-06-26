@@ -52,6 +52,19 @@ class SensorDetail extends React.Component {
     }
 
     componentDidMount() {
+        axios.get('/sensordetail/list')
+        .then(data => {
+            console.log(data);
+            for (var i=0;i<data.data.length;i++){
+                if (data.data[i].sensor.deviceId === this.state.name){
+                    this.setState({currentValue: data.data[i].sensor.currentValue});
+                }
+            }
+            this.setDataToState(data.data);
+            
+        }).catch(error => {
+            console.log(error);
+        })
         setInterval(()=> axios.get('/sensordetail/list')
         .then(data => {
             console.log(data);
@@ -76,11 +89,13 @@ class SensorDetail extends React.Component {
             },
             axisX: {
                 title: "Time",
-                interval: 2
+                interval: 2,
+                valueFormatString: "HH:mm",
             },
             axisY:{
                 title: "Value",
                 includeZero: false
+                
             },
             data: [
                 {
@@ -106,7 +121,7 @@ class SensorDetail extends React.Component {
                 <tbody>
                     {
                         this.state.data.reverse().map(data => {
-                            return (<SensorDetailRow time = {data.x.toString()} measure = {data.y} state={this.considerState}></SensorDetailRow>);
+                            return (<SensorDetailRow time = {data.x} measure = {data.y} state={this.considerState}></SensorDetailRow>);
                         })
                     }
                 </tbody>
