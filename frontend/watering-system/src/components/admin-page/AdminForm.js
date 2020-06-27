@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { FaUserCircle, FaKey, FaUserLock, FaTemperatureLow} from 'react-icons/fa';
+import React from 'react';
+import { FaUserCircle, FaKey, FaUserLock} from 'react-icons/fa';
 import { getClassName } from '../../utils/component-utils';
 
 import style from './admin.module.scss';
@@ -48,7 +48,7 @@ class AdminForm extends React.Component {
   errors["repeatpassword"] = "Password nhập lại không hợp lệ";
 }
 
-if(fields["repeatpassword"]!=fields["password"]){
+if(fields["repeatpassword"]!==fields["password"]){
   formIsValid = false;
   errors["repeatpassword"] = "Password nhập lại không hợp lệ";
 }
@@ -67,7 +67,9 @@ contactSubmit(e){
   }).then(res => {
     console.log("res",res);
      if (res.data===true)
-        alert("Thêm user thành công!!")
+        {alert("Thêm user thành công!!");
+        window.location.reload(false); 
+        }
       else
         alert("Tên đăng nhập đã tồn tại!");
   }).catch(error => {
@@ -158,9 +160,7 @@ handleChange(field, e){
               <button className="btn btn-success w-50 center" onClick={this.contactSubmit.bind(this)}>Thêm người dùng</button>
               <div className="col mt-3"></div>
             </div>
-
             </div>
-          
         </div>
       </div>
     </div>

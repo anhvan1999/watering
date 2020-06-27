@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import TopBar from '../top-bar/TopBar';
 import './UserInfo.scss';
 import { connect } from 'react-redux';
 import { FaUserPlus } from 'react-icons/fa';
-import { useRouteMatch } from 'react-router-dom';
-import userReducer from '../../redux-store/reducers/user-reducer';
 
 import axios from '../../utils/axios-instance';
 
@@ -35,7 +33,7 @@ class DeleteUser extends React.Component {
 
   
 DeleteUserBtnHandle(id,name) {
-  if (this.props.username == name){
+  if (this.props.username === name){
      alert("Bạn không thể tự xóa bản thân!");
   }
   else {
