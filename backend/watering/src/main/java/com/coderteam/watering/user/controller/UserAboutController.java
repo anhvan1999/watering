@@ -21,12 +21,12 @@ public class UserAboutController {
     private final PasswordEncoder passwordEncoder;
 
     @PutMapping("/changeFullName")
-    public User changeFullName(@Valid @RequestBody String newFullName){
+    public User changeFullName(@Valid @RequestBody String newfullName){
         JwtAuthentication jwtAuthentication = (JwtAuthentication) SecurityContextHolder.getContext().getAuthentication();
         User user = userRepos.findById(jwtAuthentication.getUserId()).orElse(null);
         if (user!=null)
         {
-            user.setFullName(newFullName);
+            user.setFullName(newfullName.substring(16,newfullName.length()-2));
             return userRepos.save(user);
         }
         else {
@@ -40,7 +40,7 @@ public class UserAboutController {
         User user = userRepos.findById(jwtAuthentication.getUserId()).orElse(null);
         if (user!=null)
         {
-            user.setPassword(passwordEncoder.encode(newPassword));
+            user.setPassword(passwordEncoder.encode(newPassword.substring(16,newPassword.length()-2)));
             return userRepos.save(user);
         }
         else {

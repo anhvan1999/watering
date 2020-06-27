@@ -40,17 +40,17 @@ class DeleteAccountButton extends React.Component {
   render() {
     return (
       <div className="col text-center">
-        <button type="button" id="DeleteBtn" className="btn btn-danger" onClick={this.alertDelete}>DELETE ACCOUNT</button>
+        <button type="button" id="DeleteBtn" className="btn btn-danger" onClick={this.alertDelete}>XÓA TÀI KHOẢN</button>
         <div id="DeleteForm" className={style.CustomForm}>
           <div className={style.RemindFormContent}>
             <div className={style.FormAlertHeader}>
-              <h3> Alert </h3>
+              <h3> CẢNH BÁO</h3>
             </div>
             <div className={style.BodyForm}>
-              <p>Do you want to delete your account?</p>
+              <p>Bạn muốn xóa tài khoản ?</p>
             </div>
-            <button type="button" onClick={this.deleteButtonEvent} className={getClassName("btn btn-danger", style.ButtonMargin)}>YES</button>
-            <button type="button" onClick={this.cancelButtonEvent} className={getClassName("btn btn-danger", style.ButtonMargin)}>NO</button>
+            <button type="button" onClick={this.deleteButtonEvent} className={getClassName("btn btn-danger", style.ButtonMargin)}>Đồng ý</button>
+            <button type="button" onClick={this.cancelButtonEvent} className={getClassName("btn btn-danger", style.ButtonMargin)}>Không đồng ý</button>
           </div>
         </div>
       </div>

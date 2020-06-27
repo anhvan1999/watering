@@ -58,30 +58,30 @@ class PasswordRow extends React.Component {
             <div>
                 <div className={getClassName("row", style.AboutRowPosition)}>
                     <label className={getClassName(style.ControlLabel, "col-sm-3")}>
-                        Password:
+                    Mật khẩu :
                     </label>
                     <div className={getClassName("col-sm-6 text-center", style.Controls)}>******</div>
                     <div className="col-sm-3 text-center">
                         <button type="button" id="ChangePasswordButton" className={getClassName("btn", "btn-primary")}
-                            onClick={this.DisplayForm.bind(this, "ChangePasswordForm")}>CHANGE</button>
+                            onClick={this.DisplayForm.bind(this, "ChangePasswordForm")}>Thay đổi</button>
                     </div>
                 </div>
                 <div id="ChangePasswordForm" className={style.CustomForm}>
                     <div className={style.RemindFormContent}>
                         <div className={style.BodyForm}>
                             <p className={style.BodyFormSize}>
-                                Your new Password :
+                            Nhập mật khẩu mới :
                                 </p>
                             <input type="password" className="form-control" placeholder="New password" 
                              onChange={this.changeHandle}
                              />
                             <div className={getClassName("col-12 invalid-feedback", (this.state.passwordValid ? '' : 'd-flex'))}>
-                                Your new password is unvalid
+                            Mật khẩu mới của bạn không hợp lệ
                             </div>
                         </div>
                         <div className="text-center">
-                            <button type="button" onClick={this.savePassword} className={getClassName("btn", "btn-primary", style.ButtonMargin)}>SAVE</button>
-                            <button type="button" onClick={this.cancelButtonEvent.bind(this, "ChangePasswordForm")} className={getClassName("btn", "btn-primary", style.ButtonMargin)}>CANCEL</button>
+                            <button type="button" onClick={this.savePassword} className={getClassName("btn", "btn-primary", style.ButtonMargin)}>Lưu</button>
+                            <button type="button" onClick={this.cancelButtonEvent.bind(this, "ChangePasswordForm")} className={getClassName("btn", "btn-primary", style.ButtonMargin)}>Hủy</button>
                         </div>
                     </div>
                 </div>

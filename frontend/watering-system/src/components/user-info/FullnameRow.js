@@ -39,7 +39,7 @@ class UsernameRow extends React.Component {
 
     saveUsername() {
         if (this.state.FullnameValid) {
-            axios.put('/user/info/about/changeFullName',{newFullName:this.state.newFullname},{
+            axios.put('/user/info/about/changeFullName',{newFullname:this.state.newFullname},{
                 headers: {
                   'Authorization': `jwt ${this.props.token}`
                 }
@@ -57,28 +57,28 @@ class UsernameRow extends React.Component {
         return (
             <div>
                 <div className={getClassName("row", style.AboutRowPosition)}>
-                    <label className={getClassName(style.ControlLabel, "col-sm-3")}> Full Name: </label>
+                    <label className={getClassName(style.ControlLabel, "col-sm-3")}> Tên bạn :</label>
                     <div className={getClassName("col-sm-6 text-center", style.Controls)}>{this.props.userName}</div>
                     <div className="col-sm-3 text-center">
                         <button type="button" id="EditUserButton" className={getClassName("btn", "btn-primary")}
-                            onClick={this.DisplayForm.bind(this, "EditUserForm")}>EDIT</button>
+                            onClick={this.DisplayForm.bind(this, "EditUserForm")}>Thay đổi</button>
                     </div>
 
                 </div>
                 <div id="EditUserForm" className={getClassName(style.CustomForm)}>
                     <div className={getClassName(style.RemindFormContent)}>
                         <div className={getClassName(style.BodyForm)}>
-                            <label >Your new Fullname : </label>
+                            <label className={style.BodyFormSize}>Nhập vào tên mới của bạn : </label>
                             <input type="text" className="form-control" placeholder="New Username"
                                 onChange={this.changeHandle}
                             ></input>
                             <div className={getClassName("col-12 invalid-feedback", (this.state.FullnameValid ? '' : 'd-flex'))}>
-                                Your new fullname is unvalid
+                            Tên mới của bạn không hợp lệ
                                 </div>
                         </div>
                         <div className="text-center">
-                            <button type="button" onClick={this.saveUsername} className={getClassName("btn", "btn-primary", style.ButtonMargin)}>SAVE</button>
-                            <button type="button" onClick={this.cancelButtonEvent.bind(this, "EditUserForm")} className={getClassName("btn", "btn-primary", style.ButtonMargin)}>CANCEL</button>
+                            <button type="button" onClick={this.saveUsername} className={getClassName("btn", "btn-primary", style.ButtonMargin)}>Lưu</button>
+                            <button type="button" onClick={this.cancelButtonEvent.bind(this, "EditUserForm")} className={getClassName("btn", "btn-primary", style.ButtonMargin)}>Hủy</button>
                         </div>
                     </div>
                 </div>

@@ -32,6 +32,7 @@ class UserInfo extends React.Component {
         }
     }).then(res => {
         let data = res.data;
+        console.log(data);
         this.setState(
           {
             fullname : data.fullName
