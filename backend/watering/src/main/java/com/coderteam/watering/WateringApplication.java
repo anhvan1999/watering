@@ -1,8 +1,12 @@
 package com.coderteam.watering;
 
 import java.util.List;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
+import com.coderteam.watering.device.entity.HistoryInfo;
 import com.coderteam.watering.device.entity.Motor;
+import com.coderteam.watering.device.repos.HistoryRepository;
 import com.coderteam.watering.device.repos.MotorRepos;
 import com.coderteam.watering.secutiry.entity.User;
 import com.coderteam.watering.secutiry.repos.UserRepos;
@@ -39,6 +43,8 @@ class StartupRunner implements ApplicationRunner {
 
     private final MotorRepos motorRepos;
 
+    private final HistoryRepository historyRepository;
+
     @Override
     public void run(ApplicationArguments args) {
         // Create supper user when boot the app
@@ -57,9 +63,15 @@ class StartupRunner implements ApplicationRunner {
                 .fullName("User")
                 .build();
 
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        HistoryInfo info = HistoryInfo.builder()
+                .username("superuser")
+                .action("Sign In")
+                .time(dtf.format(LocalDateTime.now())).build();
+
         // Save to database
         userRepos.saveAll(List.of(superUser, user));
-
+        historyRepository.save(info);
         Motor motor = motorRepos.findByDeviceId("Speaker").orElse(null);
         if (motor == null) {
             motor = motorRepos.save(

@@ -51,6 +51,7 @@ public class MqttService {
         MqttPayload payload = payloadBuilder.build();
 
         gateway.setMotorStatus(new MqttPayload[]{payload});
+        gateway.setMotorStatus(new MqttPayload[]{payload});
 
         MotorStatus status = databaseService.saveMotorStatusToDatabase(payload);
 

@@ -1,57 +1,66 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 // Utils
 import { getClassName } from '../../utils/component-utils';
-
+import { logout } from '../../service/auth-service';
+import { connect } from 'react-redux';
 // Style
 import style from './userinfo.module.scss';
+import axios from '../../utils/axios-instance';
 
-export default function DeleteAccountButton() {
-    return (
-        <div className="col text-center">
-            <button type="button" id="DeleteBtn" className="btn btn-danger" onClick={alertDelete}>DELETE ACCOUNT</button>
-            <div id="DeleteForm" className={style.CustomForm}>
-                <div className={style.RemindFormContent}>
-                    <div className={style.FormAlertHeader}>
-                        <h3>
-                            Alert
-                        </h3>
-                    </div>
-                    <div className={style.BodyForm}>
-                        <p>Do you want to delete your account?</p>
-                    </div>
-                    <button type="button" id="YesAlertBtn" className={getClassName("btn btn-danger",style.ButtonMargin)}>YES</button>
-                    <button type="button" id="NoAlertBtn" className={getClassName("btn btn-danger",style.ButtonMargin)}>NO</button>
-                </div>
-            </div>
-        </div>
-    );
-}
-
-function alertDelete() {
-    // Get the modal
+class DeleteAccountButton extends React.Component {
+  alertDelete() {
     let modal = document.getElementById("DeleteForm");
-
-    // Get the button that opens the modal
-    let btn = document.getElementById("DeleteBtn");
-
-    // Get the <span> element that closes the modal
-    let noButton = document.getElementById("NoAlertBtn");
-
-    // When the user clicks on the button, open the modal
-    btn.onclick = function () {
-      modal.style.display = "block";
-    }
-
-    // When the user clicks on <span> (x), close the modal
-    noButton.onclick = function () {
-      modal.style.display = "none";
-    }
-
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function (event) {
-      if (event.target === modal) {
-        modal.style.display = "none";
-      }
-    }
+    modal.style.display = "block";
   }
+
+  cancelButtonEvent() {
+    let modal = document.getElementById("DeleteForm");
+    modal.style.display = "none";
+  }
+
+  deleteButtonEvent=()=>{
+   
+    axios.put('/user/info/delete',{},{
+      headers: {
+        'Authorization': `jwt ${this.props.token}`
+      }
+    }).then(res=>{ 
+      console.log(res);
+      let modal = document.getElementById("DeleteForm");
+      modal.style.display = "none";
+      logout();
+      return <Link to="/app"></Link>;
+    }
+    ).catch(error=>{
+      console.log(error);
+    });
+  }
+
+  render() {
+    return (
+      <div className="col text-center">
+        <button type="button" id="DeleteBtn" className="btn btn-danger" onClick={this.alertDelete}>DELETE ACCOUNT</button>
+        <div id="DeleteForm" className={style.CustomForm}>
+          <div className={style.RemindFormContent}>
+            <div className={style.FormAlertHeader}>
+              <h3> Alert </h3>
+            </div>
+            <div className={style.BodyForm}>
+              <p>Do you want to delete your account?</p>
+            </div>
+            <button type="button" onClick={this.deleteButtonEvent} className={getClassName("btn btn-danger", style.ButtonMargin)}>YES</button>
+            <button type="button" onClick={this.cancelButtonEvent} className={getClassName("btn btn-danger", style.ButtonMargin)}>NO</button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+function mapStateToProps(state) {
+  let result = {
+      token: state.user.jwtToken
+  };
+  return result;
+}
+export default connect(mapStateToProps,null)(DeleteAccountButton);
