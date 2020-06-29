@@ -8,6 +8,6 @@ spring:
     console:
       enabled: true
 mqtt:
-  client-id: anhvan_watering
+  client-id: truclu
   # broker-url: tcp://13.76.250.158:1883
   # subscribe-topic: Topic/#

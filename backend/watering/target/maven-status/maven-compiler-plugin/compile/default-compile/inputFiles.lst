@@ -4,11 +4,13 @@
 /home/trongtrung/Shoto-kun/TTDADN/watering-system/backend/watering/src/main/java/com/coderteam/watering/secutiry/config/JwtAuthenticationFilter.java
 /home/trongtrung/Shoto-kun/TTDADN/watering-system/backend/watering/src/main/java/com/coderteam/watering/mqtt/MqttMessageHandler.java
 /home/trongtrung/Shoto-kun/TTDADN/watering-system/backend/watering/src/main/java/com/coderteam/watering/secutiry/service/JwtProperties.java
+/home/trongtrung/Shoto-kun/TTDADN/watering-system/backend/watering/src/main/java/com/coderteam/watering/device/controller/SensorDetailController.java
 /home/trongtrung/Shoto-kun/TTDADN/watering-system/backend/watering/src/main/java/com/coderteam/watering/mqtt/SendGateway.java
 /home/trongtrung/Shoto-kun/TTDADN/watering-system/backend/watering/src/main/java/com/coderteam/watering/device/entity/SoilMoistureSensor.java
 /home/trongtrung/Shoto-kun/TTDADN/watering-system/backend/watering/src/main/java/com/coderteam/watering/mqtt/config/MqttMessageTransformer.java
 /home/trongtrung/Shoto-kun/TTDADN/watering-system/backend/watering/src/main/java/com/coderteam/watering/secutiry/config/WateringWebMvcConfigurer.java
 /home/trongtrung/Shoto-kun/TTDADN/watering-system/backend/watering/src/main/java/com/coderteam/watering/device/repos/SoilMoistureRepos.java
+/home/trongtrung/Shoto-kun/TTDADN/watering-system/backend/watering/src/main/java/com/coderteam/watering/info/controller/AdminController.java
 /home/trongtrung/Shoto-kun/TTDADN/watering-system/backend/watering/src/main/java/com/coderteam/watering/device/controller/MotorController.java
 /home/trongtrung/Shoto-kun/TTDADN/watering-system/backend/watering/src/main/java/com/coderteam/watering/device/repos/MotorRepos.java
 /home/trongtrung/Shoto-kun/TTDADN/watering-system/backend/watering/src/main/java/com/coderteam/watering/mqtt/MqttService.java

@@ -6,6 +6,7 @@ com/coderteam/watering/WateringApplication.class
 com/coderteam/watering/secutiry/controller/TokenResponse.class
 com/coderteam/watering/secutiry/controller/LoginResponseInfo$LoginResponseInfoBuilder.class
 com/coderteam/watering/secutiry/service/JwtService$JwtType.class
+com/coderteam/watering/info/controller/DeleteUser.class
 com/coderteam/watering/mqtt/config/MqttIntegrationConfig$1.class
 com/coderteam/watering/info/controller/WebsocketController.class
 com/coderteam/watering/secutiry/controller/RefreshToken.class
@@ -18,6 +19,7 @@ com/coderteam/watering/secutiry/config/SecurityConfig.class
 com/coderteam/watering/secutiry/service/JwtProperties.class
 com/coderteam/watering/secutiry/config/JwtAuthenticationFilter.class
 com/coderteam/watering/device/entity/HistoryInfo$HistoryInfoBuilder.class
+com/coderteam/watering/device/controller/SensorDetailController.class
 com/coderteam/watering/secutiry/entity/User$UserBuilder.class
 com/coderteam/watering/secutiry/controller/RefreshController.class
 com/coderteam/watering/mqtt/config/MqttIntegrationConfig.class
@@ -37,7 +39,9 @@ com/coderteam/watering/device/entity/SoilMoisture$SoilMoistureBuilder.class
 com/coderteam/watering/secutiry/controller/LoginInfo.class
 com/coderteam/watering/mqtt/config/MqttPayload.class
 com/coderteam/watering/secutiry/controller/LoginResponseInfo.class
+com/coderteam/watering/info/controller/TempUser.class
 com/coderteam/watering/secutiry/config/JwtAuthentication.class
+com/coderteam/watering/info/controller/AdminController.class
 com/coderteam/watering/device/entity/SoilMoisture.class
 com/coderteam/watering/websocket/controller/MotorControlInfo.class
 com/coderteam/watering/secutiry/repos/UserRepos.class
