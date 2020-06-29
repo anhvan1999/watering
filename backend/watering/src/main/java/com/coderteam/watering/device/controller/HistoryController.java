@@ -1,18 +1,19 @@
 package com.coderteam.watering.device.controller;
 import java.util.List;
-import java.util.ArrayList;
 import java.util.stream.Collectors;
+
 import com.coderteam.watering.device.entity.HistoryInfo;
 import com.coderteam.watering.device.repos.HistoryRepository;
 import com.coderteam.watering.secutiry.config.JwtAuthentication;
 import com.coderteam.watering.secutiry.entity.User;
 import com.coderteam.watering.secutiry.repos.UserRepos;
-import lombok.AllArgsConstructor;
-import org.hibernate.mapping.Array;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import lombok.AllArgsConstructor;
 
 /**
  * @author : Nguyen Trong TRUNG

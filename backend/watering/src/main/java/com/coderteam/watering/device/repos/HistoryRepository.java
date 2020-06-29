@@ -3,7 +3,7 @@ package com.coderteam.watering.device.repos;
 import com.coderteam.watering.device.entity.HistoryInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import java.util.Optional;
+
 /**
  * @author : Nguyen Trong TRUNG
  */

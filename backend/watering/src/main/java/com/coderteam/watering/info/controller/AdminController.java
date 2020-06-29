@@ -1,22 +1,20 @@
 package com.coderteam.watering.info.controller;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+
+import java.util.List;
+import java.util.Optional;
 
 import com.coderteam.watering.secutiry.entity.User;
 import com.coderteam.watering.secutiry.repos.UserRepos;
-import java.util.List;
-import lombok.Data;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import lombok.Data;
 
 @RestController
 @RequestMapping("/admin")
