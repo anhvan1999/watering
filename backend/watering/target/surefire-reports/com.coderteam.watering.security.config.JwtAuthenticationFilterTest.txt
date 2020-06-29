@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.coderteam.watering.security.config.JwtAuthenticationFilterTest
--------------------------------------------------------------------------------
-Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.271 s - in com.coderteam.watering.security.config.JwtAuthenticationFilterTest
