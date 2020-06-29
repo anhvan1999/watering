@@ -15,7 +15,7 @@ jwt:
   refresh-timeout: 604800
 mqtt:
   broker-url: tcp://168.63.137.21:1883
-  client-id: watering_coder_team
+  client-id: coder_team
   publish-topic: Topic/Speaker
   subscribe-topics: Topic/Mois, Topic/Speaker
   username: BKvm2

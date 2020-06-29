@@ -8,7 +8,7 @@ function MotorPage() {
     <div className="container-fluid MotorPage">
       <h1>Thông tin và điều khiển máy bơm</h1>
       {/* <MotorList></MotorList> */}
-      <MotorDetail name="hihi"></MotorDetail>
+      <MotorDetail name="Speaker"></MotorDetail>
     </div>
   );
 }

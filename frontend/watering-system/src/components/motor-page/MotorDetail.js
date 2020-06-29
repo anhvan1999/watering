@@ -1,45 +1,100 @@
 import React from 'react';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 import axios from '../../utils/axios-instance';
 import style from './motordetail.module.scss';
 import { Link } from 'react-router-dom';
 import { getClassName } from '../../utils/component-utils';
+import { connect } from 'react-redux';
 class MotorDetail extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             name: this.props.name,
-            currentState: false,
-            maxCurrentState: 0,
-            minCurrentState: 0,
+            currentStatus: <span></span>,
+            uppercurrentStatus: 0,
+            lowercurrentStatus: 0,
             data: [],
             currentValue: 0,
         }
+        this.checkStatus = this.checkStatus.bind(this);
     }
-    checkCurrentState = (value) => {
-        if (value) {
-            return <span class="badge badge-primary">Bật</span>;
+    // checkCurrentState = (value) => {
+    //     if (value) {
+    //         return <span className="badge badge-primary">Bật</span>;
+    //     }
+    //     else {
+    //         return <span className="badge badge-danger">Tắt</span>;
+    //     }
+    // }
+    checkStatus(data) {
+        let value = data.currentValue;
+        let lower = data.lowerSensorBound;
+        let upper = data.upperSensorBound;
+        if (value > upper) {
+            return <span className="badge badge-danger">Tắt</span>;
         }
         else {
-            return <span class="badge badge-danger">Tắt</span>;
+            if (value < lower) {
+                return <span className="badge badge-primary">Bật</span>;
+            }
+            else {
+                return this.state.currentStatus;
+            }
         }
+    }
+    setData = (data) => {
+        console.log(data);
+        for (var i = 0; i < data.data.length; i++) {
+            if (data.data[i].deviceId === this.state.name) {
+                this.setState({
+                    currentValue: data.data[i].currentValue,
+                    uppercurrentStatus: data.data[i].upperSensorBound,
+                    lowercurrentStatus: data.data[i].lowerSensorBound,
+                    currentStatus: this.checkStatus(data.data[i])
+                });
+            }
+        }
+        
+
+    }
+    componentDidMount() {
+        axios.get('/motor/list', {
+            headers: {
+                'Authorization': `jwt ${this.props.token}`
+            }
+        })
+            .then(data => {
+                this.setData(data);
+            }).catch(error => {
+                console.log(error);
+            });
+        setInterval(() => axios.get('/motor/list', {
+            headers: {
+                'Authorization': `jwt ${this.props.token}`
+            }
+        })
+            .then(data => {
+                this.setData(data);
+            }).catch(error => {
+                console.log(error);
+            }), 10000)
+
     }
     render() {
         return (
             <div className={getClassName(style.ListMotorInfo)}>
-                <h1>Máy bơm
-                 {/* {this.props.name} */}
+                <h1>Máy bơm {this.props.name}
                 </h1>
                 <Link id="turn-back" className="btn btn-outline-info" to={'/app/motor'}>Quay về</Link>
                 <div className={style.MotorStatus}>
                     <p>
-                        Trạng thái hiện tại : {this.checkCurrentState(this.currentState)}
+                        Trạng thái hiện tại : {this.state.currentStatus}
                     </p>
                     <p>Số đo hiện tại: {this.state.currentValue}</p>
-                    <p className="col-12">Giá trị ngưỡng cao nhất  : {this.state.maxCurrentState}</p>
-                    <p className="col-12">Giá trị ngưỡng thất nhất : {this.state.minCurrentState}</p>
+                    <p className="col-12">Giá trị ngưỡng thất nhất : {this.state.lowercurrentStatus}</p>
+                    <p className="col-12">Giá trị ngưỡng cao nhất  : {this.state.uppercurrentStatus}</p>
 
-                    <form className={style.MotorSettingForm}>
+                    {/* <form className={style.MotorSettingForm}>
                         <div className="form-group">
                             <label>Bật/Tắt máy bơm :</label>
 
@@ -52,7 +107,7 @@ class MotorDetail extends React.Component {
                             <input type="text" className="form-control" id="maxStateValue" />
                             <button className="btn btn-primary">Điều khiển</button>
                         </div>
-                    </form>
+                    </form> */}
                 </div>
 
 
@@ -77,4 +132,10 @@ class MotorDetail extends React.Component {
         );
     }
 }
-export default MotorDetail
+function mapStateToProps(state) {
+    let result = {
+        token: state.user.jwtToken
+    };
+    return result;
+}
+export default connect(mapStateToProps, null)(MotorDetail)
