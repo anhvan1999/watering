@@ -82,6 +82,16 @@ class MotorDetail extends React.Component {
         }
             else {
             controlMotor(this.state.deviceId, this.state.inputwater);
+            let eventNameHistory = "Set value " + this.state.inputwater+" in " + this.state.deviceId;
+            axios.post('/history/add', {eventName: eventNameHistory}, {
+                headers: {
+                    'Authorization': `jwt ${this.props.token}`,
+                }
+            }).then(() => {
+               
+            }).catch(error => {
+                console.log(error);
+            });
             alert("Bạn đã bơm nước thành công");
         }
     }
@@ -112,6 +122,16 @@ class MotorDetail extends React.Component {
             }).catch(error => {
                 console.log(error);
             });
+            let eventNameHistory = "Set Lower Bound " + this.state.lowersubmit+" in " + this.state.deviceId;
+            axios.post('/history/add', {eventName: eventNameHistory}, {
+                headers: {
+                    'Authorization': `jwt ${this.props.token}`,
+                }
+            }).then(() => {
+               
+            }).catch(error => {
+                console.log(error);
+            });
             alert("Bạn đã gửi cho server thành công!");
         }
         else {
@@ -133,6 +153,16 @@ class MotorDetail extends React.Component {
             }).catch(error => {
                 console.log(error);
             });
+            let eventNameHistory = "Set Upper Bound " + this.state.uppersubmit+" in " + this.state.deviceId;
+            axios.post('/history/add', {eventName: eventNameHistory}, {
+                headers: {
+                    'Authorization': `jwt ${this.props.token}`,
+                }
+            }).then(() => {
+               
+            }).catch(error => {
+                console.log(error);
+            });
             alert("Bạn đã gửi cho server thành công!");
         }
         else {
@@ -144,20 +174,18 @@ class MotorDetail extends React.Component {
         //console.log("aaa",data);
         let last_index = data.data.length - 1;
         if (data.data[last_index].motor.deviceId === this.state.name) {
-            this.setState({
-                deviceId: data.data[last_index].motor.deviceId,
-                currentValue: data.data[last_index].motor.currentValue,
-                uppercurrentStatus: data.data[last_index].motor.upperSensorBound,
-                lowercurrentStatus: data.data[last_index].motor.lowerSensorBound,
-                currentStatus: this.checkStatus(data.data[last_index].motor)
-            });
             var _data = this.state.datachart.concat({
                 x: new Date(data.data[last_index].publishTime),
                 y: data.data[last_index].motor.currentValue
             });
             this.setState({
+                deviceId: data.data[last_index].motor.deviceId,
+                currentValue: data.data[last_index].motor.currentValue,
+                uppercurrentStatus: data.data[last_index].motor.upperSensorBound,
+                lowercurrentStatus: data.data[last_index].motor.lowerSensorBound,
+                currentStatus: this.checkStatus(data.data[last_index].motor),
                 datachart: _data
-            })
+            });
         }
     }
     setDataToState = (data) => {

@@ -43,7 +43,7 @@ class StartupRunner implements ApplicationRunner {
 
     private final MotorRepos motorRepos;
 
-    private final HistoryRepository historyRepository;
+    // private final HistoryRepository historyRepository;
 
     @Override
     public void run(ApplicationArguments args) {
@@ -63,15 +63,15 @@ class StartupRunner implements ApplicationRunner {
                 .fullName("User")
                 .build();
 
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        HistoryInfo info = HistoryInfo.builder()
-                .username("superuser")
-                .action("Sign In")
-                .time(dtf.format(LocalDateTime.now())).build();
+        // DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        // HistoryInfo info = HistoryInfo.builder()
+        //         .username("superuser")
+        //         .action("Sign In")
+        //         .time(dtf.format(LocalDateTime.now())).build();
 
         // Save to database
         userRepos.saveAll(List.of(superUser, user));
-        historyRepository.save(info);
+        // historyRepository.save(info);
         Motor motor = motorRepos.findByDeviceId("Speaker").orElse(null);
         if (motor == null) {
             motor = motorRepos.save(

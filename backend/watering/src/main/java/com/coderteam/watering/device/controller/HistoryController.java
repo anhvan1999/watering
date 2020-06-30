@@ -10,11 +10,14 @@ import com.coderteam.watering.secutiry.repos.UserRepos;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import lombok.AllArgsConstructor;
-
+import lombok.*;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 /**
  * @author : Nguyen Trong TRUNG
  */
@@ -36,4 +39,22 @@ public class HistoryController {
                 .filter(item -> item.getUsername().equals(user.getUsername()))
                 .collect(Collectors.toList());
     }
+
+    @PostMapping("/add")
+    public void addEvent(@RequestBody Event history){
+        JwtAuthentication jwtAuthentication = (JwtAuthentication)
+                SecurityContextHolder.getContext().getAuthentication();
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        User user= userRepos.findById(jwtAuthentication.getUserId()).orElse(null);
+        HistoryInfo info = HistoryInfo.builder()
+                .username(user.getUsername())
+                .action(history.eventName)
+                .time(dtf.format(LocalDateTime.now())).build();
+        repository.save(info);
+    }
+}
+
+@Data
+class Event{
+    public String eventName;
 }

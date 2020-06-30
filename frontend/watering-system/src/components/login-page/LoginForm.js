@@ -3,7 +3,6 @@ import { FaUserCircle, FaKey, FaRegAddressBook } from 'react-icons/fa';
 import { usernamePasswordLogin } from '../../service/auth-service';
 import { getClassName } from '../../utils/component-utils';
 import { useRouteMatch, useHistory } from 'react-router-dom';
-
 import style from './login.module.scss';
 
 export default function LoginForm(props) {
@@ -38,6 +37,7 @@ export default function LoginForm(props) {
     usernamePasswordLogin(username, password, () => {
       if (path === '/login') {
         history.push('/app');
+        
       }
     }, (err) => {
       setAllValid(false);

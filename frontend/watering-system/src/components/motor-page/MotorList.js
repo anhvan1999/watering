@@ -4,9 +4,6 @@ import axios from '../../utils/axios-instance';
 import { connect } from 'react-redux';
 
 class MotorList extends React.Component {
-  constructor(props){
-    super(props);
-  }
   componentDidMount() {
     console.log(this.props);
     axios.get('/motor/list', {

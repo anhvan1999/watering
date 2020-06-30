@@ -1,5 +1,5 @@
 import React from 'react';
-import style from './sensorInfo.scss';
+import './sensorInfo.scss';
 import SensorInfoRow from './sensorInfo-row.js';
 import {connect} from 'react-redux';
 import axios from '../../utils/axios-instance';
