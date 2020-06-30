@@ -1,10 +1,9 @@
 import React from 'react';
 import style from './sensorInfo.scss';
-
 import SensorInfoRow from './sensorInfo-row.js';
 import {connect} from 'react-redux';
 import axios from '../../utils/axios-instance';
-import { Link, Switch, Route, BrowserRouter as Router, useRouteMatch } from 'react-router-dom';
+import { Switch, Route, BrowserRouter as Router} from 'react-router-dom';
 import SensorDetail from './sensor-detail';
 
 class SensorInfo extends React.Component {
@@ -75,8 +74,8 @@ class SensorInfo extends React.Component {
                             <tbody>
                                 {
                                     this.props.sensor.map(x =>{
-                                        if (x.devicedId != ""){
-                                            return (<SensorInfoRow id={x.deviceId} measure={x.value} state={this.considerState} func={this.setIdDetail}></SensorInfoRow>)
+                                        if (x.devicedId !== ""){
+                                            return (<SensorInfoRow id={x.deviceId} measure={x.value} state={this.considerState} func={this.setIdDetail}></SensorInfoRow>);
                                         }
                                     })
                                 }

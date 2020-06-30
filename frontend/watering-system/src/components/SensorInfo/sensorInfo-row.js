@@ -1,5 +1,4 @@
 import React from 'react';
-import style from './sensorInfo.scss';
 import { Link } from 'react-router-dom';
 
 export default function SensorInfoRow(props) {

@@ -1,13 +1,11 @@
 import React from 'react';
-import style from './sensorInfo.scss';
 import SensorDetailRow from './sensor-detail-row.js';
 import {Link} from 'react-router-dom';
 import axios from '../../utils/axios-instance';
-import {connect} from 'react-redux';
 
 import CanvasJSReact from './canvasjs.react';
 //var CanvasJSReact = require('./canvasjs.react');
-var CanvasJS = CanvasJSReact.CanvasJS;
+// var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 

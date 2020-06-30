@@ -93,7 +93,7 @@ handleChange(field, e){
   // Handle login button click
   render(){
   return (
-    <div  className="overflow-auto" className={getClassName("card", style.AdminCard)}>
+    <div   className={getClassName("overflow-auto","card", style.AdminCard)}>
       <div className="card-header">
       <h3 className="text-center text-primary"> Chào mừng trở lại, admin! </h3>
         <h3 className="text-center text-primary"><FaUserLock></FaUserLock> Thêm người dùng </h3>

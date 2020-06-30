@@ -1,41 +1,21 @@
 import React from 'react';
 import './motorpage.scss';
+import { Link } from 'react-router-dom';
+
 
 class MotorLabel extends React.Component {
-  constructor(props) {
+  constructor(props){
     super(props);
-    this.state = {
-      showTurnOn: false
-    }
-    this.showsTurnOn = this.showTurnOn.bind(this)
   }
-
-  showTurnOn = () => {
-    this.setState({ showTurnOn: !this.state.showTurnOn });
-    console.log('turnOn');
-  }
-
   render() {
-    const status = this.props.status;
-    const name = this.props.name;
     return (
-      <div className="row MotorLabel">
-        <p className='col-4'>Máy bơm {name}</p>
-        <p className='col-4'>{status}</p>
-        <div className='col-4'>
-          {(status === 'On') ?
-            <button className='btn btn-danger'>Tắt</button> :
-            <button className='btn btn-primary' onClick={this.showTurnOn}>Bật</button>}
-        </div>
-        {
-          this.state.showTurnOn ?
-            <form className="col-12 turnOnMotor">
-              <input className='motorInput' type="text" placeholder="Nhập khối lượng nước cần bơm"></input>
-              <input type="submit" value="Bơm" onClick={this.showTurnOn} className="btn btn-outline-primary"></input>
-            </form> :
-            <div></div>
-        }
-      </div>
+      <tr>
+        <td>{this.props.name}</td>
+        <td>{this.props.value}</td>
+        <td><Link className='btn btn-primary' to={`/app/motor/${this.props.name}`} 
+        onClick={()=>this.props.clicktoDetail(this.props.name)}
+        >Chi tiết</Link></td>
+      </tr>
     );
   }
 }

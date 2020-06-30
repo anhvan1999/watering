@@ -7,11 +7,13 @@ import { getClassName } from '../../utils/component-utils';
 import { connect } from 'react-redux';
 import { controlMotor } from '../../service/ws-service';
 import MotorDetailRow from './MotorDetailRow';
+
 class MotorDetail extends React.Component {
     constructor(props) {
         super(props);
+        console.log(props);
         this.state = {
-            name: this.props.name,
+            name: this.props.motorName,
             currentStatus: <span></span>,
             uppercurrentStatus: 0,
             lowercurrentStatus: 0,
@@ -25,7 +27,7 @@ class MotorDetail extends React.Component {
 
     }
 
-    checkStatus=(data) =>{
+    checkStatus = (data) => {
         let value = data.currentValue;
         let lower = data.lowerSensorBound;
         let upper = data.upperSensorBound;
@@ -150,19 +152,18 @@ class MotorDetail extends React.Component {
         }
     }
     setDataToState = (data) => {
-        console.log(data);
         let _data = data
-            .filter(detail=>detail.motor.deviceId===this.state.name)
-            .map(detail=>{
+            .filter(detail => detail.motor.deviceId === this.state.name)
+            .map(detail => {
                 return {
-                    time :new Date (detail.publishTime),
-                    value : detail.motor.currentValue,
-                    lower : detail.motor.lowerSensorBound,
-                    upper : detail.motor.upperSensorBound
+                    time: new Date(detail.publishTime),
+                    value: detail.motor.currentValue,
+                    lower: detail.motor.lowerSensorBound,
+                    upper: detail.motor.upperSensorBound
                 }
             });
         this.setState({
-            data :_data
+            data: _data
         });
     }
     componentDidMount() {
@@ -192,96 +193,95 @@ class MotorDetail extends React.Component {
     }
     render() {
         return (
-            <div className={getClassName(style.ListMotorInfo)}>
-                <h1>Máy bơm {this.props.name}
-                </h1>
-                <Link id="turn-back" className="btn btn-outline-info" to={'/app/motor'}>Quay về</Link>
-                <div className={style.MotorStatus}>
-                    <p>
-                        Trạng thái hiện tại : {this.state.currentStatus}
-                    </p>
-                    <p>Số đo hiện tại: {this.state.currentValue}</p>
-                    <p className="col-12">Giá trị ngưỡng thấp nhất : {this.state.lowercurrentStatus}</p>
-                    <p className="col-12">Giá trị ngưỡng cao nhất  : {this.state.uppercurrentStatus}</p>
+            <div className={getClassName(style.MotorInfo)}>
+                <div className={getClassName(style.ListMotorInfo)}>
+                    <h1>Máy bơm {this.props.name}
+                    </h1>
+                    <Link id="turn-back" className='btn btn-outline-info btn-motordetail' to={'/app/motor'}>Quay về</Link>
+                    <div className={style.MotorStatus}>
+                        <p>
+                            Trạng thái hiện tại : {this.state.currentStatus}
+                        </p>
+                        <p>Số đo hiện tại: {this.state.currentValue}</p>
+                        <p className="col-12">Giá trị ngưỡng thấp nhất : {this.state.lowercurrentStatus}</p>
+                        <p className="col-12">Giá trị ngưỡng cao nhất  : {this.state.uppercurrentStatus}</p>
 
 
-                    <div >
-                        <div className="col-12">Nhập giá trị ngưỡng thấp nhất </div>
+                        <div >
+                            <div className="col-12">Nhập giá trị ngưỡng thấp nhất </div>
 
-                        <div className="col-12">
-                            <input
-                                required
-                                type="number"
-                                className="form-control"
-                                className={getClassName(style.MotorForm)}
-                                onChange={this.setlowersubmit.bind(this)} />
+                            <div className="col-12">
+                                <input
+                                    required
+                                    type="number"
+                                    className={getClassName("form-control",style.MotorForm)}
+                                    onChange={this.setlowersubmit.bind(this)} />
 
+                            </div>
+                            <button className="btn btn-outline-info"
+
+                                onClick={this.submitlower.bind(this)}> Gửi </button>
                         </div>
-                        <button className="btn btn-outline-info"
+                        <br></br>
+                        <div>
+                            <div className="col-12">Nhập giá trị ngưỡng cao nhất </div>
+                            <div className="col-12">
+                                <input
+                                    required
+                                    type="number"
+                                    className={getClassName("form-control",style.MotorForm)}
+                                    onChange={this.setuppersubmit.bind(this)} />
 
-                            onClick={this.submitlower.bind(this)}> Gửi </button>
-                    </div>
-                    <br></br>
-                    <div>
-                        <div className="col-12">Nhập giá trị ngưỡng cao nhất </div>
-                        <div className="col-12">
-                            <input
-                                required
-                                type="number"
+                            </div>
+                            <button className="btn btn-outline-info"
 
-                                className="form-control"
-                                className={getClassName(style.MotorForm)}
-                                onChange={this.setuppersubmit.bind(this)} />
-
-                        </div>
-                        <button className="btn btn-outline-info"
-
-                            onClick={this.submitupper.bind(this)}> Gửi </button>
-                    </div>
-
-                    <br></br>
-                    <p className="col-12" >Bật/tắt chế độ điều khiển bằng tay: <button id="controlhand" className="btn btn-primary btn-sensor" value="On"
-                        onClick={this.checkhandcontrol.bind(this)}> Bật</button></p>
-
-                    <div className="form-group row" id="forminputwater" className={getClassName(style.MotorControlHand)}>
-                        <div className="col-12">Nhập lượng nước cần bơm</div>
-
-                        <div className="col-12">
-                            <input
-                                required
-                                type="number"
-                                className="form-control"
-                                className={getClassName(style.MotorForm)}
-                                id="inputwater"
-                                onChange={this.controlwater.bind(this)} />
+                                onClick={this.submitupper.bind(this)}> Gửi </button>
                         </div>
 
-                        <button id="submitwater" className="btn btn-outline-info"
+                        <br></br>
+                        <p className="col-12" >Bật/tắt chế độ điều khiển bằng tay: <button id="controlhand" className="btn btn-primary btn-sensor" value="On"
+                            onClick={this.checkhandcontrol.bind(this)}> Bật</button></p>
 
-                            onClick={this.submitwater.bind(this)}> Kích hoạt </button>
+                        <div id="forminputwater" className={getClassName("form-group row",style.MotorControlHand)}>
+                            <div className="col-12">Nhập lượng nước cần bơm</div>
+
+                            <div className="col-12">
+                                <input
+                                    required
+                                    type="number"
+                                    className={getClassName("form-control",style.MotorForm)}
+                                    id="inputwater"
+                                    onChange={this.controlwater.bind(this)} />
+                            </div>
+
+                            <button id="submitwater" className="btn btn-outline-info"
+
+                                onClick={this.submitwater.bind(this)}> Kích hoạt </button>
+                        </div>
+
                     </div>
 
+
+                    {/* <CanvasJSChart options = {options}></CanvasJSChart> */}
+                    <table className="table table-hover table-detail">
+                        <thead className="thead-light">
+                            <tr>
+                                <th>Thời gian</th>
+                                <th>Giá trị</th>
+                                <th>Ngưỡng dưới</th>
+                                <th>Ngưỡng trên</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                this.state.data.reverse().map(data => {
+                                    return (<MotorDetailRow time={data.time} value={data.value} upper={data.upper} lower={data.lower}></MotorDetailRow>);
+                                })
+                            }
+                        </tbody>
+                    </table>
                 </div>
 
-
-                {/* <CanvasJSChart options = {options}></CanvasJSChart> */}
-                <table className="table table-hover table-detail">
-                    <thead className="thead-light">
-                        <tr>
-                            <th>Thời gian</th>
-                            <th>Giá trị</th>
-                            <th>Ngưỡng dưới</th>
-                            <th>Ngưỡng trên</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            this.state.data.reverse().map(data => {
-                                return (<MotorDetailRow time = {data.time} value = {data.value} upper={data.upper} lower={data.lower}></MotorDetailRow>);
-                            })
-                        }
-                    </tbody>
-                </table>
             </div>
         );
     }

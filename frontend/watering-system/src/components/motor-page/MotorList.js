@@ -1,39 +1,54 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import MotorLabel from './MotorLabel';
 import axios from '../../utils/axios-instance';
-import './motorpage.scss';
 import { connect } from 'react-redux';
 
-function MotorList() {
-  useEffect(() => {
+class MotorList extends React.Component {
+  constructor(props){
+    super(props);
+  }
+  componentDidMount() {
+    console.log(this.props);
+    axios.get('/motor/list', {
+        headers: {
+            'Authorization': `jwt ${this.props.token}`
+        }
+    }).then(data => {
+      console.log(data);
+    }).catch(error => {
+        console.log(error);
+    });
+}
 
-  }, []);
-
-  return (
-    <div className='MotorList'>
-      <div className="row thead-box">
-        <p className='col-4'>Tên máy bơm</p>
-        <p className='col-4'>Trạng thái</p>
-        <p className='col-4'>Điều khiển</p>
+  render(){
+    return (
+      <div className="MotorList">
+      <table className='table table-hover motorList-table'>
+        <thead className='thead-light'>
+          <tr>
+            <th>Máy bơm</th>
+            <th>Giá trị</th>
+            <th>Chi tiết</th>
+          </tr>
+        </thead>
+        <tbody>
+          {this.props.motor.map(x =>(
+            <MotorLabel name={x.motorid} value={x.data.motor.currentValue} clicktoDetail={this.props.clicktoDetail}></MotorLabel>
+          ))}
+        </tbody>
+      </table>
       </div>
-      {
-        [1, 2, 3, 4, 5, 6].map(i => (
-          <MotorLabel name={`${i}`} status="Off"></MotorLabel>
-        ))
-      }
-      {
-        [7, 8, 9, 10].map(i => (
-          <MotorLabel name={`${i}`} status="On"></MotorLabel>
-        ))
-      }
-
-    </div>
-  );
+    );
+  }  
 }
 
 function mapStateToProps(state) {
+  let result = {
+      motor: state.motor,
+      token: state.user.jwtToken
+  };
   console.log(state);
-  return {};
+  return result;
 }
 
 export default connect(mapStateToProps, null)(MotorList);

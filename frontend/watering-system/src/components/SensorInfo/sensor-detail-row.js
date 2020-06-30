@@ -1,5 +1,4 @@
 import React from 'react';
-import style from './sensorInfo.scss';
 
 function formatDate(d){
     return [d.getDate(),
