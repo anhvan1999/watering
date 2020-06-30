@@ -96,9 +96,17 @@ class MotorDetail extends React.Component {
 
                     {/* <form className={style.MotorSettingForm}>
                         <div className="form-group">
-                            <label>Bật/Tắt máy bơm :</label>
+                            <label>Bật/Tắt dieu khien bang tay :</label>
 
                         </div>
+                        neu nhu ma bat =>
+                        nhap gia tri can bom 
+                        set lower = 0
+                        upper = 10000
+                        neu nhu tat =>
+                        set lower = 500
+                        set upper = 700
+                        
                         <div className="form-group">
                             <label>Điều khiển ngưỡng tưới:</label>
                             <label>Giá trị thấp nhất:</label>
