@@ -1,5 +1,5 @@
 import React from 'react';
-import SensorDetailRow from './sensor-detail-row.js';
+import SensorDetailRow from './SensorDetailRow.js';
 import { Link } from 'react-router-dom';
 import axios from '../../utils/axios-instance';
 
@@ -7,6 +7,8 @@ import CanvasJSReact from './canvasjs.react';
 //var CanvasJSReact = require('./canvasjs.react');
 // var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
+
+var timer;
 
 class SensorDetail extends React.Component {
 
@@ -21,7 +23,7 @@ class SensorDetail extends React.Component {
     this.setDataToState = this.setDataToState.bind(this);
     this.considerState = this.considerState.bind(this);
   }
-
+  
   considerState = (value) => {
     if (value >= 700) {
       return "Ẩm";
@@ -62,7 +64,7 @@ class SensorDetail extends React.Component {
       }).catch(error => {
         console.log(error);
       });
-    setInterval(() => axios.get('/sensordetail/list')
+    timer = setInterval(() => axios.get('/sensordetail/list')
       .then(data => {
         console.log(data);
         for (var i = 0; i < data.data.length; i++) {
@@ -76,6 +78,10 @@ class SensorDetail extends React.Component {
         console.log(error);
       }), 5000)
 
+  }
+
+  componentWillUnmount(){
+    clearInterval(timer);
   }
 
   render() {

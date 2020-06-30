@@ -19,17 +19,11 @@ class MotorPage extends React.Component {
 
   render(){
     return (
-        <Switch>
-          <Route exact path='/app/motor'>
             <div className="container-fluid MotorPage">
               <h1>Thông tin và điều khiển máy bơm</h1>
               <MotorList clicktoDetail={this.setIdDetail}></MotorList>
             </div>
-          </Route>
-          <Route path={`/app/motor/${this.state.motorName}`}>
-            <MotorDetail motorName={this.state.motorName}></MotorDetail>
-          </Route>
-      </Switch>
+          
     );
   }
 }

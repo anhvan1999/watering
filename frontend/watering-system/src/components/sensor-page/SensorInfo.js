@@ -1,6 +1,6 @@
 import React from 'react';
 import './sensorInfo.scss';
-import SensorInfoRow from './sensorInfo-row.js';
+import SensorInfoRow from './SensorInfoRow.js';
 import { connect } from 'react-redux';
 import axios from '../../utils/axios-instance';
 import { takeDataSensor } from '../../redux-store/actions/sensor-actions';

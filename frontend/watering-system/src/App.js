@@ -13,10 +13,11 @@ import Child from './Child';
 import TopBar from './components/top-bar/TopBar';
 import HomePage from './components/home-page/HomePage';
 import LoginPage from './components/login-page/LoginPage';
-import SensorInfo from './components/SensorInfo/SensorInfo';
-import SensorDetail from './components/SensorInfo/SensorDetail';
+import SensorInfo from './components/sensor-page/SensorInfo';
+import SensorDetail from './components/sensor-page/SensorDetail';
 import AdminFilter from './components/admin-fliter/AdminFilter';
 import MotorPage from './components/motor-page/MotorPage';
+import MotorDetail from './components/motor-page/MotorDetail';
 import UserInfo from './components/user-info/UserInfo';
 
 // Place your page in this area if your page requre 
@@ -46,6 +47,9 @@ let Area = (props) => {
         <Route path={`${match.url}/admin`}>
           <AdminFilter></AdminFilter>
         </Route>
+        <Route path={`${match.url}/motor/:id`} render={(props) =>
+          <MotorDetail name={props.match.params.id} />
+        } />
         <Route path={`${match.url}/motor`}>
           <MotorPage></MotorPage>
         </Route>

@@ -7,8 +7,10 @@ import { getClassName } from '../../utils/component-utils';
 import { connect } from 'react-redux';
 import { controlMotor } from '../../service/ws-service';
 import MotorDetailRow from './MotorDetailRow';
-import CanvasJSReact from '../SensorInfo/canvasjs.react';
+import CanvasJSReact from '../sensor-page/canvasjs.react';
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
+var timer;
+
 
 class MotorDetail extends React.Component {
     constructor(props) {
@@ -215,7 +217,7 @@ class MotorDetail extends React.Component {
             }).catch(error => {
                 console.log(error);
             });
-        setInterval(() => axios.get('/motordetail/list', {
+        timer = setInterval(() => axios.get('/motordetail/list', {
             headers: {
                 'Authorization': `jwt ${this.props.token}`
             }
@@ -228,6 +230,12 @@ class MotorDetail extends React.Component {
             }), 5000)
 
     }
+
+    componentWillUnmount(){
+        clearInterval(timer);
+    }
+
+    
     render() {
         const options = {
             animationEnabled: false,
