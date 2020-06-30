@@ -24,10 +24,9 @@ public class Motor {
 
     @Column
     @Builder.Default
-    private Short lowerSensorBound = (short)500;
+    private Short lowerSensorBound = (short)450;
 
     @Column
     @Builder.Default
     private Short upperSensorBound = (short)700;
-
 }
