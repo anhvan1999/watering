@@ -1,12 +1,8 @@
 package com.coderteam.watering;
 
 import java.util.List;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
-import com.coderteam.watering.device.entity.HistoryInfo;
 import com.coderteam.watering.device.entity.Motor;
-import com.coderteam.watering.device.repos.HistoryRepository;
 import com.coderteam.watering.device.repos.MotorRepos;
 import com.coderteam.watering.secutiry.entity.User;
 import com.coderteam.watering.secutiry.repos.UserRepos;

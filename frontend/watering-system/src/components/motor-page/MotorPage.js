@@ -2,7 +2,7 @@ import React from 'react';
 import MotorList from './MotorList';
 import MotorDetail from './MotorDetail';
 import './motorpage.scss';
-import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
+import { Switch, Route} from 'react-router-dom';
 
 class MotorPage extends React.Component {
   constructor(props){
@@ -19,7 +19,6 @@ class MotorPage extends React.Component {
 
   render(){
     return (
-      <Router>
         <Switch>
           <Route exact path='/app/motor'>
             <div className="container-fluid MotorPage">
@@ -31,7 +30,6 @@ class MotorPage extends React.Component {
             <MotorDetail motorName={this.state.motorName}></MotorDetail>
           </Route>
       </Switch>
-      </Router>
     );
   }
 }

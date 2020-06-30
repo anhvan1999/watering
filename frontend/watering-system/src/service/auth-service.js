@@ -43,6 +43,7 @@ export function usernamePasswordLogin(username, password, resolve, reject) {
 
 export function logout() {
     // Clear session and local storage
+    console.log('Logout');
     store.dispatch(logoutUser());
     sessionStorage.clear();
     localStorage.clear();

@@ -14,6 +14,7 @@ import TopBar from './components/top-bar/TopBar';
 import HomePage from './components/home-page/HomePage';
 import LoginPage from './components/login-page/LoginPage';
 import SensorInfo from './components/SensorInfo/SensorInfo';
+import SensorDetail from './components/SensorInfo/SensorDetail';
 import AdminFilter from './components/admin-fliter/AdminFilter';
 import MotorPage from './components/motor-page/MotorPage';
 import UserInfo from './components/user-info/UserInfo';
@@ -36,6 +37,9 @@ let Area = (props) => {
         <Route path={`${match.url}/child`}>
           <Child></Child>
         </Route>
+        <Route path={`${match.url}/sensor/:id`} render={(props) =>
+          <SensorDetail name={props.match.params.id} />
+        } />
         <Route path={`${match.url}/sensor`}>
           <SensorInfo></SensorInfo>
         </Route>
