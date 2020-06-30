@@ -33,7 +33,7 @@ class MotorList extends React.Component {
         </thead>
         <tbody>
           {this.props.motor.map(x =>(
-            <MotorLabel name={x.motorid} value={x.data.motor.currentValue} clicktoDetail={this.props.clicktoDetail}></MotorLabel>
+            <MotorLabel key={x.motorid} name={x.motorid} value={x.data.motor.currentValue} clicktoDetail={this.props.clicktoDetail}></MotorLabel>
           ))}
         </tbody>
       </table>

@@ -20,7 +20,7 @@ class SensorDetail extends React.Component {
             currentValue: 0,
         }
         this.setDataToState = this.setDataToState.bind(this);
-        console.log(this.props);
+        this.considerState = this.considerState.bind(this);
     }
 
     considerState = (value) =>{
@@ -119,7 +119,7 @@ class SensorDetail extends React.Component {
                 <tbody>
                     {
                         this.state.data.reverse().map(data => {
-                            return (<SensorDetailRow time = {data.x} measure = {data.y} state={this.considerState}></SensorDetailRow>);
+                            return (<SensorDetailRow key={data.x} time = {data.x} measure = {data.y} state={this.considerState}></SensorDetailRow>);
                         })
                     }
                 </tbody>

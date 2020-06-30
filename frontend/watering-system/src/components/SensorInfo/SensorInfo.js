@@ -75,7 +75,7 @@ class SensorInfo extends React.Component {
                                 {
                                     this.props.sensor.map(x =>{
                                         if (x.devicedId !== ""){
-                                            return (<SensorInfoRow id={x.deviceId} measure={x.value} state={this.considerState} func={this.setIdDetail}></SensorInfoRow>);
+                                            return (<SensorInfoRow key={x.deviceId} id={x.deviceId} measure={x.value} state={this.considerState} func={this.setIdDetail}></SensorInfoRow>);
                                         }
                                     })
                                 }
