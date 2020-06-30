@@ -41,7 +41,6 @@ public class MotorWsController {
         if (motor.function.equals("LOWER")){
             motorfound.setLowerSensorBound(motor.value);
             repos.save(motorfound);
-           
         }
         else 
             {

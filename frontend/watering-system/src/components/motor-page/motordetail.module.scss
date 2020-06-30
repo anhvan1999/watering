@@ -17,11 +17,20 @@
 }
 .MotorControlHand{
     visibility: hidden;
+    align-self: center;
 }
 
 .MotorForm{
     height: 40px;
     align-self: center;
+    text-align: center;
     margin-top: 20px;
     margin-bottom: 20px;
+    margin-left: 20px;
+    margin-right: 200px;
+}
+.MotorInfo input{
+    width: 150px; height: 40px;
+    margin-right: auto;
+    margin-left: auto;
 }

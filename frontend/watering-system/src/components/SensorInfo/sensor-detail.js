@@ -87,7 +87,7 @@ class SensorDetail extends React.Component {
             },
             axisX: {
                 title: "Time",
-                interval: 2,
+                interval: 5000,
                 valueFormatString: "HH:mm",
             },
             axisY:{

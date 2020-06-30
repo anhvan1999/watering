@@ -7,6 +7,8 @@ import { getClassName } from '../../utils/component-utils';
 import { connect } from 'react-redux';
 import { controlMotor } from '../../service/ws-service';
 import MotorDetailRow from './MotorDetailRow';
+import CanvasJSReact from '../SensorInfo/canvasjs.react';
+var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 class MotorDetail extends React.Component {
     constructor(props) {
@@ -22,7 +24,9 @@ class MotorDetail extends React.Component {
             inputwater: 0,
             deviceId: "",
             uppersubmit: 0,
-            lowersubmit: 0
+            lowersubmit: 0,
+            datachart: [
+            ],
         }
 
     }
@@ -46,15 +50,11 @@ class MotorDetail extends React.Component {
     checkhandcontrol() {
         if (document.getElementById("controlhand").value === 'On') {
 
-            if (this.state.currentValue <= this.state.uppercurrentStatus && this.state.currentValue >= this.state.lowercurrentStatus) {
+           
                 document.getElementById("controlhand").value = 'Off';
                 document.getElementById("controlhand").innerHTML = 'Tắt';
                 //Invisible element
                 document.getElementById("forminputwater").style.visibility = 'visible';
-            }
-            else {
-                alert("Giá trị hiện tại vượt quá ngưỡng cho phép");
-            }
         }
         else {
 
@@ -74,7 +74,13 @@ class MotorDetail extends React.Component {
         if (this.state.inputwater <= 0 || this.state.inputwater > 5000) {
             alert("Vui lòng nhập lại giá trị nước cần bơm hợp lệ!");
         }
-        else {
+        else if (this.state.currentValue > this.state.uppercurrentStatus || this.state.currentValue < this.state.lowercurrentStatus) {
+            alert("Giá trị hiện tại vượt quá ngưỡng cho phép");
+            document.getElementById("controlhand").value = 'On';
+            document.getElementById("controlhand").innerHTML = 'Bật';
+            document.getElementById("forminputwater").style.visibility = 'hidden';
+        }
+            else {
             controlMotor(this.state.deviceId, this.state.inputwater);
             alert("Bạn đã bơm nước thành công");
         }
@@ -106,6 +112,7 @@ class MotorDetail extends React.Component {
             }).catch(error => {
                 console.log(error);
             });
+            alert("Bạn đã gửi cho server thành công!");
         }
         else {
             alert("Ngưỡng có giá trị từ 0 đến 5000 và ngưỡng thấp nhất phải thấp hơn ngưỡng cao nhất!");
@@ -126,6 +133,7 @@ class MotorDetail extends React.Component {
             }).catch(error => {
                 console.log(error);
             });
+            alert("Bạn đã gửi cho server thành công!");
         }
         else {
             alert("Ngưỡng có giá trị từ 0 đến 5000 và ngưỡng cao nhất phải cao hơn ngưỡng thấp nhất !");
@@ -133,7 +141,7 @@ class MotorDetail extends React.Component {
     }
 
     setData = (data) => {
-        console.log(data);
+        //console.log("aaa",data);
         let last_index = data.data.length - 1;
         if (data.data[last_index].motor.deviceId === this.state.name) {
             this.setState({
@@ -143,12 +151,13 @@ class MotorDetail extends React.Component {
                 lowercurrentStatus: data.data[last_index].motor.lowerSensorBound,
                 currentStatus: this.checkStatus(data.data[last_index].motor)
             });
-        }
-
-        if (this.state.currentValue > this.state.uppercurrentStatus || this.state.currentValue < this.state.lowercurrentStatus) {
-            document.getElementById("controlhand").value = 'On';
-            document.getElementById("controlhand").innerHTML = 'Bật';
-            document.getElementById("forminputwater").style.visibility = 'hidden';
+            var _data = this.state.datachart.concat({
+                x: new Date(data.data[last_index].publishTime),
+                y: data.data[last_index].motor.currentValue
+            });
+            this.setState({
+                datachart: _data
+            })
         }
     }
     setDataToState = (data) => {
@@ -192,6 +201,28 @@ class MotorDetail extends React.Component {
 
     }
     render() {
+        const options = {
+            animationEnabled: false,
+            title:{
+                text: "Biểu đồ lượng nước máy bơm"
+            },
+            axisX: {
+                title: "Thời gian",
+                interval: 2000,
+                valueFormatString: "HH:mm",
+            },
+            axisY:{
+                title: "Lượng nước",
+                includeZero: true
+                
+            },
+            data: [
+                {
+                    type: "line",
+                    dataPoints : this.state.datachart
+                }
+            ]
+        }
         return (
             <div className={getClassName(style.MotorInfo)}>
                 <div className={getClassName(style.ListMotorInfo)}>
@@ -252,17 +283,16 @@ class MotorDetail extends React.Component {
                                     className={getClassName("form-control",style.MotorForm)}
                                     id="inputwater"
                                     onChange={this.controlwater.bind(this)} />
+
+                            <button id="submitwater" className="btn btn-outline-info" onClick={this.submitwater.bind(this)}> Kích hoạt </button>
                             </div>
-
-                            <button id="submitwater" className="btn btn-outline-info"
-
-                                onClick={this.submitwater.bind(this)}> Kích hoạt </button>
+                                
                         </div>
 
                     </div>
 
 
-                    {/* <CanvasJSChart options = {options}></CanvasJSChart> */}
+                   <CanvasJSChart options = {options}></CanvasJSChart>
                     <table className="table table-hover table-detail">
                         <thead className="thead-light">
                             <tr>
