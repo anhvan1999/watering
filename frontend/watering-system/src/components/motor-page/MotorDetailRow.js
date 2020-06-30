@@ -1,6 +1,5 @@
 import React from 'react';
-import style from './sensorInfo.scss';
-
+import { Link } from 'react-router-dom';
 function formatDate(d){
     return [d.getDate(),
         d.getMonth()+1,
@@ -9,13 +8,13 @@ function formatDate(d){
         d.getMinutes(),
         d.getSeconds()].join(':');
 }
-
-export default function SensorDetailRow(props){
-    return(
+export default function MotorDetailRow(props) {
+    return (
         <tr>
             <td>{formatDate(props.time)}</td>
-            <td>{props.measure}</td>
-            <td>{props.state(props.measure)}</td>
+            <td>{props.value}</td>                     
+            <td>{props.lower}</td>     
+            <td>{props.upper}</td>     
         </tr>
     )
-} 
+}
