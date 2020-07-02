@@ -15,9 +15,8 @@ var timer;
 class MotorDetail extends React.Component {
     constructor(props) {
         super(props);
-        console.log(props);
         this.state = {
-            name: this.props.motorName,
+            name: this.props.name,
             currentStatus: <span></span>,
             uppercurrentStatus: 0,
             lowercurrentStatus: 0,
@@ -82,7 +81,7 @@ class MotorDetail extends React.Component {
             document.getElementById("controlhand").innerHTML = 'Bật';
             document.getElementById("forminputwater").style.visibility = 'hidden';
         }
-            else {
+        else {
             controlMotor(this.state.deviceId, this.state.inputwater);
             let eventNameHistory = "Set value " + this.state.inputwater+" in " + this.state.deviceId;
             axios.post('/history/add', {eventName: eventNameHistory}, {
@@ -173,7 +172,7 @@ class MotorDetail extends React.Component {
     }
 
     setData = (data) => {
-        //console.log("aaa",data);
+        console.log("aaa",data);
         let last_index = data.data.length - 1;
         if (data.data[last_index].motor.deviceId === this.state.name) {
             var _data = this.state.datachart.concat({
@@ -191,10 +190,12 @@ class MotorDetail extends React.Component {
         }
     }
     setDataToState = (data) => {
+        console.log(data)
         let _data = data
             .filter(detail => detail.motor.deviceId === this.state.name)
             .map(detail => {
                 return {
+                    id : detail.id,
                     time: new Date(detail.publishTime),
                     value: detail.motor.currentValue,
                     lower: detail.motor.lowerSensorBound,
@@ -204,6 +205,9 @@ class MotorDetail extends React.Component {
         this.setState({
             data: _data
         });
+    }
+    componentWillUnmount(){
+        clearInterval(timer);
     }
     componentDidMount() {
         axios.get('/motordetail/list', {
@@ -341,7 +345,7 @@ class MotorDetail extends React.Component {
                         <tbody>
                             {
                                 this.state.data.reverse().map(data => {
-                                    return (<MotorDetailRow time={data.time} value={data.value} upper={data.upper} lower={data.lower}></MotorDetailRow>);
+                                    return (<MotorDetailRow key={data.id} time={data.time} value={data.value} upper={data.upper} lower={data.lower}></MotorDetailRow>);
                                 })
                             }
                         </tbody>
